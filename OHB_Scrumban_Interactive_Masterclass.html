@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OHB Controlled Scrumban — Interactive Masterclass &amp; Presentation</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-4 md:p-6">
+
+  <!-- Top Navigation & Mode Switcher Header -->
+  <header class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 mb-6 shadow-sm">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div class="flex items-start gap-3">
+        <div class="px-3 py-2 rounded-lg font-bold text-sm text-white shrink-0" style="background-color: #2E7175; border: 1px solid #C8962E;">
+          OHB PMO
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-lg md:text-xl font-bold text-[var(--foreground)]">
+              OHB Controlled Scrumban Operating Model
+            </h1>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold text-white" style="background-color: #C8962E;">
+              Masterclass &amp; Executive Deck
+            </span>
+          </div>
+          <p class="text-xs md:text-sm text-[var(--muted-foreground)] mt-0.5">
+            One Shared Team • Multiple Products • Quarterly Outcomes • Evidence-Based Flow (P1–P5 &amp; G1–G6 Aligned)
+          </p>
+        </div>
+      </div>
+
+      <!-- Mode Switcher Buttons -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="btn-mode-deck" onclick="switchAppMode('deck')" class="px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-white shadow-sm" style="background-color: #2E7175;">
+          ▶ Slide Deck Mode (10 Slides)
+        </button>
+        <button id="btn-mode-lab" onclick="switchAppMode('lab')" class="px-4 py-2 rounded-lg text-xs md:text-sm font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all">
+          ⚡ Interactive Simulators &amp; Quiz
+        </button>
+        <button id="btn-mode-reference" onclick="switchAppMode('reference')" class="px-4 py-2 rounded-lg text-xs md:text-sm font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all">
+          📖 Full Study Reference
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- MODE 1: INTERACTIVE SLIDE DECK PRESENTATION (10 MASTER SLIDES)        -->
+  <!-- ===================================================================== -->
+  <section id="view-deck" class="space-y-4">
+    <!-- Slide Controls Bar -->
+    <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+      <div class="flex items-center gap-2">
+        <button onclick="changeSlide(-1)" id="btn-prev-slide" class="px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] text-xs font-semibold hover:opacity-90 disabled:opacity-40">
+          ← Previous
+        </button>
+        <span id="slide-counter-badge" class="px-3 py-1 rounded-md text-xs font-bold border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]">
+          Slide 1 of 10
+        </span>
+        <button onclick="changeSlide(1)" id="btn-next-slide" class="px-3 py-1.5 rounded-lg text-white text-xs font-semibold hover:opacity-90 disabled:opacity-40" style="background-color: #2E7175;">
+          Next →
+        </button>
+      </div>
+
+      <!-- Slide Quick Dots -->
+      <div id="slide-dots" class="flex flex-wrap items-center gap-1.5"></div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="toggleSpeakerNotes()" id="btn-toggle-notes" class="px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] text-xs font-semibold">
+          🎙️ Hide SM Coaching Notes
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="w-full h-1.5 bg-[var(--secondary)] rounded-full overflow-hidden">
+      <div id="slide-progress-bar" class="h-full transition-all duration-300" style="width: 10%; background-color: #C8962E;"></div>
+    </div>
+
+    <!-- Active Slide Container -->
+    <div id="slide-stage" class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 md:p-8 shadow-sm">
+      <!-- Dynamic Slide Content Injected by JS -->
+    </div>
+
+    <!-- Speaker / Scrum Master Conviction Notes Box -->
+    <div id="speaker-notes-panel" class="bg-[var(--card)] border-l-4 rounded-xl p-4 shadow-sm" style="border-left-color: #C8962E;">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-xs font-bold uppercase tracking-wider" style="color: #C8962E;">
+          🎙️ Hassan's Scrum Master Conviction &amp; Presenter Script (Use ← / → Arrow Keys to Navigate)
+        </span>
+        <span id="slide-source-ref" class="text-xs text-[var(--muted-foreground)] font-medium"></span>
+      </div>
+      <p id="speaker-notes-text" class="text-sm text-[var(--foreground)] leading-relaxed"></p>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MODE 2: INTERACTIVE SIMULATORS & SCRUM MASTER QUIZ LAB                -->
+  <!-- ===================================================================== -->
+  <section id="view-lab" class="hidden space-y-6">
+
+    <!-- Sub-Navigation for Simulators -->
+    <div class="flex flex-wrap gap-2 bg-[var(--card)] border border-[var(--border)] rounded-xl p-3">
+      <button onclick="switchLabTab('policy')" id="lab-tab-policy" class="px-3.5 py-2 rounded-lg text-xs font-semibold text-white" style="background-color: #2E7175;">
+        1. 6-Step Policy Stack Gatekeeper
+      </button>
+      <button onclick="switchLabTab('bridge')" id="lab-tab-bridge" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+        2. G1–G6 to P1–P5 Governance Bridge
+      </button>
+      <button onclick="switchLabTab('kanban')" id="lab-tab-kanban" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+        3. 8-Stage Workflow &amp; Routes A/B/C
+      </button>
+      <button onclick="switchLabTab('capacity')" id="lab-tab-capacity" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+        4. 70/20/10 Capacity Simulator
+      </button>
+      <button onclick="switchLabTab('quiz')" id="lab-tab-quiz" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+        5. Scrum Master Scenario Drill (5 Qs)
+      </button>
+    </div>
+
+    <!-- LAB 1: 6-STEP POLICY STACK SIMULATOR -->
+    <div id="lab-panel-policy" class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-5 shadow-sm">
+      <div class="border-b border-[var(--border)] pb-4">
+        <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slides 12 &amp; 13 Simulator</span>
+        <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+          Shared Ready Queue — 6-Step Policy Stack Gatekeeper
+        </h2>
+        <p class="text-sm text-[var(--muted-foreground)] mt-1">
+          As Scrum Master, you are the <strong>Replenishment Facilitator</strong>. Product Owners cannot inject work directly to developers. Test any incoming request against the 6-Step Policy Stack below to see your official ruling and script.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Controls Column -->
+        <div class="space-y-4">
+          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" id="pol-1-auth" onchange="evaluatePolicyStack()" checked class="mt-1 h-4 w-4" />
+              <div>
+                <span class="text-sm font-bold text-[var(--foreground)]">Step 1: AUTHORIZED — Does OHB permit this work?</span>
+                <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
+                  Belongs to an approved Committed Goal, Stretch Goal, Operational Reserve, Technical Enabler allocation, Fixed-Date obligation, or valid Expedite.
+                </p>
+              </div>
+            </label>
+          </div>
+
+          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" id="pol-2-ready" onchange="evaluatePolicyStack()" checked class="mt-1 h-4 w-4" />
+              <div>
+                <span class="text-sm font-bold text-[var(--foreground)]">Step 2: READY (Gate G4 DoR) — Can the team start responsibly?</span>
+                <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
+                  Clear outcome, testable acceptance criteria, sized Small/Medium, dependencies &amp; test data/environments ready, zero blockers.
+                </p>
+              </div>
+            </label>
+          </div>
+
+          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <label class="block text-sm font-bold text-[var(--foreground)] mb-1.5">
+              Step 3: SERVICE CLASS — What class of work is this?
+            </label>
+            <select id="pol-3-class" onchange="evaluatePolicyStack()" class="w-full p-2 rounded-lg border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] text-xs font-semibold">
+              <option value="committed">Standard — Committed MVP Story (70% Envelope)</option>
+              <option value="expedite">Expedite — Critical Outage / Security / Release Blocker (Global WIP = 1)</option>
+              <option value="fixed">Fixed Date — CBO Regulatory / Immovable Date (Sequence by Latest Start)</option>
+              <option value="operational">Operational — Live Production Support / Defect (10% Ops Reserve)</option>
+              <option value="enabler">Technical Enabler — CI/CD, Infra, Security Control (Planned Reserve)</option>
+              <option value="stretch">Stretch — Forecast / Stretch MVP Feature</option>
+            </select>
+          </div>
+
+          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" id="pol-4-wip" onchange="evaluatePolicyStack()" checked class="mt-1 h-4 w-4" />
+              <div>
+                <span class="text-sm font-bold text-[var(--foreground)]">Step 4: CAPACITY &amp; WIP — Is there room in theWIP limit &amp; envelope?</span>
+                <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
+                  The Shared Ready Queue and Service Class capacity reserve have available slots.
+                </p>
+              </div>
+            </label>
+          </div>
+
+          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" id="pol-6-midquarter" onchange="evaluatePolicyStack()" class="mt-1 h-4 w-4" />
+              <div>
+                <span class="text-sm font-bold text-[var(--foreground)]">Step 6 Trigger: Is this an unplanned injection displacing another PO's committed work?</span>
+                <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
+                  Check this if a PO wants to jump the queue ahead of already-scheduled cross-product work.
+                </p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Ruling Output Column -->
+        <div class="flex flex-col justify-between p-5 rounded-xl border-2 border-[var(--border)] bg-[var(--background)]">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)]">Scrum Master Official Ruling</span>
+              <span id="pol-verdict-badge" class="px-3 py-1 rounded-full text-xs font-bold text-white" style="background-color: #2E7175;">
+                ADMIT TO SHARED READY QUEUE
+              </span>
+            </div>
+            <h3 id="pol-verdict-title" class="text-base font-bold text-[var(--foreground)]"></h3>
+            <p id="pol-verdict-reason" class="text-sm text-[var(--muted-foreground)] leading-relaxed"></p>
+
+            <div class="p-4 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+              <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color: #C8962E;">
+                💬 Exact Word-for-Word Script for Hassan
+              </div>
+              <p id="pol-verdict-script" class="text-sm italic text-[var(--foreground)] leading-relaxed"></p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--muted-foreground)]">
+            <span>Step 5 Ranking: Goal contribution → Urgency → Risk → Dependency → Size → Learning</span>
+            <span class="font-semibold">Tie-breaker: FIFO only</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAB 2: G1-G6 TO OHB P1-P5 GOVERNANCE BRIDGE -->
+    <div id="lab-panel-bridge" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-5 shadow-sm">
+      <div class="border-b border-[var(--border)] pb-4">
+        <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slide 7 + OHB SOP Integration</span>
+        <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+          End-to-End Lifecycle: Scrumban Gates (G1–G6) Mapped to OHB P1–P5 SOP
+        </h2>
+        <p class="text-sm text-[var(--muted-foreground)] mt-1">
+          Click any of the 7 Lifecycle Stages below to see how Scrumban preserves 100% of OHB's regulatory, PPM Central, Risk, ISO, and CAB governance while eliminating the P4 "black box."
+        </p>
+      </div>
+
+      <!-- Clickable Stage Pills -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2" id="bridge-stage-buttons"></div>
+
+      <!-- Stage Detail Card -->
+      <div id="bridge-stage-detail" class="p-5 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-4"></div>
+    </div>
+
+    <!-- LAB 3: 8-STAGE WORKFLOW & ROUTES A/B/C -->
+    <div id="lab-panel-kanban" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-5 shadow-sm">
+      <div class="border-b border-[var(--border)] pb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slide 18 Interactive Board</span>
+          <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+            8-Column Delivery Workflow, Embedded Controls &amp; Validation Routes
+          </h2>
+          <p class="text-sm text-[var(--muted-foreground)] mt-0.5">
+            Select a Validation Route (A, B, or C) or activate <strong>Right-to-Left Daily Flow Walk</strong> to see how work and controls move across the board.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="setKanbanRoute('A')" id="btn-route-A" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white" style="background-color: #2E7175;">
+            Route A: Independent Story
+          </button>
+          <button onclick="setKanbanRoute('B')" id="btn-route-B" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+            Route B: Connected Story
+          </button>
+          <button onclick="setKanbanRoute('C')" id="btn-route-C" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+            Route C: Tech Enabler
+          </button>
+          <button onclick="setKanbanRoute('R2L')" id="btn-route-R2L" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white" style="background-color: #C8962E;">
+            ⬅ Daily Flow Walk (Right-to-Left)
+          </button>
+        </div>
+      </div>
+
+      <div id="kanban-route-banner" class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] text-sm"></div>
+
+      <!-- 8 Columns Grid -->
+      <div id="kanban-columns-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+    </div>
+
+    <!-- LAB 4: 70/20/10 CAPACITY SIMULATOR -->
+    <div id="lab-panel-capacity" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-5 shadow-sm">
+      <div class="border-b border-[var(--border)] pb-4">
+        <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slide 15 &amp; 23 Simulator</span>
+        <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+          Capacity Envelope Planner (Why 100% Feature Capacity is a Myth)
+        </h2>
+        <p class="text-sm text-[var(--muted-foreground)] mt-1">
+          Test the pilot capacity hypothesis across your shared team and simulate Decision #4 (adding an explicit Technical Enabler reserve) or handling a UAT surge.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="space-y-4">
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-3">
+            <label class="block text-sm font-bold text-[var(--foreground)]">
+              Total Shared Team Capacity per Sprint (Developer Days / Story Slots): <span id="cap-total-val" class="font-bold" style="color: #C8962E;">40</span>
+            </label>
+            <input type="range" id="cap-total-slider" min="20" max="80" step="5" value="40" oninput="updateCapacitySim()" class="w-full" />
+          </div>
+
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+            <span class="text-sm font-bold text-[var(--foreground)]">Select Capacity Policy Scenario (Slide 15 &amp; 23):</span>
+            <div class="space-y-2 pt-1">
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+                <input type="radio" name="cap-scenario" value="baseline" checked onchange="updateCapacitySim()" />
+                Baseline Pilot Hypothesis (70% MVP Features / 20% UAT &amp; Release / 10% Ops)
+              </label>
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+                <input type="radio" name="cap-scenario" value="enabler" onchange="updateCapacitySim()" />
+                Recommended Decision #4: Explicit Enabler Reserve (60% MVP / 10% Tech Enablers / 20% UAT / 10% Ops)
+              </label>
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+                <input type="radio" name="cap-scenario" value="uatsurge" onchange="updateCapacitySim()" />
+                UAT Wave Surge Simulation (Actual UAT hits 35%, Ops 15% — Uncontrolled vs Controlled)
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div id="cap-output-card" class="p-5 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-4"></div>
+      </div>
+    </div>
+
+    <!-- LAB 5: SCRUM MASTER SCENARIO QUIZ -->
+    <div id="lab-panel-quiz" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-5 shadow-sm">
+      <div class="border-b border-[var(--border)] pb-4 flex items-center justify-between">
+        <div>
+          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">Mastery Check</span>
+          <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+            Live OHB Scrum Master Reflex Drill (5 Real-World Scenarios)
+          </h2>
+          <p class="text-sm text-[var(--muted-foreground)] mt-0.5">
+            Test your command of the framework rules before you walk into ExCom or Product Owner workshops.
+          </p>
+        </div>
+        <div id="quiz-score-badge" class="px-4 py-2 rounded-xl border border-[var(--border)] bg-[var(--background)] text-sm font-bold">
+          Score: 0 / 5
+        </div>
+      </div>
+
+      <div id="quiz-questions-container" class="space-y-4"></div>
+    </div>
+
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MODE 3: FULL STUDY REFERENCE & STAKEHOLDER OBJECTION PLAYBOOK         -->
+  <!-- ===================================================================== -->
+  <section id="view-reference" class="hidden space-y-6">
+
+    <!-- Stakeholder Persuasion Playbook -->
+    <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-4 shadow-sm">
+      <div>
+        <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Persuasion Playbook</span>
+        <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+          How to Convince Every OHB Stakeholder Group (Word-for-Word Scripts)
+        </h2>
+        <p class="text-sm text-[var(--muted-foreground)]">
+          Click each stakeholder persona to view their hidden fear and the exact counter-narrative that proves Controlled Scrumban protects their interests.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-[var(--foreground)]">🏛️ 1. ExCom / MSSC / Product Sponsors</h3>
+            <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 2, 6, 8, 9, 21</span>
+          </div>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            <strong>Hidden Fear:</strong> "Agile means no fixed dates or scope, and the team will use 'Agile' as an excuse when quarterly targets slip."
+          </p>
+          <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
+            <strong>Your Pitch:</strong> "In our current Waterfall P4 phase, you wait 160 working days in a black box (Audit Finding F12) and discover delays only when UAT fails. Under Controlled Scrumban, we lock <strong>Committed Goals</strong> at Gate G3 backed by confirmed capacity and a protected <strong>Mandatory MVP boundary</strong>. Speculative Forecast and Pipeline Discovery items are separated so they never sabotage your Committed targets. And every two weeks at Sprint Review, you inspect working software—not a green slide deck that turns red before CAB."
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-[var(--foreground)]">🛡️ 2. Risk, ISO, Compliance, CAB &amp; Internal Audit</h3>
+            <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 3, 4, 7, 18</span>
+          </div>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            <strong>Hidden Fear:</strong> "Agile teams skip documentation, bypass security reviews, and deploy untested code without audit trails."
+          </p>
+          <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
+            <strong>Your Pitch:</strong> "This model embeds <strong>Controls by Design</strong> across <strong>6 formal Lifecycle Gates (G1–G6)</strong> and <strong>8 workflow stages</strong>. No story starts without Entry Evidence (G4 DoR). No code moves to test without <strong>Maker-Checker peer review</strong>. Every story follows validation <strong>Route A, B, or C</strong>. Nothing reaches production without <strong>G5 (UAT Accepted)</strong> and <strong>G6 (Release Ready — VAPT, Rollback Plan, CAB approval)</strong>. It directly resolves Audit Findings F12, F15, and F17."
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-[var(--foreground)]">🎯 3. Business Leads / Product Owners</h3>
+            <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 9, 10, 12, 13</span>
+          </div>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            <strong>Hidden Fear:</strong> "If I can't email a developer directly mid-Sprint, my department's priorities will lose out to other departments."
+          </p>
+          <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
+            <strong>Your Pitch:</strong> "When every PO pushes 'urgent' work directly onto developers, engineers context-switch 5 times a day and nothing finishes. By routing work through <strong>Weekly Replenishment</strong> into a WIP-limited <strong>Shared Ready Queue</strong>, once the team pulls your story, <strong>they finish it before starting more</strong>. You own 100% of your Product Backlog's order, and our <strong>Cross-Product Change Rule</strong> protects your Committed work from being displaced by another PO without formal escalation."
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-[var(--foreground)]">💻 4. Developers, Tech Leads &amp; QA</h3>
+            <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 12, 14, 15, 19, 21</span>
+          </div>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            <strong>Hidden Fear:</strong> "More ceremonies, POs lobbying us directly, zero time for tech debt, and management ranking our individual story points."
+          </p>
+          <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
+            <strong>Your Pitch:</strong> "This framework shields you from chaos. First, <strong>POs cannot inject work directly to you</strong>—you only pull from the single <strong>Shared Ready Queue</strong> after items pass Definition of Ready. Second, we reserve <strong>20% capacity for UAT support and 10% for Operations</strong>, and make <strong>Technical Enablers</strong> a formal Service Class. Third, <strong>individual velocity, lines of code, and AI prompt counts are strictly prohibited</strong> as management metrics."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 Ceremonies & 6 Service Classes Quick Reference Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- 7 Ceremonies -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-3 shadow-sm">
+        <h3 class="text-base font-bold text-[var(--foreground)]">
+          📅 The 7 Ceremonies &amp; Their Distinct Decision Purpose (Slides 16–17)
+        </h3>
+        <div class="space-y-2 text-xs">
+          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <strong>1. Quarterly Planning (Gate G3):</strong> Approve Outcomes, classify <code>Committed / Forecast / Candidate</code>, set 70/20/10 capacity, lock control windows.
+          </div>
+          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <strong>2. Feature Refinement:</strong> Slice features into testable stories (<code>Small/Medium</code>), assign <strong>Route A, B, or C</strong>, confirm dependencies.
+          </div>
+          <div class="p-2.5 rounded-lg border-l-4 border border-[var(--border)] bg-[var(--background)]" style="border-left-color: #C8962E;">
+            <strong>3. Backlog Replenishment (NEW — Chaired by SM):</strong> Weekly/Pre-Sprint gate filtering ready work via the <strong>6-Step Policy Stack</strong> into the <strong>One Shared Ready Queue</strong>.
+          </div>
+          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <strong>4. Sprint Planning:</strong> Set <strong>one primary Sprint Goal</strong> and pull conservative feasible work from the Shared Ready Queue.
+          </div>
+          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <strong>5. Daily Flow Review:</strong> Walk the board <strong>Right-to-Left</strong> focusing on completion, Work-Item Age, blockers, and WIP limits (not "what I did yesterday").
+          </div>
+          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <strong>6. Sprint Review:</strong> Inspect integrated working software and return stakeholder feedback to the ordered Product Backlog.
+          </div>
+          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+            <strong>7. Retrospective:</strong> Inspect system flow/quality metrics and commit to <strong>1–2 concrete system improvements</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- Progressive Estimation & 6 Decisions -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-3 shadow-sm">
+        <h3 class="text-base font-bold text-[var(--foreground)]">
+          📐 Progressive Estimation &amp; The 6 Executive Decisions (Slides 14 &amp; 23)
+        </h3>
+        <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-1.5 text-xs">
+          <div class="font-bold" style="color: #C8962E;">"Estimate informs forecast; forecast informs commitment; an estimate is never a commitment."</div>
+          <div>• <strong>Demand / Candidate (G1–G2):</strong> <code>XS–XL</code> + uncertainty rating (Discovery need)</div>
+          <div>• <strong>MVP / Quarter Goal (G3):</strong> Mandatory feature-group sizes + dependencies (Commitment)</div>
+          <div>• <strong>Feature / Enhancement:</strong> <code>XS–XL</code> + reference feature comparison (Trade-offs)</div>
+          <div>• <strong>User Story (G4):</strong> Right-sized <code>Small / Medium / Too Large</code> (Points optional)</div>
+          <div>• <strong>Delivery System Forecast:</strong> Empirical <strong>Throughput + Cycle-Time distributions</strong></div>
+        </div>
+
+        <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-1.5 text-xs">
+          <div class="font-bold text-[var(--foreground)]">6 Management Decisions Requested on Slide 23:</div>
+          <div><strong>1. Operating Model:</strong> Adopt Controlled Scrumban + DevOps + OHB Governance.</div>
+          <div><strong>2. Roadmap Language:</strong> Adopt <code>Committed / Forecast (or Stretch) / Pipeline Candidate</code>.</div>
+          <div><strong>3. Prioritization Model:</strong> Approve <strong>Option A</strong> (Executive Quarterly Order + Weekly Replenishment).</div>
+          <div><strong>4. Capacity Policy:</strong> Approve <code>70/20/10</code> reserves + decide explicit Technical Enabler reserve.</div>
+          <div><strong>5. Queue Governance:</strong> Approve <strong>One Shared Ready Queue</strong>, neutral SM facilitator &amp; change rule.</div>
+          <div><strong>6. Pilot Mandate:</strong> Authorize <strong>Sprint 0</strong> + 1 representative product pilot.</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    // =========================================================================
+    // SLIDE DECK DATA (10 COMPREHENSIVE MASTER SLIDES COVERING ALL 24 PPTX SLIDES)
+    // =========================================================================
+    const masterSlides = [
+      {
+        num: 1,
+        badge: "Executive Premise (PPTX Slides 1–4)",
+        title: "Why OHB Needs Controlled Scrumban (Not Textbook Scrum)",
+        subtitle: "One Shared Team • Multiple Products • Quarterly Outcomes • Evidence-Based Flow",
+        sourceRef: "OHB Agile Delivery Framework v0.1 — Exec Summary, Sec 1, 2, 4, 5",
+        notes: "OPENING CONVICTION: Start every executive or team session with Slide 2's core thesis: 'The objective is not more Agile ceremonies; it is faster learning with clearer commitments and stronger control.' Explain that textbook Scrum fails at OHB because we have ONE shared team serving MULTIPLE Product Owners, mixed work classes (MVP + UAT + Ops), and strict banking controls (CBO, Risk, ISO, VAPT, CAB).",
+        html: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+            <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+              <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color: #C8962E;">The 4 OHB Operating Realities</div>
+              <ul class="space-y-2 text-xs md:text-sm text-[var(--foreground)] mt-2">
+                <li><strong>1. Multiple Products:</strong> Independent Product Backlogs &amp; POs compete for one shared engineering pool.</li>
+                <li><strong>2. Mixed Work Classes:</strong> MVP builds, enhancements, UAT support, defects, and production support consume the same capacity.</li>
+                <li><strong>3. Fixed Management Horizons:</strong> ExCom needs reliable quarter-level outcomes while detailed story scope evolves.</li>
+                <li><strong>4. Regulated Banking Delivery:</strong> Risk, ISO, Compliance, VAPT, CAB, and Audit evidence must be built in—never deferred.</li>
+              </ul>
+            </div>
+            <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+              <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color: #2E7175;">The 4-Pillar Selected Operating Model</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-2 text-xs">
+                <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                  <div class="font-bold text-[var(--foreground)]">1. Quarterly Governance</div>
+                  <div class="text-[var(--muted-foreground)] mt-0.5">Select outcomes, capacity envelopes &amp; commitment tiers.</div>
+                </div>
+                <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                  <div class="font-bold text-[var(--foreground)]">2. Scrum Cadence</div>
+                  <div class="text-[var(--muted-foreground)] mt-0.5">Plan, inspect working software &amp; improve in timeboxed Sprints.</div>
+                </div>
+                <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                  <div class="font-bold text-[var(--foreground)]">3. Kanban Flow Controls</div>
+                  <div class="text-[var(--muted-foreground)] mt-0.5">One Shared Ready Queue, WIP limits, pull rules &amp; aging tracking.</div>
+                </div>
+                <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                  <div class="font-bold text-[var(--foreground)]">4. DevOps Ownership</div>
+                  <div class="text-[var(--muted-foreground)] mt-0.5">Build, deploy, monitor, support &amp; improve what we deliver.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-xl text-white text-xs md:text-sm font-semibold flex flex-wrap items-center justify-between gap-2" style="background-color: #2E7175;">
+            <span>Core Rule: One stable cross-product team • One consolidated roadmap • Separate product backlogs • One shared delivery queue</span>
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold" style="background-color: #C8962E;">Fixes Audit Findings F12, F15 &amp; F17</span>
+          </div>
+        `
+      },
+      {
+        num: 2,
+        badge: "Operating Constitution (PPTX Slides 4 & 6)",
+        title: "8 Delivery Principles & 5 Decision Horizons",
+        subtitle: "Management chooses outcomes; POs choose value order; the Team chooses feasible sequence",
+        sourceRef: "OHB Agile Delivery Framework v0.1 — Sections 3, 4.1, 6, 11, 13, 14",
+        notes: "KEY TEACHING POINT: Stakeholders often fear Agile means 'everyone decides everything.' Show Slide 6's hierarchy: Decisions are made at the lowest appropriate horizon. ExCom funds annual demand; Agile Management Group selects Quarterly Committed goals; Product Owners order features inside their product; the Scrum Team selects feasible Sprint work; Developers pull daily within WIP limits.",
+        html: `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <div class="lg:col-span-5 p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+              <div class="text-xs font-bold uppercase tracking-wider" style="color: #C8962E;">8 OHB Delivery Principles (Slide 4)</div>
+              <div class="grid grid-cols-1 gap-1.5 text-xs">
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>1. Outcome before output:</strong> Business KPIs over busyness.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>2. Finish before starting more:</strong> Limit WIP to speed up completion.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>3. Variable scope, explicit trade-offs:</strong> Additions require displacement.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>4. Controls by design:</strong> Security &amp; quality integrated in flow.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>5. Visible constraints:</strong> Expose blockers &amp; aging immediately.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>6. Evidence as work progresses:</strong> Audit trail built step-by-step.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>7. Measure the system:</strong> Never rank individuals by velocity.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>8. Validate early &amp; continuously:</strong> Prevent end-of-phase UAT shock.</div>
+              </div>
+            </div>
+            <div class="lg:col-span-7 p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2.5">
+              <div class="text-xs font-bold uppercase tracking-wider" style="color: #2E7175;">5 Governance Decision Horizons (Slide 6)</div>
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+                  <div><strong>1. Annual / Demand:</strong> Approve strategic needs &amp; funding direction</div>
+                  <span class="px-2 py-0.5 rounded font-bold text-white shrink-0" style="background-color: #2E7175;">ExCom / Corporate Authority</span>
+                </div>
+                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+                  <div><strong>2. Quarterly Portfolio:</strong> Select quarterly goals &amp; allocate scarce capacity</div>
+                  <span class="px-2 py-0.5 rounded font-bold text-white shrink-0" style="background-color: #2E7175;">Agile Management Group</span>
+                </div>
+                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+                  <div><strong>3. Product / Feature:</strong> Order business value within approved objectives</div>
+                  <span class="px-2 py-0.5 rounded font-bold text-white shrink-0" style="background-color: #C8962E;">Product Owner (BL)</span>
+                </div>
+                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+                  <div><strong>4. Sprint Horizon:</strong> Set Sprint Goal &amp; select feasible Ready work</div>
+                  <span class="px-2 py-0.5 rounded font-bold bg-[var(--secondary)] text-[var(--foreground)] shrink-0">Scrum Team</span>
+                </div>
+                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+                  <div><strong>5. Daily Flow:</strong> Pull next eligible item from Shared Queue &amp; manage WIP</div>
+                  <span class="px-2 py-0.5 rounded font-bold bg-[var(--secondary)] text-[var(--foreground)] shrink-0">Development Team + SM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        num: 3,
+        badge: "Lifecycle & Stage Gates (PPTX Slide 7)",
+        title: "End-to-End Lifecycle & Gates G1–G6 (Bridged to OHB P1–P5)",
+        subtitle: "Readiness increases by stage; detail is added only when needed for the next decision",
+        sourceRef: "OHB Agile Delivery Framework v0.1 — Section 6.2 + OHB PMO SOP",
+        notes: "HOW TO WIN OVER PMO & AUDIT: Show that Scrumban does NOT throw away OHB's P1–P5 governance. Instead, Gates G1 to G6 map cleanly onto P1–P5 while replacing the 160-WD P4 'black box' (Audit Finding F12) with transparent 2-week increments and continuous UAT/control evidence.",
+        html: `
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-7 gap-2 text-xs">
+              <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold" style="color: #2E7175;">1. DEMAND</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Problem, Sponsor &amp; target KPI outcome.</div>
+                <div class="mt-2 px-2 py-0.5 rounded text-white font-bold inline-block" style="background-color: #C8962E;">Gate G1: Demand</div>
+                <div class="text-[var(--muted-foreground)] mt-1">≈ OHB P1 Initiate</div>
+              </div>
+              <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold" style="color: #2E7175;">2. PIPELINE</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Discovery &amp; uncertainty reduction (XS–XL).</div>
+                <div class="mt-2 px-2 py-0.5 rounded text-white font-bold inline-block" style="background-color: #C8962E;">Gate G2: Discovery</div>
+                <div class="text-[var(--muted-foreground)] mt-1">≈ OHB P2 Early</div>
+              </div>
+              <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold" style="color: #2E7175;">3. FORECAST</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Planning-ready; indicative quarter.</div>
+                <div class="mt-2 px-2 py-0.5 rounded text-white font-bold inline-block" style="background-color: #C8962E;">Gate G3: Q-Plan</div>
+                <div class="text-[var(--muted-foreground)] mt-1">≈ OHB P2/P3 Gate</div>
+              </div>
+              <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold" style="color: #2E7175;">4. COMMITTED</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Capacity allocated; integrated plan locked.</div>
+                <div class="mt-2 px-2 py-0.5 rounded text-white font-bold inline-block" style="background-color: #C8962E;">Gate G4: DoR</div>
+                <div class="text-[var(--muted-foreground)] mt-1">≈ OHB P3→P4 Entry</div>
+              </div>
+              <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold" style="color: #2E7175;">5. DELIVERY</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Sprint goals + Kanban pull flow + test routes.</div>
+                <div class="mt-2 px-2 py-0.5 rounded text-white font-bold inline-block" style="background-color: #C8962E;">Gate G5: UAT</div>
+                <div class="text-[var(--muted-foreground)] mt-1">≈ OHB P4 Build/UAT</div>
+              </div>
+              <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold" style="color: #2E7175;">6. RELEASE</div>
+                <div class="text-[var(--muted-foreground)] mt-1">VAPT, controls, rollback, CAB, Go-Live.</div>
+                <div class="mt-2 px-2 py-0.5 rounded text-white font-bold inline-block" style="background-color: #C8962E;">Gate G6: Release</div>
+                <div class="text-[var(--muted-foreground)] mt-1">≈ OHB P4 CAB Gate</div>
+              </div>
+              <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold" style="color: #2E7175;">7. VALUE</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Hypercare stabilization &amp; PIR KPI review.</div>
+                <div class="mt-2 px-2 py-0.5 rounded bg-[var(--secondary)] font-bold inline-block">BAU + PIR</div>
+                <div class="text-[var(--muted-foreground)] mt-1">≈ OHB P5 Close</div>
+              </div>
+            </div>
+            <div class="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--background)] text-xs md:text-sm">
+              <strong>Crucial Distinction (Slide 10):</strong> <em>"Approved demand (G1) does not equal permission to start development; readiness (G2–G4) and capacity allocation (G3) must precede commitment."</em>
+            </div>
+          </div>
+        `
+      },
+      {
+        num: 4,
+        badge: "Roadmap & Scope Control (PPTX Slides 8 & 9)",
+        title: "How Management Sees the Roadmap & Protecting the MVP Boundary",
+        subtitle: "Commit the outcome and mandatory feature groups—not every detailed story",
+        sourceRef: "OHB Agile Delivery Framework v0.1 — Sections 5, 6.4, 9, 11.2, 13.2",
+        notes: "CONVICTION POINT FOR SPONSORS: Why do projects miss deadlines? Because teams treat every nice-to-have wish as mandatory, and treat early discovery items as promised Go-Live dates. Separating the roadmap into Committed / Forecast / Pipeline Candidate AND slicing products into Mandatory MVP vs Stretch MVP gives OHB a built-in shock absorber.",
+        html: `
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-3">
+              <div class="text-xs font-bold uppercase tracking-wider" style="color: #2E7175;">1. Management Roadmap Categories (Slide 8)</div>
+              <div class="space-y-2 text-xs">
+                <div class="p-3 rounded-lg bg-[var(--card)] border-l-4 border border-[var(--border)]" style="border-left-color: #2E7175;">
+                  <div class="font-bold text-sm">COMMITTED (Committed Goal)</div>
+                  <p class="text-[var(--muted-foreground)] mt-0.5">What OHB expects to deliver this quarter. Mandatory MVP scope, dependencies, controls, testing, and team capacity are confirmed. <strong>Tracked for commitment reliability.</strong></p>
+                </div>
+                <div class="p-3 rounded-lg bg-[var(--card)] border-l-4 border border-[var(--border)]" style="border-left-color: #C8962E;">
+                  <div class="font-bold text-sm">FORECAST (Stretch Goal)</div>
+                  <p class="text-[var(--muted-foreground)] mt-0.5">Planning-ready work OHB intends to pursue <em>if</em> capacity or an explicit condition is met. <strong>Excluded from commitment-reliability penalties.</strong></p>
+                </div>
+                <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                  <div class="font-bold text-sm">PIPELINE CANDIDATE</div>
+                  <p class="text-[var(--muted-foreground)] mt-0.5">Approved demand undergoing discovery/refinement. Show <strong>discovery timing and decision date only—never a production commitment.</strong></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-3">
+              <div class="text-xs font-bold uppercase tracking-wider" style="color: #C8962E;">2. Protect the MVP Boundary (Slide 9)</div>
+              <div class="space-y-2 text-xs">
+                <div class="p-3 rounded-lg text-white" style="background-color: #2E7175;">
+                  <div class="font-bold text-sm">Ring 1: MANDATORY MVP</div>
+                  <p class="opacity-90 mt-0.5">Strictly required for the approved objective, KPI, regulatory control, or viable user journey. <strong>This is the locked commitment.</strong></p>
+                </div>
+                <div class="p-3 rounded-lg text-white" style="background-color: #C8962E;">
+                  <div class="font-bold text-sm">Ring 2: STRETCH MVP (Your Buffer)</div>
+                  <p class="opacity-95 mt-0.5">Valuable features that remain deferrable while preserving the core MVP objective. Used to absorb surprises without slipping Go-Live.</p>
+                </div>
+                <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                  <div class="font-bold text-sm">Ring 3: POST-MVP ENHANCEMENTS</div>
+                  <p class="text-[var(--muted-foreground)] mt-0.5">Further automation and polish not required for first productive banking use.</p>
+                </div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] text-xs font-semibold">
+                ⚖️ <strong>Trade-Off Law:</strong> Any scope addition must either defer other scope, use approved contingency, or revise the forecast.
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        num: 5,
+        badge: "Multi-Product Prioritization (PPTX Slides 10–13)",
+        title: "One Shared Ready Queue & The 6-Step Policy Stack",
+        subtitle: "How Hassan (Scrum Master) runs Weekly Replenishment without political crossfire",
+        sourceRef: "OHB Agile Delivery Framework v0.1 — Sections 7.2, 7.3, 9, 15, 16, 17",
+        notes: "YOUR POWER SEAT AS SCRUM MASTER: Memorize Slide 12 & 13 cold. Product Owners order their own Product Backlogs, and the Agile Management Group ranks quarterly outcomes (Option A). At Weekly Replenishment, YOU administer the Shared Ready Queue as a neutral Replenishment Facilitator using the 6-Step Policy Stack. POs cannot inject work directly to developers!",
+        html: `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div class="lg:col-span-5 p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2.5 text-xs">
+              <div class="font-bold uppercase tracking-wider" style="color: #2E7175;">How Work Enters the Team (Slide 12)</div>
+              <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                <strong>1. Product Backlogs:</strong> Multiple POs order value inside their own product.
+              </div>
+              <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                <strong>2. Readiness Gate (G4):</strong> Must pass Definition of Ready (Authorized ≠ Ready!).
+              </div>
+              <div class="p-2.5 rounded text-white font-semibold" style="background-color: #2E7175;">
+                3. Weekly Replenishment (Facilitated by SM): Admits work into ONE Shared Ready Queue within WIP limits.
+              </div>
+              <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                <strong>4. Developer Pull:</strong> Engineers pull top eligible item when WIP allows; never guess what is next.
+              </div>
+              <div class="p-2.5 rounded bg-[var(--card)] border-l-4 border border-[var(--border)]" style="border-left-color: #C8962E;">
+                <strong>Cross-Product Change Rule:</strong> Material queue changes require collective PO agreement or Agile Management Group escalation.
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2 text-xs">
+              <div class="font-bold uppercase tracking-wider" style="color: #C8962E;">The 6-Step Selection Policy Stack (Slide 13)</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                  <span class="font-bold" style="color: #2E7175;">Step 1: AUTHORIZED</span>
+                  <p class="text-[var(--muted-foreground)] mt-0.5">Belongs to an approved Committed/Stretch goal or valid service class.</p>
+                </div>
+                <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                  <span class="font-bold" style="color: #2E7175;">Step 2: READY (DoR)</span>
+                  <p class="text-[var(--muted-foreground)] mt-0.5">Testable criteria, sized, dependencies &amp; test data ready.</p>
+                </div>
+                <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                  <span class="font-bold" style="color: #2E7175;">Step 3: SERVICE CLASS</span>
+                  <p class="text-[var(--muted-foreground)] mt-0.5">Expedite, Fixed Date, Committed, Operational, Enabler, or Stretch.</p>
+                </div>
+                <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                  <span class="font-bold" style="color: #2E7175;">Step 4: CAPACITY &amp; WIP</span>
+                  <p class="text-[var(--muted-foreground)] mt-0.5">Relevant WIP limit and capacity reserve allow entry.</p>
+                </div>
+                <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                  <span class="font-bold" style="color: #2E7175;">Step 5: ORDER</span>
+                  <p class="text-[var(--muted-foreground)] mt-0.5">Goal contribution, urgency, risk, dependency, size &amp; learning.</p>
+                </div>
+                <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                  <span class="font-bold" style="color: #2E7175;">Step 6: DISPLACEMENT</span>
+                  <p class="text-[var(--muted-foreground)] mt-0.5">Any mid-stream injection identifies displaced work &amp; forecast impact.</p>
+                </div>
+              </div>
+              <div class="text-xs text-[var(--muted-foreground)] pt-1">
+                *<strong>Tie-Breaker Only:</strong> FIFO (First-In, First-Out) applies only when two items are completely equivalent across Steps 1–6.
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        num: 6,
+        badge: "Capacity & Service Classes (PPTX Slides 15 & 19)",
+        title: "70/20/10 Capacity Envelopes & The 6 Classes of Service",
+        subtitle: "The team cannot assume 100% of capacity is available for new feature development",
+        sourceRef: "OHB Agile Delivery Framework v0.1 — Sections 16, 17.1, 17.2",
+        notes: "WHY ENGINEERS WILL LOVE THIS: In most banks, UAT support and live production bugs are 'invisible work' that developers are forced to do on top of 100% Sprint feature commitments. Slide 15 explicitly reserves 20% for UAT/Release support and 10% for Operations, and bans permanent PO quotas.",
+        html: `
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div class="p-3.5 rounded-xl text-white" style="background-color: #2E7175;">
+                <div class="text-2xl font-bold">70%</div>
+                <div class="font-bold text-sm mt-0.5">Planned MVP / Features</div>
+                <p class="opacity-90 mt-1">Committed MVP goals, Stretch features, and planned Technical Enablers (avoid permanent PO quotas!).</p>
+              </div>
+              <div class="p-3.5 rounded-xl text-white" style="background-color: #C8962E;">
+                <div class="text-2xl font-bold">20%</div>
+                <div class="font-bold text-sm mt-0.5">UAT &amp; Release Support</div>
+                <p class="opacity-95 mt-1">Supporting UAT cycles, resolving UAT defects, regression, CAB evidence, and cutover execution.</p>
+              </div>
+              <div class="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+                <div class="text-2xl font-bold text-[var(--foreground)]">10%</div>
+                <div class="font-bold text-sm mt-0.5">Operations / Urgent Work</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Live production support and operational defects for products the team operates (DevOps).</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold text-red-500">1. EXPEDITE:</span> Critical outage/security or release blocker. <strong>Global WIP = 1; show displaced work.</strong>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold" style="color: #C8962E;">2. FIXED DATE:</span> Regulatory (CBO) or immovable date. <strong>Sequence by latest responsible start.</strong>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold" style="color: #2E7175;">3. OPERATIONAL:</span> Prod support &amp; live defects. <strong>Consumes 10% reserve; triage by severity.</strong>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold" style="color: #2E7175;">4. TECHNICAL ENABLER:</span> CI/CD, infra, automation, controls. <strong>Plan explicit capacity (not spare time!).</strong>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold">5. STANDARD:</span> Normal MVP stories, enhancements &amp; routine work. <strong>Pulled in order from Ready Queue.</strong>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold">6. SPIKE:</span> Time-boxed research to reduce material unknown. <strong>Output = evidence &amp; decision.</strong>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        num: 7,
+        badge: "Estimation & Cadence (PPTX Slides 14, 16, 17)",
+        title: "Progressive Estimation & The 7 Delivery Ceremonies",
+        subtitle: "Estimate informs forecast; forecast informs commitment; an estimate is never a commitment",
+        sourceRef: "OHB Agile Delivery Framework v0.1 — Sections 11.2, 13.2, 17, Annexure S",
+        notes: "TEACHING PROGRESSIVE ESTIMATION: Stop teams from spending 3 weeks estimating 200 stories in hours during P1/P2. Use coarse T-shirt sizes (XS–XL) for Demand/Features, right-size stories (Small/Medium/Too Large) for Sprint entry, and use actual empirical Throughput & Cycle Time to forecast future dates.",
+        html: `
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 text-xs">
+            <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+              <div class="font-bold uppercase tracking-wider" style="color: #2E7175;">Progressive Estimation by Layer (Slide 14)</div>
+              <div class="space-y-1.5">
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] flex justify-between">
+                  <span><strong>1. Demand / Candidate:</strong> Discovery &amp; broad feasibility</span>
+                  <span class="font-bold" style="color: #C8962E;">XS–XL + Uncertainty</span>
+                </div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] flex justify-between">
+                  <span><strong>2. MVP / Quarter Goal:</strong> Quarterly commitment scenario</span>
+                  <span class="font-bold" style="color: #C8962E;">Feature Groups + Deps</span>
+                </div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] flex justify-between">
+                  <span><strong>3. Feature / Enhancement:</strong> Quarterly fit &amp; trade-offs</span>
+                  <span class="font-bold" style="color: #C8962E;">XS–XL + Ref Feature</span>
+                </div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] flex justify-between">
+                  <span><strong>4. User Story:</strong> Story splitting &amp; Sprint selection</span>
+                  <span class="font-bold" style="color: #2E7175;">Small / Med / Too Large</span>
+                </div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] flex justify-between">
+                  <span><strong>5. Technical Task:</strong> Immediate daily coordination</span>
+                  <span class="font-bold">Optional Hours / None</span>
+                </div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] flex justify-between">
+                  <span><strong>6. Delivery System:</strong> Probabilistic future forecasts</span>
+                  <span class="font-bold" style="color: #2E7175;">Throughput &amp; Cycle Time</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+              <div class="font-bold uppercase tracking-wider" style="color: #C8962E;">Cadence &amp; Ceremonies (Slides 16–17)</div>
+              <div class="space-y-1.5">
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Quarterly Planning:</strong> Lock Committed goals, capacity &amp; control windows.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Feature Refinement:</strong> Slice features into testable stories &amp; assign Route A/B/C.</div>
+                <div class="p-2 rounded text-white font-semibold" style="background-color: #2E7175;"><strong>Backlog Replenishment (NEW):</strong> Weekly ceremony to fill Shared Ready Queue within WIP.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Sprint Planning:</strong> Set 1 primary Sprint Goal &amp; pull conservative Ready batch.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Daily Flow Review:</strong> Walk board Right-to-Left: completion, aging, blockers, WIP.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Sprint Review &amp; Retro:</strong> Demo working software; commit to 1–2 system fixes.</div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        num: 8,
+        badge: "Workflow & Controls by Design (PPTX Slide 18)",
+        title: "The 8-Column Kanban Board & 3 Validation Routes (A, B, C)",
+        subtitle: "Controls are integrated throughout the flow—not applied only at the end",
+        sourceRef: "OHB Agile Delivery Framework v0.1 — Sections 13.3, 14, 15, 23, 24",
+        notes: "HOW TO RUN DAILY STANDUP (DAILY FLOW REVIEW): Never stand in a circle asking 'What did you do yesterday?' Instead, open this 8-column board and walk RIGHT-TO-LEFT starting at Column 7 (Release Ready) down to Column 1 (Ready). Ask: 'What is blocked or aging in UAT or PO Validation, and how do we finish it today before pulling new Active Dev work?'",
+        html: `
+          <div class="space-y-4 text-xs">
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold">1. Ready</div>
+                <div class="mt-1 px-1.5 py-0.5 rounded text-white font-semibold inline-block" style="background-color: #2E7175;">Story Ready</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Entry evidence (DoR)</div>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold">2. Active Dev</div>
+                <div class="mt-1 px-1.5 py-0.5 rounded bg-[var(--secondary)] font-semibold inline-block">WIP Capped</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Build &amp; unit test</div>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold">3. Code Review</div>
+                <div class="mt-1 px-1.5 py-0.5 rounded text-white font-semibold inline-block" style="background-color: #C8962E;">Maker-Checker</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Peer code quality</div>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold">4. Tech Test</div>
+                <div class="mt-1 px-1.5 py-0.5 rounded bg-[var(--secondary)] font-semibold inline-block">QA Verification</div>
+                <div class="text-[var(--muted-foreground)] mt-1">SIT &amp; automated test</div>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold">5. PO Validation</div>
+                <div class="mt-1 px-1.5 py-0.5 rounded text-white font-semibold inline-block" style="background-color: #2E7175;">Story Accepted</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Business behaviour</div>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold">6. Feature / UAT</div>
+                <div class="mt-1 px-1.5 py-0.5 rounded text-white font-semibold inline-block" style="background-color: #C8962E;">G5: UAT Accepted</div>
+                <div class="text-[var(--muted-foreground)] mt-1">E2E user evidence</div>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold">7. Release Ready</div>
+                <div class="mt-1 px-1.5 py-0.5 rounded text-white font-semibold inline-block" style="background-color: #2E7175;">G6: CAB Ready</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Controls + rollback</div>
+              </div>
+              <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold">8. Live</div>
+                <div class="mt-1 px-1.5 py-0.5 rounded text-white font-semibold inline-block" style="background-color: #C8962E;">MVP Live</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Prod validation</div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold" style="color: #2E7175;">Route A: Independently Testable Story</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Story-level Tester (Col 4) and PO validation (Col 5), followed by feature/release regression in Col 6.</p>
+              </div>
+              <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold" style="color: #C8962E;">Route B: Connected Story</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Technically verified at story level, with full business &amp; UAT validation in Col 6 when connected stories form a usable feature.</p>
+              </div>
+              <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+                <div class="font-bold">Route C: Technical Enabler</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Validated against technical acceptance criteria first, then proven through consuming-feature and release assurance.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        num: 9,
+        badge: "RACI & System Metrics (PPTX Slides 20 & 21)",
+        title: "Clear Role Accountabilities & The 4 Measurement Quadrants",
+        subtitle: "Measures improve the system; they never rank individuals",
+        sourceRef: "OHB Agile Delivery Framework v0.1 — Sections 7, 9, 18",
+        notes: "PROTECTING PSYCHOLOGICAL SAFETY: Make sure management and developers hear Slide 21 clearly: Individual velocity, lines of code, and AI prompt counts are PROHIBITED management metrics. Instead, we measure Outcomes, Predictability, Flow (Cycle Time, Work-Item Age, Blocked Ratio), and Quality/Capacity consumption.",
+        html: `
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 text-xs">
+            <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+              <div class="font-bold uppercase tracking-wider" style="color: #2E7175;">Role Accountability Matrix (Slide 20)</div>
+              <div class="space-y-1.5">
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Agile Management Group:</strong> Cross-product priorities, quarterly commitments &amp; material displacement.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Product Sponsor:</strong> Business outcome, sponsorship &amp; senior business decisions.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Product Owner (BL):</strong> Product backlog order, expected behaviour &amp; story acceptance.</div>
+                <div class="p-2 rounded text-white font-semibold" style="background-color: #2E7175;"><strong>Scrum Master (Hassan):</strong> Flow steward, neutral replenishment facilitator &amp; policy enforcement.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Development Team:</strong> Sizing, technical sequence, execution, quality &amp; DevOps supportability.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Shared Functions (Risk, ISO, Infra):</strong> Applicability, lead times, reviews &amp; approvals.</div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2.5">
+              <div class="font-bold uppercase tracking-wider" style="color: #C8962E;">Management Metrics Dashboard (Slide 21)</div>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                  <div class="font-bold" style="color: #2E7175;">1. OUTCOMES</div>
+                  <div class="text-[var(--muted-foreground)] mt-0.5">• MVP milestone reliability<br/>• User adoption &amp; turnaround<br/>• Benefit realization (PIR)</div>
+                </div>
+                <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                  <div class="font-bold" style="color: #2E7175;">2. PREDICTABILITY</div>
+                  <div class="text-[var(--muted-foreground)] mt-0.5">• Committed feature delivery<br/>• Sprint Goal achievement<br/>• Forecast range vs actual</div>
+                </div>
+                <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                  <div class="font-bold" style="color: #C8962E;">3. FLOW HEALTH</div>
+                  <div class="text-[var(--muted-foreground)] mt-0.5">• Throughput &amp; Cycle time<br/>• Work-item age<br/>• Blocked-time ratio</div>
+                </div>
+                <div class="p-2.5 rounded bg-[var(--card)] border border-[var(--border)]">
+                  <div class="font-bold" style="color: #C8962E;">4. QUALITY &amp; CAPACITY</div>
+                  <div class="text-[var(--muted-foreground)] mt-0.5">• UAT defect leakage<br/>• Escaped prod defects<br/>• Actual Ops &amp; UAT %</div>
+                </div>
+              </div>
+              <div class="p-2 rounded border border-red-500/40 bg-red-500/10 text-xs font-semibold">
+                🚫 <strong>Prohibited Measures:</strong> Individual developer velocity, lines of code (LoC), and AI prompt counts.
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        num: 10,
+        badge: "Pilot Rollout & Executive Mandate (PPTX Slides 22–24)",
+        title: "7-Step Pilot Rollout & The 6 Executive Decisions to Lock",
+        subtitle: "The pilot validates the operating model—it is not only a product delivery trial",
+        sourceRef: "OHB Agile Delivery Framework v0.1 — Sections 26, 28, 29",
+        notes: "CLOSING CALL TO ACTION: Close your presentation by asking leadership for the 6 concrete approvals on Slide 23. Emphasize that we are starting with Sprint 0 and ONE controlled representative product pilot (Slide 22) to gather empirical OHB data on flow, UAT consumption, and control gates before institutionalizing bank-wide.",
+        html: `
+          <div class="space-y-4 text-xs">
+            <div class="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+              <div class="font-bold uppercase tracking-wider mb-2" style="color: #2E7175;">7-Step Pilot Implementation Path (Slide 22)</div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] font-semibold">1. Framework Alignment</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] font-semibold">2. Pilot Selection</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] font-semibold">3. Candidate Discovery</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] font-semibold">4. Engineering Readiness</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] font-semibold">5. Stakeholder Buy-In</div>
+                <div class="p-2 rounded text-white font-semibold" style="background-color: #2E7175;">6. Pilot Execution</div>
+                <div class="p-2 rounded text-white font-semibold" style="background-color: #C8962E;">7. Framework Approval</div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+              <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold" style="color: #2E7175;">Decision 1: Operating Model</span>
+                <p class="text-[var(--muted-foreground)] mt-1">Adopt Controlled Scrumban with DevOps ownership and OHB governance.</p>
+              </div>
+              <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold" style="color: #2E7175;">Decision 2: Roadmap Language</span>
+                <p class="text-[var(--muted-foreground)] mt-1">Lock <code>Committed / Forecast (or Stretch) / Pipeline Candidate</code>.</p>
+              </div>
+              <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold" style="color: #2E7175;">Decision 3: Prioritization</span>
+                <p class="text-[var(--muted-foreground)] mt-1">Approve Executive Quarterly Ordering (Option A) + Weekly Replenishment.</p>
+              </div>
+              <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold" style="color: #C8962E;">Decision 4: Capacity Policy</span>
+                <p class="text-[var(--muted-foreground)] mt-1">Approve <code>70/20/10</code> reserves + decide explicit Technical Enabler envelope.</p>
+              </div>
+              <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold" style="color: #C8962E;">Decision 5: Queue Governance</span>
+                <p class="text-[var(--muted-foreground)] mt-1">Approve One Shared Ready Queue, neutral SM facilitator &amp; change rule.</p>
+              </div>
+              <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--background)]">
+                <span class="font-bold" style="color: #C8962E;">Decision 6: Pilot Mandate</span>
+                <p class="text-[var(--muted-foreground)] mt-1">Authorize Sprint 0 + 1 representative OHB product pilot.</p>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    let currentSlideIdx = 0;
+    let showNotes = true;
+
+    function renderDeck() {
+      const slide = masterSlides[currentSlideIdx];
+      document.getElementById('slide-counter-badge').textContent = `Slide ${slide.num} of ${masterSlides.length}`;
+      document.getElementById('slide-progress-bar').style.width = `${(slide.num / masterSlides.length) * 100}%`;
+      document.getElementById('btn-prev-slide').disabled = currentSlideIdx === 0;
+      document.getElementById('btn-next-slide').disabled = currentSlideIdx === masterSlides.length - 1;
+
+      const stage = document.getElementById('slide-stage');
+      stage.innerHTML = `
+        <div class="space-y-4">
+          <div class="border-b border-[var(--border)] pb-4">
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">${slide.badge}</span>
+            <h2 class="text-xl md:text-2xl font-bold text-[var(--foreground)] mt-2">${slide.title}</h2>
+            <p class="text-xs md:text-sm text-[var(--muted-foreground)] mt-0.5">${slide.subtitle}</p>
+          </div>
+          <div>${slide.html}</div>
+        </div>
+      `;
+
+      document.getElementById('speaker-notes-text').textContent = slide.notes;
+      document.getElementById('slide-source-ref').textContent = slide.sourceRef;
+
+      // Render dots
+      const dotsEl = document.getElementById('slide-dots');
+      dotsEl.innerHTML = masterSlides.map((s, idx) => `
+        <button onclick="goToSlide(${idx})" class="w-6 h-6 rounded-full text-xs font-bold transition-all ${idx === currentSlideIdx ? 'text-white' : 'bg-[var(--secondary)] text-[var(--muted-foreground)]'}" style="${idx === currentSlideIdx ? 'background-color: #C8962E;' : ''}">
+          ${s.num}
+        </button>
+      `).join('');
+    }
+
+    function changeSlide(delta) {
+      const next = currentSlideIdx + delta;
+      if (next >= 0 && next < masterSlides.length) {
+        currentSlideIdx = next;
+        renderDeck();
+      }
+    }
+
+    function goToSlide(idx) {
+      currentSlideIdx = idx;
+      renderDeck();
+    }
+
+    function toggleSpeakerNotes() {
+      showNotes = !showNotes;
+      const panel = document.getElementById('speaker-notes-panel');
+      const btn = document.getElementById('btn-toggle-notes');
+      if (showNotes) {
+        panel.classList.remove('hidden');
+        btn.textContent = '🎙️ Hide SM Coaching Notes';
+      } else {
+        panel.classList.add('hidden');
+        btn.textContent = '🎙️ Show SM Coaching Notes';
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const deckVisible = !document.getElementById('view-deck').classList.contains('hidden');
+      if (!deckVisible) return;
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
+
+    // =========================================================================
+    // MODE & TAB SWITCHING
+    // =========================================================================
+    function switchAppMode(mode) {
+      const modes = ['deck', 'lab', 'reference'];
+      modes.forEach(m => {
+        const view = document.getElementById(`view-${m}`);
+        const btn = document.getElementById(`btn-mode-${m}`);
+        if (m === mode) {
+          view.classList.remove('hidden');
+          btn.style.backgroundColor = '#2E7175';
+          btn.className = 'px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-white shadow-sm';
+        } else {
+          view.classList.add('hidden');
+          btn.style.backgroundColor = '';
+          btn.className = 'px-4 py-2 rounded-lg text-xs md:text-sm font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all';
+        }
+      });
+    }
+
+    function switchLabTab(tab) {
+      const tabs = ['policy', 'bridge', 'kanban', 'capacity', 'quiz'];
+      tabs.forEach(t => {
+        const panel = document.getElementById(`lab-panel-${t}`);
+        const btn = document.getElementById(`lab-tab-${t}`);
+        if (t === tab) {
+          panel.classList.remove('hidden');
+          btn.style.backgroundColor = '#2E7175';
+          btn.className = 'px-3.5 py-2 rounded-lg text-xs font-semibold text-white';
+        } else {
+          panel.classList.add('hidden');
+          btn.style.backgroundColor = '';
+          btn.className = 'px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]';
+        }
+      });
+    }
+
+    // =========================================================================
+    // LAB 1: 6-STEP POLICY STACK SIMULATOR LOGIC
+    // =========================================================================
+    function evaluatePolicyStack() {
+      const auth = document.getElementById('pol-1-auth').checked;
+      const ready = document.getElementById('pol-2-ready').checked;
+      const sClass = document.getElementById('pol-3-class').value;
+      const wip = document.getElementById('pol-4-wip').checked;
+      const midQuarter = document.getElementById('pol-6-midquarter').checked;
+
+      const badge = document.getElementById('pol-verdict-badge');
+      const title = document.getElementById('pol-verdict-title');
+      const reason = document.getElementById('pol-verdict-reason');
+      const script = document.getElementById('pol-verdict-script');
+
+      if (!auth) {
+        badge.textContent = 'REJECTED AT STEP 1 (UNAUTHORIZED)';
+        badge.style.backgroundColor = '#dc2626';
+        title.textContent = 'Hold Outside Queue — Work is Not Authorized to Consume Capacity';
+        reason.textContent = 'Per Slide 12 & 13, an item does not proceed merely because a Product Owner considers it important. It must belong to an approved Committed Goal, Stretch Goal, Operational Reserve, Technical Enabler allocation, Fixed-Date obligation, or valid Expedite.';
+        script.textContent = '"I understand this enhancement is valuable, [PO Name], but under Step 1 of our Policy Stack, it isn\'t linked to an approved Quarterly Goal or capacity envelope yet. Let\'s log it as a Candidate for the next Quarterly Planning or request formal Agile Management Group scope replacement."';
+        return;
+      }
+
+      if (sClass === 'expedite') {
+        badge.textContent = 'EXPEDITE LANE (GLOBAL WIP = 1)';
+        badge.style.backgroundColor = '#C8962E';
+        title.textContent = 'Admit Immediately (Max 1 Expedite Across Board) + Show Displaced Work';
+        reason.textContent = 'Valid Expedite items (critical production outage, material security/data issue, or hard blocker to a committed release) preempt standard flow, but global Expedite WIP is strictly capped at 1 and displaced work must be made visible.';
+        script.textContent = '"This qualifies as a true Expedite under Slide 19. We are admitting it into our single Expedite slot now, and logging on the board that Story X is temporarily displaced by 48 hours."';
+        return;
+      }
+
+      if (!ready) {
+        badge.textContent = 'HELD AT STEP 2 (GATE G4 — NOT READY)';
+        badge.style.backgroundColor = '#d97706';
+        title.textContent = 'Authorized ≠ Ready: Keep in Refinement (Or Raise a Time-Boxed Spike)';
+        reason.textContent = 'Per Slide 12 Speaker Notes: "Authorized means OHB permits the work. Ready means the team can responsibly start it." Pulling an unready story into Active Dev guarantees it will block and age on the board.';
+        script.textContent = '"Good news: this story is 100% Authorized under your Committed Goal. However, it hasn\'t passed Gate G4 (Definition of Ready) yet because acceptance criteria / test data are still open. Let\'s finalize those in Refinement so it enters Thursday\'s Replenishment clean—or pull a 2-day Spike if we need discovery first."';
+        return;
+      }
+
+      if (midQuarter) {
+        badge.textContent = 'STEP 6 ESCALATION (CROSS-PRODUCT DISPLACEMENT)';
+        badge.style.backgroundColor = '#C8962E';
+        title.textContent = 'Requires Cross-PO Agreement or Agile Management Group Approval';
+        reason.textContent = 'Per Slide 12 & 13 (Cross-Product Change Rule & Step 6 Displacement): Injecting work that displaces another product\'s committed slot requires explicit displacement visibility and either collective PO agreement or Agile Management Group sign-off.';
+        script.textContent = '"This item is both Authorized and Ready. Because inserting it this week will displace [Product B\'s Committed Story], our Cross-Product Change Rule requires either collective agreement with [PO B] at Replenishment or a quick Agile Management Group trade-off sign-off."';
+        return;
+      }
+
+      if (!wip) {
+        badge.textContent = 'HELD AT STEP 4 (WIP / ENVELOPE FULL)';
+        badge.style.backgroundColor = '#2E7175';
+        title.textContent = 'Eligible & Ready — Queued for Next Pull Slot ("Finish Before Starting More")';
+        reason.textContent = 'The item passes Authorization and Definition of Ready, but the Shared Ready Queue or Service Class envelope is currently at its WIP limit. Developers must finish an active item before pulling more.';
+        script.textContent = '"Your story passed every readiness check and is next in line. Right now our WIP limit is full—as soon as the team finishes the story in PO Validation today, a slot opens in the Shared Ready Queue."';
+        return;
+      }
+
+      badge.textContent = 'ADMITTED TO SHARED READY QUEUE ✅';
+      badge.style.backgroundColor = '#2E7175';
+      title.textContent = 'Passes All 6 Policy Steps — Ready for Developer Pull';
+      reason.textContent = 'This item is Authorized, meets Gate G4 Definition of Ready, fits its Service Class and WIP envelope, and respects quarterly ordering without unapproved displacement.';
+      script.textContent = '"Verified! This item is Authorized, passes Gate G4 Definition of Ready, and fits our capacity envelope. I am placing it into the Shared Ready Queue for the team to pull next."';
+    }
+
+    // =========================================================================
+    // LAB 2: G1-G6 TO P1-P5 GOVERNANCE BRIDGE DATA
+    // =========================================================================
+    const bridgeStages = [
+      {
+        id: 'G1',
+        stage: '1. DEMAND',
+        gate: 'Gate G1: Demand Approval',
+        ohbPhase: 'OHB P1 — Initiate',
+        summary: 'Problem statement, Executive Sponsor identified, and target business outcome/KPI defined before any solution commitment.',
+        scrumbanOutputs: ['Approved Demand statement', 'Target KPI & Outcome hypothesis', 'Authorized to enter Pipeline Discovery'],
+        ohbArtifacts: ['Demand Request Form / Concept Form logged in PPM Central', 'Stakeholder Register', 'CBO Approval determination flag'],
+        auditLink: 'Addresses Audit Finding F1 (Demand entry clarity) by separating initial demand approval from delivery date commitments.'
+      },
+      {
+        id: 'G2',
+        stage: '2. PIPELINE CANDIDATE',
+        gate: 'Gate G2: Discovery Readiness',
+        ohbPhase: 'OHB P2 — Plan & Define (Early)',
+        summary: 'Discovery and uncertainty reduction. High-level T-shirt sizing (XS–XL + uncertainty) and early identification of security, data, and vendor dependencies.',
+        scrumbanOutputs: ['Discovery findings & architecture spine', 'Coarse XS–XL sizing + uncertainty band', 'Discovery decision date (NO production date promised)'],
+        ohbArtifacts: ['Project Charter & Business Case baseline', 'Initial RAID Log', 'Early Security Assessment & Procurement (RFI/RFP) triggers'],
+        auditLink: 'Addresses Audit Finding F8 (parallel procurement/planning) & F13 (establishing KPI baselines in P2).'
+      },
+      {
+        id: 'G3',
+        stage: '3. FORECAST → 4. COMMITTED',
+        gate: 'Gate G3: Quarterly Planning',
+        ohbPhase: 'OHB P2 / P3 Gate Transition',
+        summary: 'Agile Management Group selects quarterly outcomes, confirms 70/20/10 capacity envelopes, and locks Mandatory MVP vs Stretch MVP boundaries.',
+        scrumbanOutputs: ['Quarterly Roadmap classification (Committed / Forecast / Candidate)', 'Mandatory MVP vs Stretch MVP feature rings', 'Confirmed capacity & Shared Function control windows'],
+        ohbArtifacts: ['High-Level Plan (HLP) baseline', 'BRD / FSD feature-group sign-off', 'Solution Design Document (SDD) core spine'],
+        auditLink: 'Addresses Audit Finding F6 (clarifying HLP vs detailed schedule baseline) by locking quarterly outcomes while allowing story-level adaptation.'
+      },
+      {
+        id: 'G4',
+        stage: '4. COMMITTED → 5. DELIVERY',
+        gate: 'Gate G4: Story Ready (DoR)',
+        ohbPhase: 'OHB P3 Design → P4 Execute Entry',
+        summary: 'Features are refined into Small/Medium testable stories with clear acceptance criteria, assigned Validation Route (A/B/C), and admitted via Weekly Replenishment.',
+        scrumbanOutputs: ['Stories passing Definition of Ready (DoR)', 'Assigned Validation Route A, B, or C', 'Ordered entry in One Shared Ready Queue'],
+        ohbArtifacts: ['Requirements Traceability Matrix (RTM) links', 'Approved Test Strategy & Plan', 'Environment & test data readiness'],
+        auditLink: 'Addresses Audit Finding F9 (Test Plan structure) by assigning explicit validation routes (Route A/B/C) before a single line of code is written.'
+      },
+      {
+        id: 'G5',
+        stage: '5. DELIVERY → 6. RELEASE',
+        gate: 'Gate G5: UAT Accepted',
+        ohbPhase: 'OHB P4 — Execute (Build, SIT & UAT)',
+        summary: 'Iterative Sprints with Kanban pull flow, Maker-Checker peer code review, technical testing, PO story validation, and end-to-end Feature/UAT sign-off.',
+        scrumbanOutputs: ['Maker-Checker code review evidence', 'Story Accepted (PO Validation)', 'End-to-End UAT Accepted + Regression passed'],
+        ohbArtifacts: ['SIT Test Completion Report', 'UAT Test Completion Report', 'Regression testing evidence'],
+        auditLink: 'Directly remediates Audit Finding F12 (160-WD P4 build phase had zero checkpoints) and F15 (mandatory regression testing after UAT defect fixes).'
+      },
+      {
+        id: 'G6',
+        stage: '6. RELEASE → 7. VALUE',
+        gate: 'Gate G6: Release Ready & PIR',
+        ohbPhase: 'OHB P4 Go-Live Gate & P5 Close',
+        summary: 'Final security/VAPT controls, verified rollback plan, CAB/CAT approval, production cutover, stabilization, and empirical KPI benefit review.',
+        scrumbanOutputs: ['Release Ready checklist (Controls + Rollback)', 'MVP Live production validation', 'Post-release Value & KPI realization review'],
+        ohbArtifacts: ['Security Assessment / VAPT Report & NFT Report', 'Cutover Plan, SDP & CAB/CAT Approval in ManageEngine', 'Project Closure Report & PIR (P5)'],
+        auditLink: 'Directly remediates Audit Finding F16 (SDP clarity) and F17 (Benefits Realization tracking post-Go-Live).'
+      }
+    ];
+
+    let activeBridgeIdx = 0;
+
+    function renderBridge() {
+      const btnContainer = document.getElementById('bridge-stage-buttons');
+      btnContainer.innerHTML = bridgeStages.map((b, i) => `
+        <button onclick="selectBridgeStage(${i})" class="p-2.5 rounded-lg border text-left transition-all ${i === activeBridgeIdx ? 'text-white border-transparent shadow-sm' : 'bg-[var(--background)] border-[var(--border)] text-[var(--foreground)]'}" style="${i === activeBridgeIdx ? 'background-color: #2E7175;' : ''}">
+          <div class="text-xs font-bold">${b.id}</div>
+          <div class="text-xs truncate opacity-90">${b.stage}</div>
+        </button>
+      `).join('');
+
+      const item = bridgeStages[activeBridgeIdx];
+      document.getElementById('bridge-stage-detail').innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+          <div>
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">${item.gate}</span>
+            <h3 class="text-base font-bold text-[var(--foreground)] mt-1">${item.stage}</h3>
+          </div>
+          <span class="px-3 py-1 rounded-lg text-xs font-bold text-white" style="background-color: #2E7175;">
+            Maps to: ${item.ohbPhase}
+          </span>
+        </div>
+        <p class="text-sm text-[var(--foreground)]">${item.summary}</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-3.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+            <div class="font-bold uppercase tracking-wider mb-1.5" style="color: #2E7175;">Scrumban Evidence Required</div>
+            <ul class="space-y-1 text-[var(--muted-foreground)]">
+              ${item.scrumbanOutputs.map(o => `<li>✅ ${o}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="p-3.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+            <div class="font-bold uppercase tracking-wider mb-1.5" style="color: #C8962E;">OHB P1–P5 SOP &amp; PPM Central Artifacts</div>
+            <ul class="space-y-1 text-[var(--muted-foreground)]">
+              ${item.ohbArtifacts.map(a => `<li>📄 ${a}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+        <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] text-xs">
+          <strong style="color: #C8962E;">🛡️ Audit Finding Remediated:</strong> ${item.auditLink}
+        </div>
+      `;
+    }
+
+    function selectBridgeStage(idx) {
+      activeBridgeIdx = idx;
+      renderBridge();
+    }
+
+    // =========================================================================
+    // LAB 3: 8-COLUMN WORKFLOW & ROUTES A/B/C
+    // =========================================================================
+    const kanbanColumns = [
+      { col: 1, name: '1. Ready', gate: 'Story Ready (G4)', desc: 'Entry evidence verified via Weekly Replenishment.', routeA: 'Active', routeB: 'Active', routeC: 'Active', r2lOrder: 'Step 8 (Last): Only pull new Ready work after right-side bottlenecks are cleared!' },
+      { col: 2, name: '2. Active Dev', gate: 'WIP Limited', desc: 'Coding & unit tests in progress.', routeA: 'Active', routeB: 'Active', routeC: 'Active', r2lOrder: 'Step 7: Check Work-Item Age & blockers on active development items.' },
+      { col: 3, name: '3. Code Review', gate: 'Maker-Checker', desc: 'Mandatory peer review & static code quality gate.', routeA: 'Active', routeB: 'Active', routeC: 'Active', r2lOrder: 'Step 6: Unblock waiting peer reviews so developers don\'t start new work while PRs age.' },
+      { col: 4, name: '4. Technical Test', gate: 'Tech Verification', desc: 'QA functional/SIT testing & technical verification.', routeA: 'Full Story QA Verification', routeB: 'Story Tech Check (E2E waits for Col 6)', routeC: 'Primary Technical Enabler Acceptance!', r2lOrder: 'Step 5: Check QA queue & defects blocking stories from reaching PO.' },
+      { col: 5, name: '5. PO Validation', gate: 'Story Accepted', desc: 'Product Owner validates expected business behaviour.', routeA: 'Primary Story PO Sign-Off!', routeB: 'Interim PO Check (Full sign-off in Col 6)', routeC: 'N/A or Tech Lead Confirmation', r2lOrder: 'Step 4: Remind POs to validate waiting stories immediately so work doesn\'t stall.' },
+      { col: 6, name: '6. Feature / UAT', gate: 'Gate G5: UAT Accepted', desc: 'End-to-end business UAT & feature regression.', routeA: 'Feature & Release Regression', routeB: 'Primary Connected Feature UAT Sign-Off!', routeC: 'Proven via Consuming Feature Regression', r2lOrder: 'Step 3: Inspect UAT aging, defect leakage, and 20% UAT capacity consumption.' },
+      { col: 7, name: '7. Release Ready', gate: 'Gate G6: CAB Ready', desc: 'Security/VAPT controls, rollback plan & CAB approval.', routeA: 'Active', routeB: 'Active', routeC: 'Release Assurance Verified', r2lOrder: 'Step 2: Verify CAB/CAT readiness, rollback plan, and VAPT sign-offs.' },
+      { col: 8, name: '8. Live', gate: 'MVP Live', desc: 'Production deployment & post-cutover validation.', routeA: 'Active', routeB: 'Active', routeC: 'Active', r2lOrder: 'Step 1 (START HERE): Confirm newly deployed Live items are stable in production!' }
+    ];
+
+    let currentKanbanMode = 'A';
+
+    function setKanbanRoute(mode) {
+      currentKanbanMode = mode;
+      ['A', 'B', 'C', 'R2L'].forEach(m => {
+        const btn = document.getElementById(`btn-route-${m}`);
+        if (m === mode) {
+          btn.style.backgroundColor = m === 'R2L' ? '#C8962E' : '#2E7175';
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-sm';
+        } else {
+          btn.style.backgroundColor = '';
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]';
+        }
+      });
+
+      const banner = document.getElementById('kanban-route-banner');
+      if (mode === 'A') {
+        banner.innerHTML = `<strong style="color: #2E7175;">Route A — Independently Testable Story:</strong> Validated directly by QA (Col 4) and accepted by the Product Owner at the Story level (Col 5), followed by feature/release regression in Col 6.`;
+      } else if (mode === 'B') {
+        banner.innerHTML = `<strong style="color: #C8962E;">Route B — Connected Story:</strong> Individual stories pass Maker-Checker (Col 3) and Technical Test (Col 4), and undergo full business &amp; UAT validation in <strong>Column 6 (Feature / UAT)</strong> once all connected stories form a usable end-to-end feature.`;
+      } else if (mode === 'C') {
+        banner.innerHTML = `<strong>Route C — Technical Enabler:</strong> Validated against technical acceptance criteria in <strong>Column 4 (Technical Test)</strong>, then verified through consuming-feature regression (Col 6) and Release Assurance (Col 7).`;
+      } else {
+        banner.innerHTML = `<strong style="color: #C8962E;">⬅ Daily Flow Review (Walk Right-to-Left):</strong> As Scrum Master, start at Column 8 (Live) and move left to Column 1 (Ready). Focus on finishing closest-to-live work, clearing blockers, and checking Work-Item Age before pulling new work!`;
+      }
+
+      const grid = document.getElementById('kanban-columns-grid');
+      grid.innerHTML = kanbanColumns.map(c => {
+        let highlightText = '';
+        let borderStyle = '';
+        if (mode === 'A') {
+          highlightText = c.routeA;
+          if (c.col === 4 || c.col === 5) borderStyle = 'border-color: #2E7175; border-width: 2px;';
+        } else if (mode === 'B') {
+          highlightText = c.routeB;
+          if (c.col === 6) borderStyle = 'border-color: #C8962E; border-width: 2px;';
+        } else if (mode === 'C') {
+          highlightText = c.routeC;
+          if (c.col === 4 || c.col === 7) borderStyle = 'border-color: #2E7175; border-width: 2px;';
+        } else {
+          highlightText = c.r2lOrder;
+          borderStyle = 'border-color: #C8962E; border-width: 2px;';
+        }
+
+        return `
+          <div class="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--background)] flex flex-col justify-between space-y-2" style="${borderStyle}">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-[var(--foreground)]">${c.name}</span>
+                <span class="px-2 py-0.5 rounded text-xs font-semibold text-white" style="background-color: #2E7175;">${c.gate}</span>
+              </div>
+              <p class="text-xs text-[var(--muted-foreground)] mt-1">${c.desc}</p>
+            </div>
+            <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)] text-xs font-semibold text-[var(--foreground)]">
+              ${highlightText}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // LAB 4: 70/20/10 CAPACITY SIMULATOR
+    // =========================================================================
+    function updateCapacitySim() {
+      const total = parseInt(document.getElementById('cap-total-slider').value, 10);
+      document.getElementById('cap-total-val').textContent = total;
+      const scenario = document.querySelector('input[name="cap-scenario"]:checked').value;
+      const out = document.getElementById('cap-output-card');
+
+      if (scenario === 'baseline') {
+        const mvp = Math.round(total * 0.7);
+        const uat = Math.round(total * 0.2);
+        const ops = total - mvp - uat;
+        out.innerHTML = `
+          <div class="text-xs font-bold uppercase tracking-wider" style="color: #2E7175;">Baseline Pilot Allocation (${total} Total Developer Days/Slots)</div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="p-3 rounded-lg text-white" style="background-color: #2E7175;">
+              <div class="text-xl font-bold">${mvp}</div>
+              <div class="text-xs">70% MVP Features</div>
+            </div>
+            <div class="p-3 rounded-lg text-white" style="background-color: #C8962E;">
+              <div class="text-xl font-bold">${uat}</div>
+              <div class="text-xs">20% UAT &amp; Release</div>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+              <div class="text-xl font-bold">${ops}</div>
+              <div class="text-xs">10% Ops Support</div>
+            </div>
+          </div>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+            <strong>Why this works:</strong> Instead of promising ${total} slots of new features and failing when UAT and production tickets arrive, OHB commits only <strong>${mvp} slots</strong> to Planned MVP work. UAT (${uat} slots) and Ops (${ops} slots) are protected without breaking Sprint commitments.
+          </p>
+        `;
+      } else if (scenario === 'enabler') {
+        const mvp = Math.round(total * 0.6);
+        const enab = Math.round(total * 0.1);
+        const uat = Math.round(total * 0.2);
+        const ops = total - mvp - enab - uat;
+        out.innerHTML = `
+          <div class="text-xs font-bold uppercase tracking-wider" style="color: #C8962E;">Decision #4 Recommended Stance: Explicit Technical Enabler Envelope</div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+            <div class="p-2.5 rounded-lg text-white" style="background-color: #2E7175;">
+              <div class="text-lg font-bold">${mvp}</div>
+              <div class="text-xs">60% MVP</div>
+            </div>
+            <div class="p-2.5 rounded-lg text-white" style="background-color: #1A4345;">
+              <div class="text-lg font-bold">${enab}</div>
+              <div class="text-xs">10% Enablers</div>
+            </div>
+            <div class="p-2.5 rounded-lg text-white" style="background-color: #C8962E;">
+              <div class="text-lg font-bold">${uat}</div>
+              <div class="text-xs">20% UAT</div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+              <div class="text-lg font-bold">${ops}</div>
+              <div class="text-xs">10% Ops</div>
+            </div>
+          </div>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+            <strong>Strategic Advice for Hassan:</strong> Slide 19 states regarding Technical Enablers: <em>"Plan explicit capacity; do not treat as spare-time work."</em> Carving out <strong>${enab} slots (10%)</strong> guarantees CI/CD, automated regression (Audit Finding F15), and security controls get built in Sprint 1–3.
+          </p>
+        `;
+      } else {
+        const actualUat = Math.round(total * 0.35);
+        const actualOps = Math.round(total * 0.15);
+        const remainingMvp = total - actualUat - actualOps;
+        out.innerHTML = `
+          <div class="text-xs font-bold uppercase tracking-wider text-red-500">UAT Surge Alert: Actual UAT Hits 35% (${actualUat} Slots) &amp; Ops Hits 15% (${actualOps} Slots)</div>
+          <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] text-xs space-y-1.5">
+            <div>• <strong>Remaining Feature Capacity:</strong> Drops from ${Math.round(total * 0.7)} slots down to <strong>${remainingMvp} slots (50%)</strong>.</div>
+            <div>• <strong>What happens in Old Waterfall/Ad-hoc:</strong> Developers silently work nights or drop Product 2 stories without telling anyone until Sprint Review fails.</div>
+            <div>• <strong>What Hassan does in Controlled Scrumban:</strong> You surface the 35% UAT consumption metric (Slide 21) immediately and give the Agile Management Group two explicit choices: (1) Queue low-severity UAT defects into the Standard Ready Queue for next Sprint, OR (2) Defer Stretch MVP scope to protect the Committed Goal.</div>
+          </div>
+        `;
+      }
+    }
+
+    // =========================================================================
+    // LAB 5: SCRUM MASTER 5-SCENARIO QUIZ
+    // =========================================================================
+    const quizData = [
+      {
+        q: "1. Mid-Sprint on Tuesday, Product Owner A walks directly to a developer and asks them to build a 'quick 4-hour export feature' for a GM before finishing their active story. What is your move as Scrum Master?",
+        options: [
+          "Allow it since it's only 4 hours and keeps the GM happy.",
+          "Enforce Slide 12 & 13: Remind PO A that developers only pull from the Shared Ready Queue. Check if it's a true Expedite; if not, verify Definition of Ready and route it to Weekly Replenishment (or require formal Displacement approval).",
+          "Tell the developer to work overtime so both get done."
+        ],
+        correct: 1,
+        explanation: "Correct! Slide 12 is explicit: 'Product Owners cannot inject work directly; the team should never have to guess what to pull next.' And Slide 4 states: 'Finish before starting more.'"
+      },
+      {
+        q: "2. At Weekly Replenishment, Product Owner B insists a story must enter the Shared Ready Queue today because 'ExCom approved this product in our Committed Quarter Plan!' However, business rules for edge cases and test data are still missing. How do you rule?",
+        options: [
+          "Admit it into the Shared Ready Queue because ExCom authorized it.",
+          "Hold it at Gate G4 (Step 2: Ready). Explain that 'Authorized means OHB permits the work; Ready means the team can responsibly start it.' Keep it in Refinement or create a time-boxed Spike.",
+          "Cancel the story permanently."
+        ],
+        correct: 1,
+        explanation: "Spot on! Slide 12 Speaker Notes specifically highlight this exact trap: 'Authorized means OHB permits the work. Ready means the team can responsibly start it.' Admitting unready work violates Gate G4 and causes immediate board aging."
+      },
+      {
+        q: "3. An Executive asks for a dashboard showing each individual developer's story point velocity and AI prompt count so they can reward the top performers. How do you advise them using Slide 21?",
+        options: [
+          "Build the individual velocity leaderboard in PPM Central.",
+          "Point to Slide 21: Individual velocity, lines of code, and AI prompt counts are explicitly PROHIBITED management measures because they encourage gaming and destroy teamwork. Offer the 4 System Health Quadrants (Outcomes, Predictability, Flow, Quality/Capacity) instead.",
+          "Track individual hours on technical tasks instead."
+        ],
+        correct: 1,
+        explanation: "Exact match with Slide 21: 'Measures improve the system; they do not rank individuals. Prohibited management measures: individual velocity, lines of code and AI prompt counts.'"
+      },
+      {
+        q: "4. During Gate G1/G2 (Pipeline Candidate discovery), a feature was coarsely sized as 'Medium'. Later at Gate G3, detailed refinement shows complex CBO security controls and legacy dependencies. The Sponsor says 'You committed to Medium in G1!' What is the framework principle?",
+        options: [
+          "Slide 14: 'Estimate informs forecast; forecast informs commitment; an estimate is never a commitment.' Pipeline Candidate sizing is coarse XS–XL discovery; commitments are only locked at Gate G3 Quarterly Planning.",
+          "Force the team to cut testing to fit the original Medium size.",
+          "Remove all security controls to hit the date."
+        ],
+        correct: 0,
+        explanation: "Correct! Slide 8 & 14 protect OHB from premature commitments: Pipeline Candidates only show a discovery decision date, never a production commitment."
+      },
+      {
+        q: "5. How should you run the 15-minute Daily Flow Review (Slide 17 & 18) with the OHB team?",
+        options: [
+          "Ask each developer in a circle: 'What did you do yesterday, what will you do today, any blockers?'",
+          "Walk the 8-column board Right-to-Left (from Release Ready / UAT back to Active Dev), focusing on finishing closest-to-done items, Work-Item Age, blockers, and WIP limits.",
+          "Have Product Owners re-prioritize the Sprint backlog every morning."
+        ],
+        correct: 1,
+        explanation: "Master level! Walking the board Right-to-Left enforces 'Finish before starting more' (Slide 4) and focuses on aging, blockers, and WIP (Slide 17)."
+      }
+    ];
+
+    const userAnswers = {};
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-questions-container');
+      container.innerHTML = quizData.map((item, qIdx) => {
+        const answered = userAnswers[qIdx] !== undefined;
+        const isCorrect = userAnswers[qIdx] === item.correct;
+        return `
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-3">
+            <div class="text-sm font-bold text-[var(--foreground)]">${item.q}</div>
+            <div class="space-y-2">
+              ${item.options.map((opt, oIdx) => {
+                let btnStyle = 'bg-[var(--card)] border-[var(--border)] text-[var(--foreground)]';
+                if (answered) {
+                  if (oIdx === item.correct) {
+                    btnStyle = 'border-green-600 bg-green-600/15 text-[var(--foreground)] font-bold';
+                  } else if (oIdx === userAnswers[qIdx]) {
+                    btnStyle = 'border-red-600 bg-red-600/15 text-[var(--foreground)]';
+                  }
+                }
+                return `
+                  <button onclick="answerQuiz(${qIdx}, ${oIdx})" class="w-full text-left p-3 rounded-lg border text-xs transition-all ${btnStyle}">
+                    ${opt}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+            ${answered ? `
+              <div class="p-3 rounded-lg text-xs ${isCorrect ? 'bg-green-600/15 border border-green-600/40' : 'bg-amber-600/15 border border-amber-600/40'}">
+                ${item.explanation}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      const score = Object.keys(userAnswers).filter(k => userAnswers[k] === quizData[k].correct).length;
+      document.getElementById('quiz-score-badge').textContent = `Score: ${score} / ${quizData.length}`;
+    }
+
+    function answerQuiz(qIdx, oIdx) {
+      userAnswers[qIdx] = oIdx;
+      renderQuiz();
+    }
+
+    // Initialize everything on load
+    renderDeck();
+    evaluatePolicyStack();
+    renderBridge();
+    setKanbanRoute('A');
+    updateCapacitySim();
+    renderQuiz();
+  </script>
+</body>
+</html>
