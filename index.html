@@ -414,6 +414,22 @@
         <div id="mm-detail-box" class="p-5 rounded-xl border-2 border-[var(--border)] bg-[var(--background)] space-y-3"></div>
       </div>
 
+      <!-- NEW: Interactive 8 Spontaneous Speech Structures (Matt Abrahams Spine) -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 shadow-sm space-y-4">
+        <div class="border-b border-[var(--border)] pb-3">
+          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">Think Fast, Talk Smart — Speech Packaging</span>
+          <h3 class="text-lg font-bold text-[var(--foreground)] mt-2">
+            The 8 Spontaneous Speech Structures (How Mental Models Become Spoken Authority)
+          </h3>
+          <p class="text-xs md:text-sm text-[var(--muted-foreground)] mt-0.5">
+            <strong>How They Connect:</strong> A <em>Mental Model</em> is <strong>how you think</strong> (your internal stance before speaking). A <em>Speech Structure</em> is <strong>how you package your words</strong> (the 3-step vocal container that stops you from rambling). Tap any structure below to practice its OHB script:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2" id="ss-buttons-grid"></div>
+        <div id="ss-detail-box" class="p-5 rounded-xl border-2 border-[var(--border)] bg-[var(--background)] space-y-3"></div>
+      </div>
+
       <!-- Curated Learning Library with Direct Clickable Links -->
       <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 shadow-sm space-y-4">
         <div>
@@ -1822,6 +1838,108 @@
       renderMentalModels();
     }
 
+    // 8 Spontaneous Speech Structures (Matt Abrahams & Executive Framing)
+    const speechStructures = [
+      {
+        id: "Structure 1",
+        name: "🎯 What? → So What? → Now What?",
+        bestFor: "Instant Status Updates, Q&A & Escalations",
+        pairsWith: "Pairs with Mental Model #1 (Air Traffic Controller) & #6 (Little's Law)",
+        formula: "1. WHAT (The objective fact/metric) → 2. SO WHAT (Why it matters to the Sprint/Quarter Goal) → 3. NOW WHAT (The concrete action or decision needed).",
+        ohbScript: `"[WHAT] UAT support on Product A consumed 35% of capacity this week against our 20% reserve. [SO WHAT] That leaves 15% less capacity for Product B's Stretch MVP stories, though our Committed Goal remains safe. [NOW WHAT] At Thursday's Replenishment, we either queue low-severity UAT defects into next Sprint or defer one Stretch story. Which do you prefer?"`
+      },
+      {
+        id: "Structure 2",
+        name: "🚀 Problem → Solution → Benefit",
+        bestFor: "Pitching Scrumban Rules & Convincing Skeptics",
+        pairsWith: "Pairs with Mental Model #7 (Stakeholder Fear X-Ray)",
+        formula: "1. PROBLEM (The pain everyone feels in P4 today) → 2. SOLUTION (The specific Scrumban mechanism) → 3. BENEFIT (What the listener personally gains).",
+        ohbScript: `"[PROBLEM] Right now in P4 Execute, multiple Product Owners message developers directly, causing constant context-switching and 160-WD delays. [SOLUTION] We are introducing a single Shared Ready Queue replenished every Thursday using our 6-Step Policy Stack. [BENEFIT] That means once the team pulls your department's feature, they finish it without interruption—cutting your delivery wait time in half."`
+      },
+      {
+        id: "Structure 3",
+        name: "⏳ Past → Present → Future",
+        bestFor: "Sponsor Progress Briefings & Estimate Changes",
+        pairsWith: "Pairs with Progressive Estimation ('Estimate ≠ Commitment')",
+        formula: "1. PAST (Where we started / initial G1-G2 hypothesis) → 2. PRESENT (What discovery/delivery just proved) → 3. FUTURE (Next milestone / Gate commitment).",
+        ohbScript: `"[PAST] At Gate G1, this was a coarse Medium Pipeline Candidate with high legacy data uncertainty. [PRESENT] Today, we completed our time-boxed architecture Spike and confirmed all Mandatory MVP features and CBO security controls. [FUTURE] Next week at Gate G3 Quarterly Planning, we will lock our Committed Q2 capacity and start Sprint 1."`
+      },
+      {
+        id: "Structure 4",
+        name: "⚡ ADD (Answer → Data → Decision)",
+        bestFor: "High-Pressure Executive Questions (ExCom / MSSC)",
+        pairsWith: "Pairs with Vocal BLUF & The 2-Second Pause",
+        formula: "1. ANSWER (Direct Yes/No/Headline in Sentence 1) → 2. DATA (1 or 2 hard board metrics) → 3. DECISION (State if action is needed, then stop talking).",
+        ohbScript: `"[ANSWER] Yes, our Mandatory MVP is 100% on track for the Gate G6 CAB window. [DATA] We have completed 14 of 18 Mandatory stories, and our UAT defect leakage is well within the 20% capacity reserve. [DECISION] No escalation is needed today; you will see the final 4 stories live at Thursday's Sprint Review."`
+      },
+      {
+        id: "Structure 5",
+        name: "⚖️ Compare → Contrast → Conclude",
+        bestFor: "Scope Pushback & Mid-Quarter Trade-Offs",
+        pairsWith: "Pairs with Mental Model #4 ('Yes, And Here Is the Price Tag')",
+        formula: "1. COMPARE (Option A and its displacement cost) → 2. CONTRAST (Option B and its timeline impact) → 3. CONCLUDE (Your recommendation + ask them to choose).",
+        ohbScript: `"[COMPARE] Option A is we inject this feature into the Shared Ready Queue today, which displaces Product B's Committed story by 1 week. [CONTRAST] Option B is we keep our current Sprint WIP locked, finish Product B's story on Wednesday, and pull your feature at Thursday's Replenishment. [CONCLUDE] I recommend Option B so neither product breaches its quarterly commitment. Does that work for you?"`
+      },
+      {
+        id: "Structure 6",
+        name: "🤝 ABC (Acknowledge → Bridge → Control)",
+        bestFor: "Handling Interruptions & Emotional Stakeholders",
+        pairsWith: "Pairs with Mental Model #5 (Two-Key Launch: Authorized ≠ Ready)",
+        formula: "1. ACKNOWLEDGE (Validate their urgency/rank warmly) → 2. BRIDGE ('And to guarantee that succeeds...') → 3. CONTROL (State the Gate G4 / Policy Stack step).",
+        ohbScript: `"[ACKNOWLEDGE] I hear how urgent this is for the GM, and because it's part of your Committed Goal, Key 1 (Authorized) is 100% turned. [BRIDGE] And to guarantee the developers don't get blocked two days from now waiting on test data... [CONTROL] ...let's spend 30 minutes right after this meeting locking the two missing acceptance criteria so it passes Gate G4 (Ready) and starts cleanly."`
+      },
+      {
+        id: "Structure 7",
+        name: "🎓 PREP (Point → Reason → Example → Point)",
+        bestFor: "Training Sessions & Coaching Developers/POs",
+        pairsWith: "Pairs with Mental Model #6 (Little's Law & Highway Physics)",
+        formula: "1. POINT (State the rule) → 2. REASON (Why it works mathematically) → 3. EXAMPLE (Concrete OHB banking example) → 4. POINT (Restate the rule).",
+        ohbScript: `"[POINT] In OHB Scrumban, we cap WIP and finish active stories before starting new ones. [REASON] Under Little's Law, starting more items at once increases context switching and doubles Cycle Time. [EXAMPLE] When a developer juggles 4 stories across 3 POs, all 4 stall in Code Review and UAT for a month; focusing on 1 clears PO Validation in 3 days. [POINT] That is why we only pull from the Shared Ready Queue when a WIP slot opens."`
+      },
+      {
+        id: "Structure 8",
+        name: "🏛️ SCQA (Situation → Complication → Q → A)",
+        bestFor: "Opening Steering Committees & Gate Reviews",
+        pairsWith: "Pairs with Mental Model #3 (McKinsey SCQA Spine)",
+        formula: "1. SITUATION (Agreed baseline) → 2. COMPLICATION (The trigger/risk) → 3. QUESTION (The core choice) → 4. ANSWER (Your BLUF proposal).",
+        ohbScript: `"[SITUATION] At Gate G3, we locked Digital Onboarding as a Committed Goal at 70% capacity. [COMPLICATION] Today, an immovable CBO Fixed-Date regulatory change arrived. [QUESTION] How do we absorb it without breaking our Committed Go-Live? [ANSWER] We classify the CBO item as Fixed-Date Service Class and displace two Stretch MVP stories into next quarter."`
+      }
+    ];
+
+    let activeSSIdx = 0;
+
+    function renderSpeechStructures() {
+      const grid = document.getElementById('ss-buttons-grid');
+      if (!grid) return;
+      grid.innerHTML = speechStructures.map((s, i) => `
+        <button onclick="selectSS(${i})" class="p-3 rounded-xl border text-left transition-all ${i === activeSSIdx ? 'text-white border-transparent shadow-sm' : 'bg-[var(--background)] border-[var(--border)] text-[var(--foreground)]'}" style="${i === activeSSIdx ? 'background-color: #C8962E;' : ''}">
+          <div class="text-xs font-bold opacity-90">${s.id}</div>
+          <div class="text-xs font-bold mt-0.5">${s.name}</div>
+        </button>
+      `).join('');
+
+      const item = speechStructures[activeSSIdx];
+      document.getElementById('ss-detail-box').innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+          <div>
+            <h4 class="text-base font-bold text-[var(--foreground)]">${item.id}: ${item.name}</h4>
+            <p class="text-xs font-semibold mt-0.5" style="color: #2E7175;">🔗 ${item.pairsWith}</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold text-white" style="background-color: #2E7175;">Best For: ${item.bestFor}</span>
+        </div>
+        <p class="text-sm text-[var(--foreground)] leading-relaxed"><strong>3-Step Packaging Formula:</strong> ${item.formula}</p>
+        <div class="p-4 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+          <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color: #C8962E;">🎙️ Word-for-Word OHB Example</div>
+          <p class="text-sm italic text-[var(--foreground)] leading-relaxed">${item.ohbScript}</p>
+        </div>
+      `;
+    }
+
+    function selectSS(idx) {
+      activeSSIdx = idx;
+      renderSpeechStructures();
+    }
+
     // Habit Checklist with localStorage
     const habitItems = [
       "Week 1: Watch Matt Abrahams' 'Think Fast, Talk Smart' Stanford lecture (55m)",
@@ -1866,6 +1984,7 @@
     updateCapacitySim();
     renderQuiz();
     renderMentalModels();
+    renderSpeechStructures();
     renderHabits();
   </script>
 </body>
