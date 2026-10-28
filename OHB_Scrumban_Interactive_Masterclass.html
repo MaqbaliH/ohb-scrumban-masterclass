@@ -3,482 +3,1090 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OHB Controlled Scrumban — Interactive Masterclass &amp; Presentation</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <title>OHB Controlled Scrumban — Master Portal &amp; Scrum Master Playbook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --background: #f5f4ef;
+      --card: #ffffff;
+      --foreground: #142426;
+      --muted-foreground: #4e6366;
+      --border: #dcd8c2;
+      --secondary: #eae6d9;
+      --primary: #2E7175;
+      --gold: #C8962E;
+    }
+    html.dark {
+      --background: #0f1b1d;
+      --card: #162629;
+      --foreground: #f1f5f5;
+      --muted-foreground: #9cb3b5;
+      --border: #284246;
+      --secondary: #1f3538;
+      --primary: #2E7175;
+      --gold: #C8962E;
+    }
+    body {
+      background-color: var(--background);
+      color: var(--foreground);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+  </style>
 </head>
-<body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-4 md:p-6">
+<body class="min-h-screen antialiased pb-12">
 
-  <!-- Top Navigation & Mode Switcher Header -->
-  <header class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 mb-6 shadow-sm">
-    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-      <div class="flex items-start gap-3">
-        <div class="px-3 py-2 rounded-lg font-bold text-sm text-white shrink-0" style="background-color: #2E7175; border: 1px solid #C8962E;">
-          OHB PMO
-        </div>
-        <div>
-          <div class="flex flex-wrap items-center gap-2">
-            <h1 class="text-lg md:text-xl font-bold text-[var(--foreground)]">
-              OHB Controlled Scrumban Operating Model
-            </h1>
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold text-white" style="background-color: #C8962E;">
-              Masterclass &amp; Executive Deck
-            </span>
+  <!-- Sticky Top Header Bar -->
+  <header class="sticky top-0 z-30 bg-[var(--card)]/95 backdrop-blur border-b border-[var(--border)] shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="px-3 py-1.5 rounded-lg font-extrabold text-xs tracking-wider text-white shrink-0" style="background-color: #2E7175; border: 1px solid #C8962E;">
+            OHB PMO
           </div>
-          <p class="text-xs md:text-sm text-[var(--muted-foreground)] mt-0.5">
-            One Shared Team • Multiple Products • Quarterly Outcomes • Evidence-Based Flow (P1–P5 &amp; G1–G6 Aligned)
-          </p>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <h1 class="text-base md:text-lg font-bold text-[var(--foreground)] leading-tight">
+                OHB Controlled Scrumban Hub
+              </h1>
+              <span class="px-2 py-0.5 rounded-full text-xs font-semibold text-white" style="background-color: #C8962E;">
+                Hassan Al-Maqbali • Scrum Master
+              </span>
+            </div>
+            <p class="text-xs text-[var(--muted-foreground)] hidden sm:block">
+              One Shared Team • Multiple Products • Quarterly Outcomes • Evidence-Based Flow (P1–P5 &amp; G1–G6)
+            </p>
+          </div>
         </div>
+
+        <!-- Mobile Dark Mode Button -->
+        <button onclick="toggleTheme()" id="btn-theme-mobile" class="lg:hidden px-2.5 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-xs font-semibold">
+          🌓 Theme
+        </button>
       </div>
 
-      <!-- Mode Switcher Buttons -->
-      <div class="flex flex-wrap items-center gap-2">
-        <button id="btn-mode-deck" onclick="switchAppMode('deck')" class="px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-white shadow-sm" style="background-color: #2E7175;">
-          ▶ Slide Deck Mode (10 Slides)
+      <!-- Primary Navigation Tabs -->
+      <div class="flex flex-wrap items-center gap-1.5">
+        <button id="btn-mode-deck" onclick="switchAppMode('deck')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-white shadow-sm" style="background-color: #2E7175;">
+          ▶ 1. Slide Deck (10)
         </button>
-        <button id="btn-mode-lab" onclick="switchAppMode('lab')" class="px-4 py-2 rounded-lg text-xs md:text-sm font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all">
-          ⚡ Interactive Simulators &amp; Quiz
+        <button id="btn-mode-lab" onclick="switchAppMode('lab')" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all">
+          ⚡ 2. Simulators &amp; Quiz
         </button>
-        <button id="btn-mode-reference" onclick="switchAppMode('reference')" class="px-4 py-2 rounded-lg text-xs md:text-sm font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all">
-          📖 Full Study Reference
+        <button id="btn-mode-charisma" onclick="switchAppMode('charisma')" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all">
+          🧠 3. Charisma &amp; Mental Models
+        </button>
+        <button id="btn-mode-reference" onclick="switchAppMode('reference')" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all">
+          📖 4. Study Guide &amp; Scripts
+        </button>
+        <button id="btn-mode-dtforum" onclick="switchAppMode('dtforum')" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all">
+          🏛️ 5. D&amp;T Weekly Forum
+        </button>
+        <button onclick="toggleTheme()" id="btn-theme-desktop" class="hidden lg:inline-flex px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] text-xs font-semibold ml-1">
+          🌓 Dark / Light
         </button>
       </div>
     </div>
   </header>
 
-  <!-- ===================================================================== -->
-  <!-- MODE 1: INTERACTIVE SLIDE DECK PRESENTATION (10 MASTER SLIDES)        -->
-  <!-- ===================================================================== -->
-  <section id="view-deck" class="space-y-4">
-    <!-- Slide Controls Bar -->
-    <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-sm">
-      <div class="flex items-center gap-2">
-        <button onclick="changeSlide(-1)" id="btn-prev-slide" class="px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] text-xs font-semibold hover:opacity-90 disabled:opacity-40">
-          ← Previous
-        </button>
-        <span id="slide-counter-badge" class="px-3 py-1 rounded-md text-xs font-bold border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]">
-          Slide 1 of 10
-        </span>
-        <button onclick="changeSlide(1)" id="btn-next-slide" class="px-3 py-1.5 rounded-lg text-white text-xs font-semibold hover:opacity-90 disabled:opacity-40" style="background-color: #2E7175;">
-          Next →
-        </button>
-      </div>
+  <!-- Main Content Container -->
+  <main class="max-w-7xl mx-auto px-4 pt-6">
 
-      <!-- Slide Quick Dots -->
-      <div id="slide-dots" class="flex flex-wrap items-center gap-1.5"></div>
+    <!-- ===================================================================== -->
+    <!-- TAB 1: INTERACTIVE SLIDE DECK PRESENTATION (10 MASTER SLIDES)         -->
+    <!-- ===================================================================== -->
+    <section id="view-deck" class="space-y-4">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-2">
+          <button onclick="changeSlide(-1)" id="btn-prev-slide" class="px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] text-xs font-semibold hover:opacity-90 disabled:opacity-40">
+            ← Prev
+          </button>
+          <span id="slide-counter-badge" class="px-3 py-1 rounded-md text-xs font-bold border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]">
+            Slide 1 of 10
+          </span>
+          <button onclick="changeSlide(1)" id="btn-next-slide" class="px-3 py-1.5 rounded-lg text-white text-xs font-semibold hover:opacity-90 disabled:opacity-40" style="background-color: #2E7175;">
+            Next →
+          </button>
+        </div>
 
-      <div class="flex items-center gap-2">
+        <div id="slide-dots" class="flex flex-wrap items-center gap-1.5"></div>
+
         <button onclick="toggleSpeakerNotes()" id="btn-toggle-notes" class="px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] text-xs font-semibold">
-          🎙️ Hide SM Coaching Notes
+          🎙️ Hide SM Notes
         </button>
       </div>
-    </div>
 
-    <!-- Progress Bar -->
-    <div class="w-full h-1.5 bg-[var(--secondary)] rounded-full overflow-hidden">
-      <div id="slide-progress-bar" class="h-full transition-all duration-300" style="width: 10%; background-color: #C8962E;"></div>
-    </div>
-
-    <!-- Active Slide Container -->
-    <div id="slide-stage" class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 md:p-8 shadow-sm">
-      <!-- Dynamic Slide Content Injected by JS -->
-    </div>
-
-    <!-- Speaker / Scrum Master Conviction Notes Box -->
-    <div id="speaker-notes-panel" class="bg-[var(--card)] border-l-4 rounded-xl p-4 shadow-sm" style="border-left-color: #C8962E;">
-      <div class="flex items-center justify-between mb-1">
-        <span class="text-xs font-bold uppercase tracking-wider" style="color: #C8962E;">
-          🎙️ Hassan's Scrum Master Conviction &amp; Presenter Script (Use ← / → Arrow Keys to Navigate)
-        </span>
-        <span id="slide-source-ref" class="text-xs text-[var(--muted-foreground)] font-medium"></span>
-      </div>
-      <p id="speaker-notes-text" class="text-sm text-[var(--foreground)] leading-relaxed"></p>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- MODE 2: INTERACTIVE SIMULATORS & SCRUM MASTER QUIZ LAB                -->
-  <!-- ===================================================================== -->
-  <section id="view-lab" class="hidden space-y-6">
-
-    <!-- Sub-Navigation for Simulators -->
-    <div class="flex flex-wrap gap-2 bg-[var(--card)] border border-[var(--border)] rounded-xl p-3">
-      <button onclick="switchLabTab('policy')" id="lab-tab-policy" class="px-3.5 py-2 rounded-lg text-xs font-semibold text-white" style="background-color: #2E7175;">
-        1. 6-Step Policy Stack Gatekeeper
-      </button>
-      <button onclick="switchLabTab('bridge')" id="lab-tab-bridge" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
-        2. G1–G6 to P1–P5 Governance Bridge
-      </button>
-      <button onclick="switchLabTab('kanban')" id="lab-tab-kanban" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
-        3. 8-Stage Workflow &amp; Routes A/B/C
-      </button>
-      <button onclick="switchLabTab('capacity')" id="lab-tab-capacity" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
-        4. 70/20/10 Capacity Simulator
-      </button>
-      <button onclick="switchLabTab('quiz')" id="lab-tab-quiz" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
-        5. Scrum Master Scenario Drill (5 Qs)
-      </button>
-    </div>
-
-    <!-- LAB 1: 6-STEP POLICY STACK SIMULATOR -->
-    <div id="lab-panel-policy" class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-5 shadow-sm">
-      <div class="border-b border-[var(--border)] pb-4">
-        <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slides 12 &amp; 13 Simulator</span>
-        <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
-          Shared Ready Queue — 6-Step Policy Stack Gatekeeper
-        </h2>
-        <p class="text-sm text-[var(--muted-foreground)] mt-1">
-          As Scrum Master, you are the <strong>Replenishment Facilitator</strong>. Product Owners cannot inject work directly to developers. Test any incoming request against the 6-Step Policy Stack below to see your official ruling and script.
-        </p>
+      <div class="w-full h-1.5 bg-[var(--secondary)] rounded-full overflow-hidden">
+        <div id="slide-progress-bar" class="h-full transition-all duration-300" style="width: 10%; background-color: #C8962E;"></div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Controls Column -->
-        <div class="space-y-4">
-          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <label class="flex items-start gap-3 cursor-pointer">
-              <input type="checkbox" id="pol-1-auth" onchange="evaluatePolicyStack()" checked class="mt-1 h-4 w-4" />
-              <div>
-                <span class="text-sm font-bold text-[var(--foreground)]">Step 1: AUTHORIZED — Does OHB permit this work?</span>
-                <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
-                  Belongs to an approved Committed Goal, Stretch Goal, Operational Reserve, Technical Enabler allocation, Fixed-Date obligation, or valid Expedite.
-                </p>
-              </div>
-            </label>
-          </div>
+      <div id="slide-stage" class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-8 shadow-sm"></div>
 
-          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <label class="flex items-start gap-3 cursor-pointer">
-              <input type="checkbox" id="pol-2-ready" onchange="evaluatePolicyStack()" checked class="mt-1 h-4 w-4" />
-              <div>
-                <span class="text-sm font-bold text-[var(--foreground)]">Step 2: READY (Gate G4 DoR) — Can the team start responsibly?</span>
-                <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
-                  Clear outcome, testable acceptance criteria, sized Small/Medium, dependencies &amp; test data/environments ready, zero blockers.
-                </p>
-              </div>
-            </label>
-          </div>
-
-          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <label class="block text-sm font-bold text-[var(--foreground)] mb-1.5">
-              Step 3: SERVICE CLASS — What class of work is this?
-            </label>
-            <select id="pol-3-class" onchange="evaluatePolicyStack()" class="w-full p-2 rounded-lg border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] text-xs font-semibold">
-              <option value="committed">Standard — Committed MVP Story (70% Envelope)</option>
-              <option value="expedite">Expedite — Critical Outage / Security / Release Blocker (Global WIP = 1)</option>
-              <option value="fixed">Fixed Date — CBO Regulatory / Immovable Date (Sequence by Latest Start)</option>
-              <option value="operational">Operational — Live Production Support / Defect (10% Ops Reserve)</option>
-              <option value="enabler">Technical Enabler — CI/CD, Infra, Security Control (Planned Reserve)</option>
-              <option value="stretch">Stretch — Forecast / Stretch MVP Feature</option>
-            </select>
-          </div>
-
-          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <label class="flex items-start gap-3 cursor-pointer">
-              <input type="checkbox" id="pol-4-wip" onchange="evaluatePolicyStack()" checked class="mt-1 h-4 w-4" />
-              <div>
-                <span class="text-sm font-bold text-[var(--foreground)]">Step 4: CAPACITY &amp; WIP — Is there room in theWIP limit &amp; envelope?</span>
-                <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
-                  The Shared Ready Queue and Service Class capacity reserve have available slots.
-                </p>
-              </div>
-            </label>
-          </div>
-
-          <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <label class="flex items-start gap-3 cursor-pointer">
-              <input type="checkbox" id="pol-6-midquarter" onchange="evaluatePolicyStack()" class="mt-1 h-4 w-4" />
-              <div>
-                <span class="text-sm font-bold text-[var(--foreground)]">Step 6 Trigger: Is this an unplanned injection displacing another PO's committed work?</span>
-                <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
-                  Check this if a PO wants to jump the queue ahead of already-scheduled cross-product work.
-                </p>
-              </div>
-            </label>
-          </div>
+      <div id="speaker-notes-panel" class="bg-[var(--card)] border-l-4 rounded-xl p-4 shadow-sm" style="border-left-color: #C8962E;">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+          <span class="text-xs font-bold uppercase tracking-wider" style="color: #C8962E;">
+            🎙️ Hassan's Scrum Master Conviction &amp; Presenter Script
+          </span>
+          <span id="slide-source-ref" class="text-xs text-[var(--muted-foreground)] font-medium"></span>
         </div>
-
-        <!-- Ruling Output Column -->
-        <div class="flex flex-col justify-between p-5 rounded-xl border-2 border-[var(--border)] bg-[var(--background)]">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)]">Scrum Master Official Ruling</span>
-              <span id="pol-verdict-badge" class="px-3 py-1 rounded-full text-xs font-bold text-white" style="background-color: #2E7175;">
-                ADMIT TO SHARED READY QUEUE
-              </span>
-            </div>
-            <h3 id="pol-verdict-title" class="text-base font-bold text-[var(--foreground)]"></h3>
-            <p id="pol-verdict-reason" class="text-sm text-[var(--muted-foreground)] leading-relaxed"></p>
-
-            <div class="p-4 rounded-lg bg-[var(--card)] border border-[var(--border)]">
-              <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color: #C8962E;">
-                💬 Exact Word-for-Word Script for Hassan
-              </div>
-              <p id="pol-verdict-script" class="text-sm italic text-[var(--foreground)] leading-relaxed"></p>
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--muted-foreground)]">
-            <span>Step 5 Ranking: Goal contribution → Urgency → Risk → Dependency → Size → Learning</span>
-            <span class="font-semibold">Tie-breaker: FIFO only</span>
-          </div>
-        </div>
+        <p id="speaker-notes-text" class="text-sm text-[var(--foreground)] leading-relaxed"></p>
       </div>
-    </div>
+    </section>
 
-    <!-- LAB 2: G1-G6 TO OHB P1-P5 GOVERNANCE BRIDGE -->
-    <div id="lab-panel-bridge" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-5 shadow-sm">
-      <div class="border-b border-[var(--border)] pb-4">
-        <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slide 7 + OHB SOP Integration</span>
-        <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
-          End-to-End Lifecycle: Scrumban Gates (G1–G6) Mapped to OHB P1–P5 SOP
-        </h2>
-        <p class="text-sm text-[var(--muted-foreground)] mt-1">
-          Click any of the 7 Lifecycle Stages below to see how Scrumban preserves 100% of OHB's regulatory, PPM Central, Risk, ISO, and CAB governance while eliminating the P4 "black box."
-        </p>
+    <!-- ===================================================================== -->
+    <!-- TAB 2: INTERACTIVE SIMULATORS & SCRUM MASTER QUIZ LAB                 -->
+    <!-- ===================================================================== -->
+    <section id="view-lab" class="hidden space-y-6">
+      <div class="flex flex-wrap gap-2 bg-[var(--card)] border border-[var(--border)] rounded-xl p-3 shadow-sm">
+        <button onclick="switchLabTab('policy')" id="lab-tab-policy" class="px-3.5 py-2 rounded-lg text-xs font-semibold text-white" style="background-color: #2E7175;">
+          1. 6-Step Policy Stack Gatekeeper
+        </button>
+        <button onclick="switchLabTab('bridge')" id="lab-tab-bridge" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+          2. G1–G6 to P1–P5 Governance Bridge
+        </button>
+        <button onclick="switchLabTab('kanban')" id="lab-tab-kanban" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+          3. 8-Stage Workflow &amp; Routes A/B/C
+        </button>
+        <button onclick="switchLabTab('capacity')" id="lab-tab-capacity" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+          4. 70/20/10 Capacity Simulator
+        </button>
+        <button onclick="switchLabTab('quiz')" id="lab-tab-quiz" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+          5. Scrum Master Scenario Drill (5 Qs)
+        </button>
       </div>
 
-      <!-- Clickable Stage Pills -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2" id="bridge-stage-buttons"></div>
-
-      <!-- Stage Detail Card -->
-      <div id="bridge-stage-detail" class="p-5 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-4"></div>
-    </div>
-
-    <!-- LAB 3: 8-STAGE WORKFLOW & ROUTES A/B/C -->
-    <div id="lab-panel-kanban" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-5 shadow-sm">
-      <div class="border-b border-[var(--border)] pb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div>
-          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slide 18 Interactive Board</span>
+      <!-- LAB 1: 6-STEP POLICY STACK -->
+      <div id="lab-panel-policy" class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 space-y-5 shadow-sm">
+        <div class="border-b border-[var(--border)] pb-4">
+          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slides 12 &amp; 13 Live Tool</span>
           <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
-            8-Column Delivery Workflow, Embedded Controls &amp; Validation Routes
+            Shared Ready Queue — 6-Step Policy Stack Gatekeeper
           </h2>
-          <p class="text-sm text-[var(--muted-foreground)] mt-0.5">
-            Select a Validation Route (A, B, or C) or activate <strong>Right-to-Left Daily Flow Walk</strong> to see how work and controls move across the board.
+          <p class="text-sm text-[var(--muted-foreground)] mt-1">
+            As Scrum Master, you chair <strong>Weekly Replenishment</strong>. Product Owners cannot inject work directly to developers. Run any request through these 6 checks to get your official ruling and exact script.
           </p>
         </div>
-        <div class="flex flex-wrap gap-2">
-          <button onclick="setKanbanRoute('A')" id="btn-route-A" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white" style="background-color: #2E7175;">
-            Route A: Independent Story
-          </button>
-          <button onclick="setKanbanRoute('B')" id="btn-route-B" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
-            Route B: Connected Story
-          </button>
-          <button onclick="setKanbanRoute('C')" id="btn-route-C" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
-            Route C: Tech Enabler
-          </button>
-          <button onclick="setKanbanRoute('R2L')" id="btn-route-R2L" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white" style="background-color: #C8962E;">
-            ⬅ Daily Flow Walk (Right-to-Left)
-          </button>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="space-y-3.5">
+            <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" id="pol-1-auth" onchange="evaluatePolicyStack()" checked class="mt-1 h-4 w-4" />
+                <div>
+                  <span class="text-sm font-bold text-[var(--foreground)]">Step 1: AUTHORIZED — Does OHB permit this work?</span>
+                  <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
+                    Belongs to an approved Committed Goal, Stretch Goal, Operational Reserve, Technical Enabler allocation, Fixed-Date obligation, or valid Expedite.
+                  </p>
+                </div>
+              </label>
+            </div>
+
+            <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" id="pol-2-ready" onchange="evaluatePolicyStack()" checked class="mt-1 h-4 w-4" />
+                <div>
+                  <span class="text-sm font-bold text-[var(--foreground)]">Step 2: READY (Gate G4 DoR) — Can the team start responsibly?</span>
+                  <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
+                    Clear outcome, testable acceptance criteria, sized Small/Medium, dependencies &amp; test data/environments ready, zero blockers.
+                  </p>
+                </div>
+              </label>
+            </div>
+
+            <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <label class="block text-sm font-bold text-[var(--foreground)] mb-1.5">
+                Step 3: SERVICE CLASS — What class of work is this?
+              </label>
+              <select id="pol-3-class" onchange="evaluatePolicyStack()" class="w-full p-2 rounded-lg border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] text-xs font-semibold">
+                <option value="committed">Standard — Committed MVP Story (70% Envelope)</option>
+                <option value="expedite">Expedite — Critical Outage / Security / Release Blocker (Global WIP = 1)</option>
+                <option value="fixed">Fixed Date — CBO Regulatory / Immovable Date (Sequence by Latest Start)</option>
+                <option value="operational">Operational — Live Production Support / Defect (10% Ops Reserve)</option>
+                <option value="enabler">Technical Enabler — CI/CD, Infra, Security Control (Planned Reserve)</option>
+                <option value="stretch">Stretch — Forecast / Stretch MVP Feature</option>
+              </select>
+            </div>
+
+            <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" id="pol-4-wip" onchange="evaluatePolicyStack()" checked class="mt-1 h-4 w-4" />
+                <div>
+                  <span class="text-sm font-bold text-[var(--foreground)]">Step 4: CAPACITY &amp; WIP — Is there room in the WIP limit &amp; envelope?</span>
+                  <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
+                    The Shared Ready Queue and Service Class capacity reserve have open slots.
+                  </p>
+                </div>
+              </label>
+            </div>
+
+            <div class="p-3.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" id="pol-6-midquarter" onchange="evaluatePolicyStack()" class="mt-1 h-4 w-4" />
+                <div>
+                  <span class="text-sm font-bold text-[var(--foreground)]">Step 6 Trigger: Does this displace another PO's committed work?</span>
+                  <p class="text-xs text-[var(--muted-foreground)] mt-0.5">
+                    Check this if a PO wants to jump ahead of already-scheduled cross-product work.
+                  </p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-between p-5 rounded-xl border-2 border-[var(--border)] bg-[var(--background)]">
+            <div class="space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)]">Scrum Master Official Ruling</span>
+                <span id="pol-verdict-badge" class="px-3 py-1 rounded-full text-xs font-bold text-white" style="background-color: #2E7175;">
+                  ADMIT TO SHARED READY QUEUE
+                </span>
+              </div>
+              <h3 id="pol-verdict-title" class="text-base font-bold text-[var(--foreground)]"></h3>
+              <p id="pol-verdict-reason" class="text-sm text-[var(--muted-foreground)] leading-relaxed"></p>
+
+              <div class="p-4 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color: #C8962E;">
+                  💬 Exact Word-for-Word Script for Hassan
+                </div>
+                <p id="pol-verdict-script" class="text-sm italic text-[var(--foreground)] leading-relaxed"></p>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--muted-foreground)]">
+              <span>Step 5 Ranking: Goal → Urgency → Risk → Dependency → Size → Learning</span>
+              <span class="font-semibold">Tie-breaker: FIFO only</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div id="kanban-route-banner" class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] text-sm"></div>
-
-      <!-- 8 Columns Grid -->
-      <div id="kanban-columns-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
-    </div>
-
-    <!-- LAB 4: 70/20/10 CAPACITY SIMULATOR -->
-    <div id="lab-panel-capacity" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-5 shadow-sm">
-      <div class="border-b border-[var(--border)] pb-4">
-        <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slide 15 &amp; 23 Simulator</span>
-        <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
-          Capacity Envelope Planner (Why 100% Feature Capacity is a Myth)
-        </h2>
-        <p class="text-sm text-[var(--muted-foreground)] mt-1">
-          Test the pilot capacity hypothesis across your shared team and simulate Decision #4 (adding an explicit Technical Enabler reserve) or handling a UAT surge.
-        </p>
+      <!-- LAB 2: G1-G6 TO OHB P1-P5 BRIDGE -->
+      <div id="lab-panel-bridge" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 space-y-5 shadow-sm">
+        <div class="border-b border-[var(--border)] pb-4">
+          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slide 7 + OHB SOP Integration</span>
+          <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+            End-to-End Lifecycle: Scrumban Gates (G1–G6) Mapped to OHB P1–P5 SOP
+          </h2>
+          <p class="text-sm text-[var(--muted-foreground)] mt-1">
+            Tap any stage below to see how Scrumban preserves 100% of OHB's regulatory, PPM Central, Risk, ISO, and CAB governance while eliminating the P4 "black box."
+          </p>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2" id="bridge-stage-buttons"></div>
+        <div id="bridge-stage-detail" class="p-5 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-4"></div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="space-y-4">
+      <!-- LAB 3: 8-STAGE WORKFLOW & ROUTES A/B/C -->
+      <div id="lab-panel-kanban" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 space-y-5 shadow-sm">
+        <div class="border-b border-[var(--border)] pb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div>
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slide 18 Interactive Board</span>
+            <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+              8-Column Delivery Workflow, Embedded Controls &amp; Validation Routes
+            </h2>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="setKanbanRoute('A')" id="btn-route-A" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white" style="background-color: #2E7175;">
+              Route A: Independent Story
+            </button>
+            <button onclick="setKanbanRoute('B')" id="btn-route-B" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+              Route B: Connected Story
+            </button>
+            <button onclick="setKanbanRoute('C')" id="btn-route-C" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+              Route C: Tech Enabler
+            </button>
+            <button onclick="setKanbanRoute('R2L')" id="btn-route-R2L" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white" style="background-color: #C8962E;">
+              ⬅ Daily Flow Walk (Right-to-Left)
+            </button>
+          </div>
+        </div>
+        <div id="kanban-route-banner" class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] text-sm"></div>
+        <div id="kanban-columns-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+      </div>
+
+      <!-- LAB 4: 70/20/10 CAPACITY SIMULATOR -->
+      <div id="lab-panel-capacity" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 space-y-5 shadow-sm">
+        <div class="border-b border-[var(--border)] pb-4">
+          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Slide 15 &amp; 23 Simulator</span>
+          <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+            Capacity Envelope Planner (Why 100% Feature Capacity is a Myth)
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-3">
+              <label class="block text-sm font-bold text-[var(--foreground)]">
+                Total Shared Team Capacity per Sprint (Days / Slots): <span id="cap-total-val" class="font-bold" style="color: #C8962E;">40</span>
+              </label>
+              <input type="range" id="cap-total-slider" min="20" max="80" step="5" value="40" oninput="updateCapacitySim()" class="w-full" />
+            </div>
+            <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+              <span class="text-sm font-bold text-[var(--foreground)]">Select Capacity Policy Scenario:</span>
+              <div class="space-y-2 pt-1">
+                <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+                  <input type="radio" name="cap-scenario" value="baseline" checked onchange="updateCapacitySim()" />
+                  Baseline Pilot Hypothesis (70% MVP Features / 20% UAT &amp; Release / 10% Ops)
+                </label>
+                <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+                  <input type="radio" name="cap-scenario" value="enabler" onchange="updateCapacitySim()" />
+                  Recommended Decision #4: Explicit Enabler Reserve (60% MVP / 10% Tech Enablers / 20% UAT / 10% Ops)
+                </label>
+                <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+                  <input type="radio" name="cap-scenario" value="uatsurge" onchange="updateCapacitySim()" />
+                  UAT Wave Surge Simulation (Actual UAT hits 35%, Ops 15%)
+                </label>
+              </div>
+            </div>
+          </div>
+          <div id="cap-output-card" class="p-5 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-4"></div>
+        </div>
+      </div>
+
+      <!-- LAB 5: SCRUM MASTER SCENARIO QUIZ -->
+      <div id="lab-panel-quiz" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 space-y-5 shadow-sm">
+        <div class="border-b border-[var(--border)] pb-4 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">Mastery Check</span>
+            <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+              Live OHB Scrum Master Reflex Drill (5 Real-World Scenarios)
+            </h2>
+          </div>
+          <div id="quiz-score-badge" class="px-4 py-2 rounded-xl border border-[var(--border)] bg-[var(--background)] text-sm font-bold">
+            Score: 0 / 5
+          </div>
+        </div>
+        <div id="quiz-questions-container" class="space-y-4"></div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 3: CHARISMA, EXECUTIVE RESPECT & 7 MENTAL MODELS PLAYBOOK         -->
+    <!-- ===================================================================== -->
+    <section id="view-charisma" class="hidden space-y-6">
+
+      <!-- Hero Banner: The Formula for Respect -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 shadow-sm space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-4">
+          <div>
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">Personal Mastery Blueprint</span>
+            <h2 class="text-xl font-bold text-[var(--foreground)] mt-2">
+              The Commanding Scrum Master: Charisma, Gravity &amp; Mental Models
+            </h2>
+            <p class="text-sm text-[var(--muted-foreground)] mt-0.5">
+              Why "good English" isn't enough—and how to speak with headlines, trade-offs, and unshakeable process authority at OHB.
+            </p>
+          </div>
+          <div class="px-4 py-2.5 rounded-xl text-white text-xs font-bold" style="background-color: #2E7175;">
+            Commanding Presence = Composure + Vocal BLUF + Process Neutrality
+          </div>
+        </div>
+
+        <!-- Polite vs Commanding Comparison -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-xl border border-red-500/30 bg-red-500/5 space-y-2">
+            <div class="font-bold text-sm text-red-500">❌ "Polite Coordinator" Traps (Erodes Respect)</div>
+            <ul class="space-y-1.5 text-[var(--foreground)]">
+              <li>• <strong>Chronological Explaining:</strong> Giving 90 seconds of backstory before stating the decision needed.</li>
+              <li>• <strong>Hedge Words:</strong> Saying <em>"Sorry, I just think maybe we could try..."</em></li>
+              <li>• <strong>Personal Confrontation:</strong> Arguing personal opinions with a Business Lead about whether their feature matters.</li>
+              <li>• <strong>Rushing Silence:</strong> Talking faster when interrupted or challenged.</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2" style="border-left: 4px solid #2E7175;">
+            <div class="font-bold text-sm" style="color: #2E7175;">✅ "Commanding Scrum Master" Habits (Builds Gravity)</div>
+            <ul class="space-y-1.5 text-[var(--foreground)]">
+              <li>• <strong>Vocal BLUF:</strong> Give the headline or trade-off in Sentence 1, then pause.</li>
+              <li>• <strong>The 2-Second Pause:</strong> Pause 2 full seconds after a tough question, nod slowly, speak 15% slower.</li>
+              <li>• <strong>The Velvet Hammer:</strong> Warm toward the person (<em>"I want this live for you"</em>), unyielding on the process (<em>"Here is what Gate G4 requires"</em>).</li>
+              <li>• <strong>Visual Anchoring:</strong> Keep eyes on the <strong>Shared Ready Queue &amp; Metrics</strong> on screen, never in a personal staring contest.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive 7 Mental Models Selector -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 shadow-sm space-y-4">
+        <div>
+          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Pre-Meeting Mindset</span>
+          <h3 class="text-lg font-bold text-[var(--foreground)] mt-2">
+            The 7 Mental Models to Enter Any OHB Meeting Like a Master
+          </h3>
+          <p class="text-xs md:text-sm text-[var(--muted-foreground)]">
+            Tap any mental model below before walking into a meeting to load your mindset and exact power script.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2" id="mm-buttons-grid"></div>
+        <div id="mm-detail-box" class="p-5 rounded-xl border-2 border-[var(--border)] bg-[var(--background)] space-y-3"></div>
+      </div>
+
+      <!-- NEW: Interactive 8 Spontaneous Speech Structures (Matt Abrahams Spine) -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 shadow-sm space-y-4">
+        <div class="border-b border-[var(--border)] pb-3">
+          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">Think Fast, Talk Smart — Speech Packaging</span>
+          <h3 class="text-lg font-bold text-[var(--foreground)] mt-2">
+            The 8 Spontaneous Speech Structures (How Mental Models Become Spoken Authority)
+          </h3>
+          <p class="text-xs md:text-sm text-[var(--muted-foreground)] mt-0.5">
+            <strong>How They Connect:</strong> A <em>Mental Model</em> is <strong>how you think</strong> (your internal stance before speaking). A <em>Speech Structure</em> is <strong>how you package your words</strong> (the 3-step vocal container that stops you from rambling). Tap any structure below to practice its OHB script:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2" id="ss-buttons-grid"></div>
+        <div id="ss-detail-box" class="p-5 rounded-xl border-2 border-[var(--border)] bg-[var(--background)] space-y-3"></div>
+      </div>
+
+      <!-- Curated Learning Library with Direct Clickable Links -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 shadow-sm space-y-4">
+        <div>
+          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">Curated Learning Library</span>
+          <h3 class="text-lg font-bold text-[var(--foreground)] mt-2">
+            World-Class Courses, Talks, Podcasts &amp; Books (Click to Open)
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <!-- Column 1: Executive Communication & Charisma -->
           <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-3">
-            <label class="block text-sm font-bold text-[var(--foreground)]">
-              Total Shared Team Capacity per Sprint (Developer Days / Story Slots): <span id="cap-total-val" class="font-bold" style="color: #C8962E;">40</span>
-            </label>
-            <input type="range" id="cap-total-slider" min="20" max="80" step="5" value="40" oninput="updateCapacitySim()" class="w-full" />
+            <div class="font-bold text-sm" style="color: #2E7175;">🎙️ 1. Spontaneous Speaking &amp; Charisma</div>
+            <div class="space-y-2.5">
+              <a href="https://www.youtube.com/watch?v=HAnw168huqA" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #C8962E;">▶ YouTube: Think Fast, Talk Smart (Matt Abrahams — Stanford GSB)</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Watch this 55-min lecture first. Teaches the exact <em>What → So What → Now What</em> structure for speaking under pressure.</p>
+              </a>
+              <a href="https://www.gsb.stanford.edu/business-podcasts/think-fast-talk-smart-podcast" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #2E7175;">🎧 Podcast: Think Fast, Talk Smart (Stanford)</div>
+                <p class="text-[var(--muted-foreground)] mt-1">15-minute commute episodes on executive presence, handling interruptions, and concise framing.</p>
+              </a>
+              <a href="https://www.youtube.com/@Charismaoncommand" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #2E7175;">▶ YouTube: Charisma on Command</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Visual breakdowns of vocal weight, the 2-second pause, eye contact, and commanding respect without aggression.</p>
+              </a>
+              <a href="https://www.youtube.com/watch?v=LMu_md_5PQ4" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #2E7175;">📘 Book &amp; Google Talk: The Charisma Myth (Olivia Fox Cabane)</div>
+                <p class="text-[var(--muted-foreground)] mt-1">How to combine Presence + Power + Warmth inside corporate meetings.</p>
+              </a>
+              <a href="https://www.linkedin.com/learning/communicating-with-confidence" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #2E7175;">🎓 LinkedIn Learning: Communicating with Confidence</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Tactical drills on vocal downward inflection and eliminating filler words.</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: Principled Negotiation & Influence -->
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-3">
+            <div class="font-bold text-sm" style="color: #C8962E;">🤝 2. Principled Pushback &amp; Negotiation</div>
+            <div class="space-y-2.5">
+              <a href="https://www.youtube.com/watch?v=guZa7mQV1l0" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #C8962E;">▶ YouTube / Book: Never Split the Difference (Chris Voss at Google)</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Learn Tactical Empathy and Calibrated Questions (<em>"How am I supposed to pull this today without displacing Q1's Committed Goal?"</em>).</p>
+              </a>
+              <a href="https://www.youtube.com/watch?v=9K8W4o7g0bU" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #2E7175;">▶ YouTube / Book: Crucial Conversations (Joseph Grenny)</div>
+                <p class="text-[var(--muted-foreground)] mt-1">How to hold tough boundaries with senior stakeholders when emotions and politics run high.</p>
+              </a>
+              <a href="https://www.youtube.com/watch?v=OqmdLcyES_Q" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #2E7175;">▶ YouTube / Book: Turn the Ship Around! (David Marquet)</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Intent-Based Leadership: how to coach developers and POs to take ownership instead of waiting for orders.</p>
+              </a>
+              <a href="https://www.linkedin.com/learning/search?keywords=influencing%20without%20authority" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #2E7175;">🎓 LinkedIn Learning: Influencing Without Authority</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Essential techniques for Scrum Masters leading cross-functional banking teams.</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 3: Scrumban & Kanban Flow Mastery -->
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-3">
+            <div class="font-bold text-sm" style="color: #2E7175;">📊 3. Scrumban &amp; Flow Physics Mastery</div>
+            <div class="space-y-2.5">
+              <a href="https://www.youtube.com/@DrunkAgile" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #C8962E;">▶ YouTube: Drunk Agile (Daniel Vacanti &amp; Prateek Singh)</div>
+                <p class="text-[var(--muted-foreground)] mt-1">The #1 channel explaining OHB's exact model: WIP limits, Work-Item Age, Right-to-Left standups, and Throughput forecasting.</p>
+              </a>
+              <a href="https://www.scrum.org/resources/kanban-guide-scrum-teams" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #2E7175;">📄 Official Guide: The Kanban Guide for Scrum Teams (Scrum.org)</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Short, authoritative reference for the exact flow metrics on Slide 21 of OHB's presentation.</p>
+              </a>
+              <a href="https://www.youtube.com/watch?v=R8wA2tbfWWs" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #2E7175;">▶ YouTube / Book: Making Work Visible (Dominica DeGrandis)</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Explains the 5 Thieves of Time behind OHB's 70/20/10 capacity envelopes and Shared Ready Queue.</p>
+              </a>
+              <a href="https://www.coursera.org/learn/agile-atlassian-jira" target="_blank" rel="noopener" class="block p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] hover:opacity-90">
+                <div class="font-bold underline" style="color: #2E7175;">🎓 Coursera: Agile with Atlassian Jira</div>
+                <p class="text-[var(--muted-foreground)] mt-1">Hands-on setup of Scrumban boards, WIP limits, Service Class swimlanes, and flow charts.</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive 4-Week Habit Tracker (Saved in Browser localStorage) -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 shadow-sm space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Interactive Habit Tracker</span>
+            <h3 class="text-lg font-bold text-[var(--foreground)] mt-1">
+              Hassan's 4-Week Commanding Scrum Master Drills
+            </h3>
+            <p class="text-xs text-[var(--muted-foreground)]">
+              Check off each drill as you practice it at OHB (your progress saves automatically on this device).
+            </p>
+          </div>
+          <button onclick="resetHabits()" class="px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-xs font-semibold">
+            Reset Checklist
+          </button>
+        </div>
+        <div id="habit-checklist-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs"></div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 4: FULL STUDY REFERENCE & STAKEHOLDER OBJECTION SCRIPTS           -->
+    <!-- ===================================================================== -->
+    <section id="view-reference" class="hidden space-y-6">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 space-y-4 shadow-sm">
+        <div>
+          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Persuasion Playbook</span>
+          <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
+            Word-for-Word Stakeholder Objection Scripts (Convincing OHB)
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-[var(--foreground)]">🏛️ 1. ExCom / MSSC / Product Sponsors</h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 2, 6, 8, 9, 21</span>
+            </div>
+            <p class="text-xs text-[var(--muted-foreground)]">
+              <strong>Hidden Fear:</strong> "Agile means no fixed dates or scope, and the team will use 'Agile' as an excuse when quarterly targets slip."
+            </p>
+            <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
+              <strong>Your Pitch:</strong> "In our current Waterfall P4 phase, you wait 160 working days in a black box (Audit Finding F12) and discover delays only when UAT fails. Under Controlled Scrumban, we lock <strong>Committed Goals</strong> at Gate G3 backed by confirmed capacity and a protected <strong>Mandatory MVP boundary</strong>. Speculative Forecast and Pipeline Discovery items are separated so they never sabotage your Committed targets. And every two weeks at Sprint Review, you inspect working software—not a green slide deck that turns red before CAB."
+            </p>
           </div>
 
           <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
-            <span class="text-sm font-bold text-[var(--foreground)]">Select Capacity Policy Scenario (Slide 15 &amp; 23):</span>
-            <div class="space-y-2 pt-1">
-              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
-                <input type="radio" name="cap-scenario" value="baseline" checked onchange="updateCapacitySim()" />
-                Baseline Pilot Hypothesis (70% MVP Features / 20% UAT &amp; Release / 10% Ops)
-              </label>
-              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
-                <input type="radio" name="cap-scenario" value="enabler" onchange="updateCapacitySim()" />
-                Recommended Decision #4: Explicit Enabler Reserve (60% MVP / 10% Tech Enablers / 20% UAT / 10% Ops)
-              </label>
-              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
-                <input type="radio" name="cap-scenario" value="uatsurge" onchange="updateCapacitySim()" />
-                UAT Wave Surge Simulation (Actual UAT hits 35%, Ops 15% — Uncontrolled vs Controlled)
-              </label>
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-[var(--foreground)]">🛡️ 2. Risk, ISO, Compliance, CAB &amp; Internal Audit</h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 3, 4, 7, 18</span>
+            </div>
+            <p class="text-xs text-[var(--muted-foreground)]">
+              <strong>Hidden Fear:</strong> "Agile teams skip documentation, bypass security reviews, and deploy untested code without audit trails."
+            </p>
+            <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
+              <strong>Your Pitch:</strong> "This model embeds <strong>Controls by Design</strong> across <strong>6 formal Lifecycle Gates (G1–G6)</strong> and <strong>8 workflow stages</strong>. No story starts without Entry Evidence (G4 DoR). No code moves to test without <strong>Maker-Checker peer review</strong>. Every story follows validation <strong>Route A, B, or C</strong>. Nothing reaches production without <strong>G5 (UAT Accepted)</strong> and <strong>G6 (Release Ready — VAPT, Rollback Plan, CAB approval)</strong>. It directly resolves Audit Findings F12, F15, and F17."
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-[var(--foreground)]">🎯 3. Business Leads / Product Owners</h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 9, 10, 12, 13</span>
+            </div>
+            <p class="text-xs text-[var(--muted-foreground)]">
+              <strong>Hidden Fear:</strong> "If I can't email a developer directly mid-Sprint, my department's priorities will lose out to other departments."
+            </p>
+            <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
+              <strong>Your Pitch:</strong> "When every PO pushes 'urgent' work directly onto developers, engineers context-switch 5 times a day and nothing finishes. By routing work through <strong>Weekly Replenishment</strong> into a WIP-limited <strong>Shared Ready Queue</strong>, once the team pulls your story, <strong>they finish it before starting more</strong>. You own 100% of your Product Backlog's order, and our <strong>Cross-Product Change Rule</strong> protects your Committed work from being displaced by another PO without formal escalation."
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-[var(--foreground)]">💻 4. Developers, Tech Leads &amp; QA</h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 12, 14, 15, 19, 21</span>
+            </div>
+            <p class="text-xs text-[var(--muted-foreground)]">
+              <strong>Hidden Fear:</strong> "More ceremonies, POs lobbying us directly, zero time for tech debt, and management ranking our individual story points."
+            </p>
+            <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
+              <strong>Your Pitch:</strong> "This framework shields you from chaos. First, <strong>POs cannot inject work directly to you</strong>—you only pull from the single <strong>Shared Ready Queue</strong> after items pass Definition of Ready. Second, we reserve <strong>20% capacity for UAT support and 10% for Operations</strong>, and make <strong>Technical Enablers</strong> a formal Service Class. Third, <strong>individual velocity, lines of code, and AI prompt counts are strictly prohibited</strong> as management metrics."
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 space-y-3 shadow-sm">
+          <h3 class="text-base font-bold text-[var(--foreground)]">
+            📅 The 7 Ceremonies &amp; Their Distinct Decision Purpose (Slides 16–17)
+          </h3>
+          <div class="space-y-2 text-xs">
+            <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <strong>1. Quarterly Planning (Gate G3):</strong> Approve Outcomes, classify <code>Committed / Forecast / Candidate</code>, set 70/20/10 capacity, lock control windows.
+            </div>
+            <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <strong>2. Feature Refinement:</strong> Slice features into testable stories (<code>Small/Medium</code>), assign <strong>Route A, B, or C</strong>, confirm dependencies.
+            </div>
+            <div class="p-2.5 rounded-lg border-l-4 border border-[var(--border)] bg-[var(--background)]" style="border-left-color: #C8962E;">
+              <strong>3. Backlog Replenishment (NEW — Chaired by SM):</strong> Weekly/Pre-Sprint gate filtering ready work via the <strong>6-Step Policy Stack</strong> into the <strong>One Shared Ready Queue</strong>.
+            </div>
+            <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <strong>4. Sprint Planning:</strong> Set <strong>one primary Sprint Goal</strong> and pull conservative feasible work from the Shared Ready Queue.
+            </div>
+            <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <strong>5. Daily Flow Review:</strong> Walk the board <strong>Right-to-Left</strong> focusing on completion, Work-Item Age, blockers, and WIP limits (not "what I did yesterday").
+            </div>
+            <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <strong>6. Sprint Review:</strong> Inspect integrated working software and return stakeholder feedback to the ordered Product Backlog.
+            </div>
+            <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
+              <strong>7. Retrospective:</strong> Inspect system flow/quality metrics and commit to <strong>1–2 concrete system improvements</strong>.
             </div>
           </div>
         </div>
 
-        <div id="cap-output-card" class="p-5 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-4"></div>
-      </div>
-    </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 md:p-6 space-y-3 shadow-sm">
+          <h3 class="text-base font-bold text-[var(--foreground)]">
+            📐 Progressive Estimation &amp; The 6 Executive Decisions (Slides 14 &amp; 23)
+          </h3>
+          <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-1.5 text-xs">
+            <div class="font-bold" style="color: #C8962E;">"Estimate informs forecast; forecast informs commitment; an estimate is never a commitment."</div>
+            <div>• <strong>Demand / Candidate (G1–G2):</strong> <code>XS–XL</code> + uncertainty rating (Discovery need)</div>
+            <div>• <strong>MVP / Quarter Goal (G3):</strong> Mandatory feature-group sizes + dependencies (Commitment)</div>
+            <div>• <strong>Feature / Enhancement:</strong> <code>XS–XL</code> + reference feature comparison (Trade-offs)</div>
+            <div>• <strong>User Story (G4):</strong> Right-sized <code>Small / Medium / Too Large</code> (Points optional)</div>
+            <div>• <strong>Delivery System Forecast:</strong> Empirical <strong>Throughput + Cycle-Time distributions</strong></div>
+          </div>
 
-    <!-- LAB 5: SCRUM MASTER SCENARIO QUIZ -->
-    <div id="lab-panel-quiz" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-5 shadow-sm">
-      <div class="border-b border-[var(--border)] pb-4 flex items-center justify-between">
-        <div>
-          <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">Mastery Check</span>
-          <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
-            Live OHB Scrum Master Reflex Drill (5 Real-World Scenarios)
-          </h2>
-          <p class="text-sm text-[var(--muted-foreground)] mt-0.5">
-            Test your command of the framework rules before you walk into ExCom or Product Owner workshops.
-          </p>
+          <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-1.5 text-xs">
+            <div class="font-bold text-[var(--foreground)]">6 Management Decisions Requested on Slide 23:</div>
+            <div><strong>1. Operating Model:</strong> Adopt Controlled Scrumban + DevOps + OHB Governance.</div>
+            <div><strong>2. Roadmap Language:</strong> Adopt <code>Committed / Forecast (or Stretch) / Pipeline Candidate</code>.</div>
+            <div><strong>3. Prioritization Model:</strong> Approve <strong>Option A</strong> (Executive Quarterly Order + Weekly Replenishment).</div>
+            <div><strong>4. Capacity Policy:</strong> Approve <code>70/20/10</code> reserves + decide explicit Technical Enabler reserve.</div>
+            <div><strong>5. Queue Governance:</strong> Approve <strong>One Shared Ready Queue</strong>, neutral SM facilitator &amp; change rule.</div>
+            <div><strong>6. Pilot Mandate:</strong> Authorize <strong>Sprint 0</strong> + 1 representative product pilot.</div>
+          </div>
         </div>
-        <div id="quiz-score-badge" class="px-4 py-2 rounded-xl border border-[var(--border)] bg-[var(--background)] text-sm font-bold">
-          Score: 0 / 5
-        </div>
       </div>
+    </section>
 
-      <div id="quiz-questions-container" class="space-y-4"></div>
-    </div>
+    <!-- ===================================================================== -->
+    <!-- TAB 5: D&T WEEKLY MANAGEMENT FORUM & SCRUMBAN EXECUTIVE UPDATE HUB     -->
+    <!-- ===================================================================== -->
+    <section id="view-dtforum" class="hidden space-y-6">
 
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- MODE 3: FULL STUDY REFERENCE & STAKEHOLDER OBJECTION PLAYBOOK         -->
-  <!-- ===================================================================== -->
-  <section id="view-reference" class="hidden space-y-6">
-
-    <!-- Stakeholder Persuasion Playbook -->
-    <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-4 shadow-sm">
-      <div>
-        <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Persuasion Playbook</span>
-        <h2 class="text-lg font-bold text-[var(--foreground)] mt-2">
-          How to Convince Every OHB Stakeholder Group (Word-for-Word Scripts)
+      <!-- Top Banner -->
+      <div class="bg-[var(--card)] border-l-4 border border-[var(--border)] rounded-xl p-5 md:p-6 shadow-sm" style="border-left-color: #2E7175;">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">
+              D&amp;T Leadership Forum • Terms of Reference &amp; Annex A
+            </span>
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">
+              Sundays 10:00–11:30 AM • Ibri Fort (Muscat)
+            </span>
+          </div>
+          <span class="text-xs font-semibold text-[var(--muted-foreground)]">
+            Pre-Read Deadline: Thursday Midday (12:00 PM) • EPMO &amp; Agile (Abeer Al-Raisi / Hassan Al-Maqbali)
+          </span>
+        </div>
+        <h2 class="text-xl md:text-2xl font-bold text-[var(--foreground)] mt-2">
+          D&amp;T Weekly Management Forum — Scrumban Executive Playbook &amp; Live Slide Studio
         </h2>
-        <p class="text-sm text-[var(--muted-foreground)]">
-          Click each stakeholder persona to view their hidden fear and the exact counter-narrative that proves Controlled Scrumban protects their interests.
+        <p class="text-xs md:text-sm text-[var(--muted-foreground)] mt-1 leading-relaxed">
+          <strong>BLUF:</strong> The D&amp;T Weekly Management Forum is an <strong>Exception-Based Operating System</strong>, not a traditional Waterfall status readout. Every item is tagged <code>Run</code> or <code>Build</code>, pre-reads are assumed read, Green items stay silent in the table, and Item 6 (Top 3 Priorities) locks in next week's Item 1 (Wins).
         </p>
-      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-[var(--foreground)]">🏛️ 1. ExCom / MSSC / Product Sponsors</h3>
-            <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 2, 6, 8, 9, 21</span>
-          </div>
-          <p class="text-xs text-[var(--muted-foreground)]">
-            <strong>Hidden Fear:</strong> "Agile means no fixed dates or scope, and the team will use 'Agile' as an excuse when quarterly targets slip."
-          </p>
-          <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
-            <strong>Your Pitch:</strong> "In our current Waterfall P4 phase, you wait 160 working days in a black box (Audit Finding F12) and discover delays only when UAT fails. Under Controlled Scrumban, we lock <strong>Committed Goals</strong> at Gate G3 backed by confirmed capacity and a protected <strong>Mandatory MVP boundary</strong>. Speculative Forecast and Pipeline Discovery items are separated so they never sabotage your Committed targets. And every two weeks at Sprint Review, you inspect working software—not a green slide deck that turns red before CAB."
-          </p>
-        </div>
-
-        <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-[var(--foreground)]">🛡️ 2. Risk, ISO, Compliance, CAB &amp; Internal Audit</h3>
-            <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 3, 4, 7, 18</span>
-          </div>
-          <p class="text-xs text-[var(--muted-foreground)]">
-            <strong>Hidden Fear:</strong> "Agile teams skip documentation, bypass security reviews, and deploy untested code without audit trails."
-          </p>
-          <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
-            <strong>Your Pitch:</strong> "This model embeds <strong>Controls by Design</strong> across <strong>6 formal Lifecycle Gates (G1–G6)</strong> and <strong>8 workflow stages</strong>. No story starts without Entry Evidence (G4 DoR). No code moves to test without <strong>Maker-Checker peer review</strong>. Every story follows validation <strong>Route A, B, or C</strong>. Nothing reaches production without <strong>G5 (UAT Accepted)</strong> and <strong>G6 (Release Ready — VAPT, Rollback Plan, CAB approval)</strong>. It directly resolves Audit Findings F12, F15, and F17."
-          </p>
-        </div>
-
-        <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-[var(--foreground)]">🎯 3. Business Leads / Product Owners</h3>
-            <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 9, 10, 12, 13</span>
-          </div>
-          <p class="text-xs text-[var(--muted-foreground)]">
-            <strong>Hidden Fear:</strong> "If I can't email a developer directly mid-Sprint, my department's priorities will lose out to other departments."
-          </p>
-          <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
-            <strong>Your Pitch:</strong> "When every PO pushes 'urgent' work directly onto developers, engineers context-switch 5 times a day and nothing finishes. By routing work through <strong>Weekly Replenishment</strong> into a WIP-limited <strong>Shared Ready Queue</strong>, once the team pulls your story, <strong>they finish it before starting more</strong>. You own 100% of your Product Backlog's order, and our <strong>Cross-Product Change Rule</strong> protects your Committed work from being displaced by another PO without formal escalation."
-          </p>
-        </div>
-
-        <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-[var(--foreground)]">💻 4. Developers, Tech Leads &amp; QA</h3>
-            <span class="text-xs px-2 py-0.5 rounded bg-[var(--secondary)] font-semibold">Slides 12, 14, 15, 19, 21</span>
-          </div>
-          <p class="text-xs text-[var(--muted-foreground)]">
-            <strong>Hidden Fear:</strong> "More ceremonies, POs lobbying us directly, zero time for tech debt, and management ranking our individual story points."
-          </p>
-          <p class="text-xs text-[var(--foreground)] leading-relaxed pt-1 border-t border-[var(--border)]">
-            <strong>Your Pitch:</strong> "This framework shields you from chaos. First, <strong>POs cannot inject work directly to you</strong>—you only pull from the single <strong>Shared Ready Queue</strong> after items pass Definition of Ready. Second, we reserve <strong>20% capacity for UAT support and 10% for Operations</strong>, and make <strong>Technical Enablers</strong> a formal Service Class. Third, <strong>individual velocity, lines of code, and AI prompt counts are strictly prohibited</strong> as management metrics."
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7 Ceremonies & 6 Service Classes Quick Reference Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- 7 Ceremonies -->
-      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-3 shadow-sm">
-        <h3 class="text-base font-bold text-[var(--foreground)]">
-          📅 The 7 Ceremonies &amp; Their Distinct Decision Purpose (Slides 16–17)
-        </h3>
-        <div class="space-y-2 text-xs">
-          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <strong>1. Quarterly Planning (Gate G3):</strong> Approve Outcomes, classify <code>Committed / Forecast / Candidate</code>, set 70/20/10 capacity, lock control windows.
-          </div>
-          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <strong>2. Feature Refinement:</strong> Slice features into testable stories (<code>Small/Medium</code>), assign <strong>Route A, B, or C</strong>, confirm dependencies.
-          </div>
-          <div class="p-2.5 rounded-lg border-l-4 border border-[var(--border)] bg-[var(--background)]" style="border-left-color: #C8962E;">
-            <strong>3. Backlog Replenishment (NEW — Chaired by SM):</strong> Weekly/Pre-Sprint gate filtering ready work via the <strong>6-Step Policy Stack</strong> into the <strong>One Shared Ready Queue</strong>.
-          </div>
-          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <strong>4. Sprint Planning:</strong> Set <strong>one primary Sprint Goal</strong> and pull conservative feasible work from the Shared Ready Queue.
-          </div>
-          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <strong>5. Daily Flow Review:</strong> Walk the board <strong>Right-to-Left</strong> focusing on completion, Work-Item Age, blockers, and WIP limits (not "what I did yesterday").
-          </div>
-          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <strong>6. Sprint Review:</strong> Inspect integrated working software and return stakeholder feedback to the ordered Product Backlog.
-          </div>
-          <div class="p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)]">
-            <strong>7. Retrospective:</strong> Inspect system flow/quality metrics and commit to <strong>1–2 concrete system improvements</strong>.
-          </div>
+        <!-- Sub-navigation pills inside Tab 5 -->
+        <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-[var(--border)]">
+          <button onclick="switchDtSubTab('studio')" id="dt-sub-btn-studio" class="px-3.5 py-2 rounded-lg text-xs font-bold text-white shadow-sm" style="background-color: #2E7175;">
+            📊 1. Live Slide 4 Studio (Annex A)
+          </button>
+          <button onclick="switchDtSubTab('actions')" id="dt-sub-btn-actions" class="px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+            ✅ 2. Slide 3 Action Tracker (25/10/2026)
+          </button>
+          <button onclick="switchDtSubTab('tor')" id="dt-sub-btn-tor" class="px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+            ⚖️ 3. ToR Deconstruction &amp; Scrumban Playbook
+          </button>
+          <button onclick="switchDtSubTab('preread')" id="dt-sub-btn-preread" class="px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+            📋 4. Copy-Paste Markdown &amp; Cover Email
+          </button>
         </div>
       </div>
 
-      <!-- Progressive Estimation & 6 Decisions -->
-      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 space-y-3 shadow-sm">
-        <h3 class="text-base font-bold text-[var(--foreground)]">
-          📐 Progressive Estimation &amp; The 6 Executive Decisions (Slides 14 &amp; 23)
-        </h3>
-        <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-1.5 text-xs">
-          <div class="font-bold" style="color: #C8962E;">"Estimate informs forecast; forecast informs commitment; an estimate is never a commitment."</div>
-          <div>• <strong>Demand / Candidate (G1–G2):</strong> <code>XS–XL</code> + uncertainty rating (Discovery need)</div>
-          <div>• <strong>MVP / Quarter Goal (G3):</strong> Mandatory feature-group sizes + dependencies (Commitment)</div>
-          <div>• <strong>Feature / Enhancement:</strong> <code>XS–XL</code> + reference feature comparison (Trade-offs)</div>
-          <div>• <strong>User Story (G4):</strong> Right-sized <code>Small / Medium / Too Large</code> (Points optional)</div>
-          <div>• <strong>Delivery System Forecast:</strong> Empirical <strong>Throughput + Cycle-Time distributions</strong></div>
+      <!-- =============================================================== -->
+      <!-- SUB-PANEL 1: INTERACTIVE SLIDE 4 STUDIO (D&T PPTX REPLICA)      -->
+      <!-- =============================================================== -->
+      <div id="dt-panel-studio" class="space-y-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider" style="color: #C8962E;">Interactive Slide 4 Replica (Editable &amp; Auto-Saved)</div>
+            <p class="text-xs text-[var(--muted-foreground)]">Click any text field or table cell below to edit directly in your browser. All edits auto-save to your device and can be exported to Markdown or copied for PowerPoint.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="copyDtSlideSummary()" id="btn-copy-dt-slide" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-sm" style="background-color: #2E7175;">
+              📋 Copy Slide Text for PPTX / Email
+            </button>
+            <button onclick="resetDtSlideDefaults()" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)]">
+              ↺ Reset to Default Draft
+            </button>
+          </div>
         </div>
 
-        <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)] space-y-1.5 text-xs">
-          <div class="font-bold text-[var(--foreground)]">6 Management Decisions Requested on Slide 23:</div>
-          <div><strong>1. Operating Model:</strong> Adopt Controlled Scrumban + DevOps + OHB Governance.</div>
-          <div><strong>2. Roadmap Language:</strong> Adopt <code>Committed / Forecast (or Stretch) / Pipeline Candidate</code>.</div>
-          <div><strong>3. Prioritization Model:</strong> Approve <strong>Option A</strong> (Executive Quarterly Order + Weekly Replenishment).</div>
-          <div><strong>4. Capacity Policy:</strong> Approve <code>70/20/10</code> reserves + decide explicit Technical Enabler reserve.</div>
-          <div><strong>5. Queue Governance:</strong> Approve <strong>One Shared Ready Queue</strong>, neutral SM facilitator &amp; change rule.</div>
-          <div><strong>6. Pilot Mandate:</strong> Authorize <strong>Sprint 0</strong> + 1 representative product pilot.</div>
+        <!-- 16:9 Executive Slide Canvas -->
+        <div class="bg-[var(--card)] border-2 border-[var(--border)] rounded-2xl p-5 md:p-7 shadow-md space-y-5">
+          <!-- Slide Header Bar -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-4 border-b-2" style="border-bottom-color: #2E7175;">
+            <div>
+              <div id="dt-slide-title" contenteditable="true" oninput="saveDtSlideState()" class="text-lg md:text-xl font-extrabold text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[#C8962E] rounded px-1">
+                EPMO &amp; Agile – Weekly Update
+              </div>
+              <div id="dt-slide-subtitle" contenteditable="true" oninput="saveDtSlideState()" class="text-xs md:text-sm font-semibold mt-0.5 focus:outline-none focus:ring-2 focus:ring-[#C8962E] rounded px-1" style="color: #C8962E;">
+                Abeer Al-Raisi / Hassan Al-Maqbali | Week Ending: 29/10/26 (Forum: 01/11/26)
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="px-2.5 py-1 rounded text-xs font-extrabold text-white" style="background-color: #2E7175;">Run / Build Tagged</span>
+              <span class="px-2.5 py-1 rounded text-xs font-extrabold text-white" style="background-color: #C8962E;">Annex A Compliant</span>
+            </div>
+          </div>
+
+          <!-- Top Row: Box 1 (Wins) + Box 2 (Status of Key Initiatives Table) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <!-- Box 1: Wins This Week -->
+            <div class="lg:col-span-4 rounded-xl border border-[var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+              <div class="px-3.5 py-2 text-xs font-extrabold uppercase tracking-wider text-white flex items-center justify-between" style="background-color: #2E7175;">
+                <span>1. Wins This Week (vs Last Week's Top 3)</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded" style="background-color: #C8962E;">5 Mins</span>
+              </div>
+              <div id="dt-box1-wins" contenteditable="true" oninput="saveDtSlideState()" class="p-3.5 space-y-2.5 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] Controlled Scrumban Framework:</strong> Completed executive deck (24 slides) &amp; interactive masterclass portal for D&amp;T leadership walkthrough.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] E-Invoicing (Fwtara):</strong> Finalized P1 Pre-Kickoff pack, Demand Form v5.0 &amp; Deloitte readiness alignment.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] Internal Tool Governance (PRC-TECH-001):</strong> Completed ACH Reconciliation TRD v1.1 &amp; 4 modular SOPs with mandatory AD/SSO controls.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Run] PMO Tool &amp; Demand Intake:</strong> Engaged Strategy &amp; Data on PMO Tool alignment &amp; prepared management Demand Intake session pack.</div>
+              </div>
+            </div>
+
+            <!-- Box 2: Status of Key Initiatives -->
+            <div class="lg:col-span-8 rounded-xl border border-[var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+              <div class="px-3.5 py-2 text-xs font-extrabold uppercase tracking-wider text-white flex items-center justify-between" style="background-color: #2E7175;">
+                <span>2. Status of Key Initiatives (Exceptions Only Verbal — Max 2m)</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded" style="background-color: #C8962E;">10 Mins</span>
+              </div>
+              <div class="overflow-x-auto flex-1 p-2">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr class="border-b border-[var(--border)] text-[var(--muted-foreground)] font-bold">
+                      <th class="p-2">Initiative</th>
+                      <th class="p-2 w-24">Run/Build</th>
+                      <th class="p-2 w-28">On track? (Y/N)</th>
+                      <th class="p-2">Comment (Flow / Gate / Containment)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dt-box2-tbody" contenteditable="true" oninput="saveDtSlideState()" class="divide-y divide-[var(--border)] text-[var(--foreground)]">
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">OHB Agile Delivery (Controlled Scrumban)</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #2E7175;">Build</span></td>
+                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
+                      <td class="p-2">Framework v0.1 &amp; interactive portal ready for CDTO/CTO &amp; Tech Solutions session (Action #5).</td>
+                    </tr>
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">E-Invoicing (Fwtara) Implementation</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #2E7175;">Build</span></td>
+                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
+                      <td class="p-2">P1 Initiate: Demand Form, Charter draft &amp; Pre-Kickoff deck ready; aligning OTA/Deloitte scope.</td>
+                    </tr>
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">Internal Tools (ACH Recon &amp; PRC-TECH-001)</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #2E7175;">Build</span></td>
+                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
+                      <td class="p-2">ACH Reconciliation TRD v1.1 finalized; 0-OMR citizen/IT developer SOP suite ready for baseline.</td>
+                    </tr>
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">Test House Contract &amp; QA Resourcing</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #C8962E;">Run</span></td>
+                      <td class="p-2 font-bold text-amber-500">N (🟡)</td>
+                      <td class="p-2"><strong>Exception:</strong> Coordinating multi-party review with CSS, Legal (Tahani), CDTO, CTO &amp; Project Delivery (See Box 3).</td>
+                    </tr>
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">Demand Intake &amp; PMO Tool Alignment</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #C8962E;">Run</span></td>
+                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
+                      <td class="p-2">In progress with Strategy &amp; Data; management awareness session ready to schedule.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Boxes 3, 4, 5, 6 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Box 3: Items needing Airtime -->
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+              <div class="px-3 py-2 text-xs font-extrabold uppercase tracking-wider text-white" style="background-color: #2E7175;">
+                3. Items Needing Airtime (Max 2)
+              </div>
+              <div class="px-3 py-1 text-[11px] font-semibold border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                What it is • Why now • What you need
+              </div>
+              <div id="dt-box3-airtime" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div><strong>1. [Build] Controlled Scrumban Walkthrough:</strong><br/>• <em>Why now:</em> Open Action from 25/10; needed to stop multi-PO developer context switching.<br/>• <em>Need:</em> Confirm 45-min slot this week with CDTO, CTO &amp; Tech Solutions.</div>
+                <div class="pt-1 border-t border-[var(--border)]"><strong>2. [Run] Test House Contract Alignment:</strong><br/>• <em>Why now:</em> Unblocks SIT/UAT QA capacity across active projects.<br/>• <em>Need:</em> Confirm CSS + Legal (Tahani) + D&amp;T roundtable date.</div>
+              </div>
+            </div>
+
+            <!-- Box 4: Decisions needed from the Forum -->
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+              <div class="px-3 py-2 text-xs font-extrabold uppercase tracking-wider text-white" style="background-color: #2E7175;">
+                4. Decisions Needed from Forum
+              </div>
+              <div class="px-3 py-1 text-[11px] font-semibold border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                Decision • Options • Recommendation
+              </div>
+              <div id="dt-box4-decisions" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div><strong>[DEC-01] Authorize Controlled Scrumban Pilot &amp; Capacity Policy (70/20/10):</strong></div>
+                <div>• <em>Option A (Recommended):</em> Endorse Executive Quarterly Ordering + One Shared Ready Queue + 70% MVP / 20% UAT / 10% Ops capacity split for Sprint 0 pilot.</div>
+                <div>• <em>Option B:</em> Retain ad-hoc project tasking (risks continued 160-WD P4 bottlenecks).</div>
+              </div>
+            </div>
+
+            <!-- Box 5: Risk & Asks -->
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+              <div class="px-3 py-2 text-xs font-extrabold uppercase tracking-wider text-white" style="background-color: #2E7175;">
+                5. Risk &amp; Asks
+              </div>
+              <div class="px-3 py-1 text-[11px] font-semibold border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                Support needed from D&amp;T Mgmt / Escalation
+              </div>
+              <div id="dt-box5-risks" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div>⚠️ <strong>Risk (Uncontrolled WIP):</strong> Direct PO-to-developer tasking outside the Shared Ready Queue delays committed P4 releases.</div>
+                <div>🤝 <strong>Ask from D&amp;T Leaders:</strong> Enforce Gate G1 Demand Intake &amp; Gate G4 Definition of Ready across all Technology Solutions &amp; Project Delivery streams.</div>
+              </div>
+            </div>
+
+            <!-- Box 6: Top 3 Priorities for the Next Week -->
+            <div class="rounded-xl border-2 bg-[var(--background)] overflow-hidden flex flex-col" style="border-color: #C8962E;">
+              <div class="px-3 py-2 text-xs font-extrabold uppercase tracking-wider text-white flex items-center justify-between" style="background-color: #C8962E;">
+                <span>6. Top 3 Priorities Next Week</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-black/20">Feeds Item 1</span>
+              </div>
+              <div class="px-3 py-1 text-[11px] font-semibold border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                Locked outcomes (100% under our trigger control)
+              </div>
+              <div id="dt-box6-priorities" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #1 [Build]:</strong> Deliver Agile Framework (Controlled Scrumban) &amp; Demand Intake walkthrough to CDTO, CTO &amp; Tech Solutions.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #2 [Run]:</strong> Convene Test House Contract alignment session with CSS, Legal (Tahani), EPMO &amp; Project Delivery and log action plan.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #3 [Build]:</strong> Complete E-Invoicing (Fwtara) Pre-Kickoff alignment &amp; baseline PMO Tool initiative mapping with Strategy &amp; Data.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-  </section>
+      <!-- =============================================================== -->
+      <!-- SUB-PANEL 2: SLIDE 3 LIVE ACTION ITEMS TRACKER (25/10/2026)     -->
+      <!-- =============================================================== -->
+      <div id="dt-panel-actions" class="hidden space-y-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-4 shadow-sm">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+            <div>
+              <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">Slide 3 of D&amp;T_Weekly_Template.pptx</span>
+              <h3 class="text-lg font-bold text-[var(--foreground)] mt-1">
+                D&amp;T Forum Action Items Recap (From 25/10/2026 Meeting)
+              </h3>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                The meeting opens with <strong>Item 5 / Agenda 01: Action Items Recap</strong>. Below are all 14 actions from Slide 3, with the <strong>4 EPMO &amp; Agile actions highlighted first</strong> so you and Abeer have crisp 15-second answers ready.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="filterDtActions('epmo')" id="btn-filt-epmo" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white" style="background-color: #2E7175;">
+                🎯 EPMO &amp; Agile Actions (4)
+              </button>
+              <button onclick="filterDtActions('all')" id="btn-filt-all" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+                📋 All D&amp;T Actions (14)
+              </button>
+            </div>
+          </div>
+
+          <div id="dt-actions-list" class="space-y-3"></div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SUB-PANEL 3: ToR DECONSTRUCTION & SCRUMBAN EXECUTIVE PLAYBOOK   -->
+      <!-- =============================================================== -->
+      <div id="dt-panel-tor" class="hidden space-y-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-2 shadow-sm">
+            <div class="text-xs font-bold uppercase tracking-wider" style="color: #2E7175;">1. Forum Authority &amp; Delegates</div>
+            <p class="text-xs text-[var(--foreground)] leading-relaxed">
+              <strong>Members:</strong> CDTO, CTO, Head of Service Mgmt &amp; Governance, Head of Tech Ops &amp; Infra, Head of Tech Solutions, <strong>Head of EPMO &amp; Agile (Abeer)</strong>, Head of Project Delivery, Head of Strategy &amp; Data, Head of Digital &amp; Innovation.
+            </p>
+            <div class="p-2.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs">
+              ⚠️ <strong>Delegate Rule:</strong> <em>"No delegates without agreement from CDTO or CTO."</em> Always ensure Abeer sends a quick pre-note to CDTO/CTO if you are backing her up in Ibri Fort.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-2 shadow-sm">
+            <div class="text-xs font-bold uppercase tracking-wider" style="color: #C8962E;">2. Decision Rights Filter</div>
+            <p class="text-xs text-[var(--foreground)] leading-relaxed">
+              <strong>What belongs here:</strong> Matters within the D&amp;T group's approved plans &amp; budgets (e.g., cross-team WIP bottlenecks, shared QA/Tech Solutions allocation, framework adoption).
+            </p>
+            <div class="p-2.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs">
+              🚫 <strong>What stays out:</strong> Project-level scope/budget decisions belong to <strong>Project SteerCos</strong>; vendor tenders go to <strong>MTC</strong>; corporate policy/SOP goes to <strong>MRC / MSSC</strong>.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-2 shadow-sm">
+            <div class="text-xs font-bold uppercase tracking-wider" style="color: #2E7175;">3. Run vs. Build Tagging &amp; Deadlines</div>
+            <p class="text-xs text-[var(--foreground)] leading-relaxed">
+              <strong>Mandatory Tag:</strong> Every single initiative, issue, and priority must be tagged <code>Run</code> (BAU operations, recurring governance, contract ops) or <code>Build</code> (new transformation, projects, tools, frameworks).
+            </p>
+            <div class="p-2.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs">
+              ⏰ <strong>Pre-Read Cut-off:</strong> Submitted to Rahma by <strong>Thursday Midday (12:00 PM)</strong>. No pre-read = item waits until next week.
+            </div>
+          </div>
+        </div>
+
+        <!-- 60-Minute Agenda Deconstruction Table -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-3">
+          <h3 class="text-base font-bold text-[var(--foreground)]">
+            ⚡ Deconstructing the 60-Minute Agenda: Average Manager vs. Your Scrumban Power Play
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="text-white" style="background-color: #2E7175;">
+                  <th class="p-2.5 rounded-tl-lg"># &amp; Agenda Item</th>
+                  <th class="p-2.5">Time &amp; ToR Rule</th>
+                  <th class="p-2.5">The Trap Average Managers Fall Into</th>
+                  <th class="p-2.5 rounded-tr-lg">Your Scrumban "Super PM" Power Play</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--border)]">
+                <tr class="bg-[var(--background)]">
+                  <td class="p-2.5 font-bold">1. Wins of past week (vs last week's priorities)</td>
+                  <td class="p-2.5"><strong>5 mins</strong><br/>Short and factual</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Listing 8 random meetings or "in-progress" tasks that don't match what they promised last week.</td>
+                  <td class="p-2.5"><strong>1-to-1 Accountability Loop:</strong> Report only increments that crossed <em>Definition of Done</em> against last week's Item 6 Top 3.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold">2. Updates, exceptions only</td>
+                  <td class="p-2.5"><strong>10 mins</strong><br/>Max 2m each; pre-read assumed read</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Reading Green rows out loud and wasting 5 minutes explaining things that are on track.</td>
+                  <td class="p-2.5"><strong>90-Second Exception Discipline:</strong> Leave <code>On Track = Y</code> silent in the table. Speak only to <code>On Track = N</code> using <em>Variance → Impact → Containment</em>.</td>
+                </tr>
+                <tr class="bg-[var(--background)]">
+                  <td class="p-2.5 font-bold">3. Decisions &amp; escalations</td>
+                  <td class="p-2.5"><strong>10 mins</strong><br/>Standing item; logged live</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Asking open-ended questions ("What should we do?") or raising SteerCo items to D&amp;T.</td>
+                  <td class="p-2.5"><strong>Trade-Off Mirror:</strong> Frame every decision with <em>Option A (Recommended) vs Option B</em> and explicit capacity/scope displacement cost.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold">4. Issues, discussion, solutions</td>
+                  <td class="p-2.5"><strong>20 mins</strong><br/>Closes with Owner, Action, Deadline (&gt;15m = separate mtg)</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Hiding problems until a gate fails, or bringing unowned problems that trigger 25-minute debates.</td>
+                  <td class="p-2.5"><strong>48-Hour Blocked Aging + Pre-Alignment:</strong> Surface flow bottlenecks early and pre-agree the <strong>Owner (R) + Action + Date</strong> on Wednesday before submitting.</td>
+                </tr>
+                <tr class="bg-[var(--background)]">
+                  <td class="p-2.5 font-bold">5. Action recap</td>
+                  <td class="p-2.5"><strong>5 mins</strong><br/>Secretary reads back owners &amp; dates</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Being caught off-guard by last week's Slide 3 action items.</td>
+                  <td class="p-2.5"><strong>Pre-Cleared Log:</strong> Walk in with all 4 EPMO &amp; Agile actions from 25/10 already updated with artifacts or calendar invites sent.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold">6. Top 3 priorities for coming week</td>
+                  <td class="p-2.5"><strong>10 mins</strong><br/>Logged; picked up in Item 1 next week</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Over-promising vague tasks dependent on external third parties at the end of the meeting.</td>
+                  <td class="p-2.5"><strong>Throughput-Sized Pull Commitments:</strong> Commit only to 3 high-impact outcomes where <em>you</em> control the completion trigger—guaranteeing a <code>3/3</code> win streak next Sunday.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SUB-PANEL 4: COPY-PASTE MARKDOWN & COVER EMAIL GENERATOR        -->
+      <!-- =============================================================== -->
+      <div id="dt-panel-preread" class="hidden space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-3 shadow-sm">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-[var(--foreground)]">📧 1. Cover Email to Abeer / Rahma (BLUF Format)</h3>
+              <button onclick="copyTextById('dt-email-template', this)" class="px-3 py-1 rounded text-xs font-bold text-white" style="background-color: #2E7175;">
+                Copy Email
+              </button>
+            </div>
+            <pre id="dt-email-template" class="p-3.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs text-[var(--foreground)] whitespace-pre-wrap font-mono leading-relaxed">Subject: EPMO &amp; Agile — D&amp;T Weekly Management Update (Week Ending 29-Oct-2026)
+
+Dear Abeer,
+
+BLUF: Please find attached the drafted D&amp;T Weekly Management Update slide (Annex A format) and updated status on our 4 open Action Items from 25-Oct ahead of our review tomorrow and Thursday's midday submission.
+
+Summary of This Week's Update:
+• [Build] Controlled Scrumban Framework &amp; Interactive Portal: Ready for CDTO, CTO &amp; Technology Solutions walkthrough (Action #5).
+• [Build] Key Projects/Tools (E-Invoicing P1 &amp; ACH Reconciliation TRD v1.1): On track (Y).
+• [Run] Exceptions / Airtime (1 Item): Test House Contract multi-party alignment across CSS, Legal (Tahani), EPMO &amp; Project Delivery.
+• [Run] Delegate Note: Per the ToR ("No delegates without agreement from CDTO or CTO"), if you need me to back you up in Sunday's 10:00 AM session at Ibri Fort, we can include a quick delegate confirmation note when submitting tomorrow.
+
+Best regards,
+Hassan Al-Maqbali
+Project Manager | EPMO &amp; Agile</pre>
+          </div>
+
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-3 shadow-sm">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-[var(--foreground)]">📄 2. Annex A One-Page Markdown Template (Scrumban Edition)</h3>
+              <button onclick="copyTextById('dt-md-template', this)" class="px-3 py-1 rounded text-xs font-bold text-white" style="background-color: #C8962E;">
+                Copy Markdown
+              </button>
+            </div>
+            <pre id="dt-md-template" class="p-3.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs text-[var(--foreground)] whitespace-pre-wrap font-mono leading-relaxed"># Weekly Update: EPMO &amp; Agile, Abeer Al-Raisi / Hassan Al-Maqbali, 29/10/2026
+
+## 1. Wins this week (against last week's top 3)
+- [Build] Completed OHB Controlled Scrumban executive deck &amp; interactive web portal for D&amp;T walkthrough.
+- [Build] Finalized E-Invoicing (Fwtara) P1 Pre-Kickoff pack &amp; ACH Reconciliation Tool TRD v1.1.
+- [Run] Engaged Strategy &amp; Data on PMO Tool alignment &amp; prepared Demand Intake awareness pack.
+
+## 2. Status of key initiatives
+| Initiative | Run/Build | On track? (Y/N) | Comment |
+| :--- | :---: | :---: | :--- |
+| Controlled Scrumban Framework | Build | Y | Deck &amp; portal ready for CDTO/CTO/Tech Solutions session |
+| E-Invoicing (Fwtara) | Build | Y | P1 Demand Form, Charter &amp; Pre-Kickoff pack ready |
+| Internal Tools (ACH Recon / PRC-TECH-001) | Build | Y | TRD v1.1 &amp; 4 modular SOPs completed (0 OMR, AD/SSO) |
+| Test House Contract Alignment | Run | N | Coordinating CSS + Legal + CDTO/CTO + Delivery session |
+| Demand Intake &amp; PMO Tool | Run | Y | Alignment with Strategy &amp; Data in progress |
+
+## 3. Items needing airtime (max 2): what it is, why now, what you need
+1. [Build] Agile Framework Walkthrough: Open action from 25/10; need 45-min slot with CDTO, CTO &amp; Tech Solutions.
+2. [Run] Test House Contract Issue: Unblocks SIT/UAT QA capacity; need agreement on multi-party meeting slot.
+
+## 4. Decisions needed from the forum
+- Authorize Controlled Scrumban Sprint 0 Pilot &amp; 70/20/10 Capacity Policy (Recommended: Option A).
+
+## 5. Risks and asks
+- Risk: Direct PO-to-developer tasking bypasses readiness gates. Ask: D&amp;T Heads to enforce Gate G1/G4 intake.
+
+## 6. Top 3 priorities for next week
+1. [Build] Present Agile Framework &amp; Demand Intake session to CDTO, CTO &amp; Technology Solutions.
+2. [Run] Hold Test House Contract alignment with CSS, Legal (Tahani), EPMO &amp; Project Delivery.
+3. [Build] Conclude E-Invoicing Pre-Kickoff alignment &amp; PMO Tool initiative mapping with Strategy &amp; Data.</pre>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
 
   <script>
     // =========================================================================
-    // SLIDE DECK DATA (10 COMPREHENSIVE MASTER SLIDES COVERING ALL 24 PPTX SLIDES)
+    // THEME TOGGLE (LIGHT / DARK)
+    // =========================================================================
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('ohb_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+    if (localStorage.getItem('ohb_theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+
+    // =========================================================================
+    // SLIDE DECK DATA (10 MASTER SLIDES)
     // =========================================================================
     const masterSlides = [
       {
@@ -552,23 +1160,23 @@
             <div class="lg:col-span-7 p-4 rounded-xl border border-[var(--border)] bg-[var(--background)] space-y-2.5">
               <div class="text-xs font-bold uppercase tracking-wider" style="color: #2E7175;">5 Governance Decision Horizons (Slide 6)</div>
               <div class="space-y-2 text-xs">
-                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex flex-wrap justify-between items-center gap-2">
                   <div><strong>1. Annual / Demand:</strong> Approve strategic needs &amp; funding direction</div>
                   <span class="px-2 py-0.5 rounded font-bold text-white shrink-0" style="background-color: #2E7175;">ExCom / Corporate Authority</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex flex-wrap justify-between items-center gap-2">
                   <div><strong>2. Quarterly Portfolio:</strong> Select quarterly goals &amp; allocate scarce capacity</div>
                   <span class="px-2 py-0.5 rounded font-bold text-white shrink-0" style="background-color: #2E7175;">Agile Management Group</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex flex-wrap justify-between items-center gap-2">
                   <div><strong>3. Product / Feature:</strong> Order business value within approved objectives</div>
                   <span class="px-2 py-0.5 rounded font-bold text-white shrink-0" style="background-color: #C8962E;">Product Owner (BL)</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex flex-wrap justify-between items-center gap-2">
                   <div><strong>4. Sprint Horizon:</strong> Set Sprint Goal &amp; select feasible Ready work</div>
                   <span class="px-2 py-0.5 rounded font-bold bg-[var(--secondary)] text-[var(--foreground)] shrink-0">Scrum Team</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex justify-between items-center">
+                <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] flex flex-wrap justify-between items-center gap-2">
                   <div><strong>5. Daily Flow:</strong> Pull next eligible item from Shared Queue &amp; manage WIP</div>
                   <span class="px-2 py-0.5 rounded font-bold bg-[var(--secondary)] text-[var(--foreground)] shrink-0">Development Team + SM</span>
                 </div>
@@ -586,7 +1194,7 @@
         notes: "HOW TO WIN OVER PMO & AUDIT: Show that Scrumban does NOT throw away OHB's P1–P5 governance. Instead, Gates G1 to G6 map cleanly onto P1–P5 while replacing the 160-WD P4 'black box' (Audit Finding F12) with transparent 2-week increments and continuous UAT/control evidence.",
         html: `
           <div class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-7 gap-2 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-2 text-xs">
               <div class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)]">
                 <div class="font-bold" style="color: #2E7175;">1. DEMAND</div>
                 <div class="text-[var(--muted-foreground)] mt-1">Problem, Sponsor &amp; target KPI outcome.</div>
@@ -1047,7 +1655,6 @@
       document.getElementById('speaker-notes-text').textContent = slide.notes;
       document.getElementById('slide-source-ref').textContent = slide.sourceRef;
 
-      // Render dots
       const dotsEl = document.getElementById('slide-dots');
       dotsEl.innerHTML = masterSlides.map((s, idx) => `
         <button onclick="goToSlide(${idx})" class="w-6 h-6 rounded-full text-xs font-bold transition-all ${idx === currentSlideIdx ? 'text-white' : 'bg-[var(--secondary)] text-[var(--muted-foreground)]'}" style="${idx === currentSlideIdx ? 'background-color: #C8962E;' : ''}">
@@ -1075,14 +1682,13 @@
       const btn = document.getElementById('btn-toggle-notes');
       if (showNotes) {
         panel.classList.remove('hidden');
-        btn.textContent = '🎙️ Hide SM Coaching Notes';
+        btn.textContent = '🎙️ Hide SM Notes';
       } else {
         panel.classList.add('hidden');
-        btn.textContent = '🎙️ Show SM Coaching Notes';
+        btn.textContent = '🎙️ Show SM Notes';
       }
     }
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       const deckVisible = !document.getElementById('view-deck').classList.contains('hidden');
       if (!deckVisible) return;
@@ -1094,20 +1700,21 @@
     // MODE & TAB SWITCHING
     // =========================================================================
     function switchAppMode(mode) {
-      const modes = ['deck', 'lab', 'reference'];
+      const modes = ['deck', 'lab', 'charisma', 'reference', 'dtforum'];
       modes.forEach(m => {
         const view = document.getElementById(`view-${m}`);
         const btn = document.getElementById(`btn-mode-${m}`);
         if (m === mode) {
           view.classList.remove('hidden');
           btn.style.backgroundColor = '#2E7175';
-          btn.className = 'px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-white shadow-sm';
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-white shadow-sm';
         } else {
           view.classList.add('hidden');
           btn.style.backgroundColor = '';
-          btn.className = 'px-4 py-2 rounded-lg text-xs md:text-sm font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all';
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all';
         }
       });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function switchLabTab(tab) {
@@ -1128,7 +1735,7 @@
     }
 
     // =========================================================================
-    // LAB 1: 6-STEP POLICY STACK SIMULATOR LOGIC
+    // LAB 1: 6-STEP POLICY STACK SIMULATOR
     // =========================================================================
     function evaluatePolicyStack() {
       const auth = document.getElementById('pol-1-auth').checked;
@@ -1322,10 +1929,7 @@
       { col: 8, name: '8. Live', gate: 'MVP Live', desc: 'Production deployment & post-cutover validation.', routeA: 'Active', routeB: 'Active', routeC: 'Active', r2lOrder: 'Step 1 (START HERE): Confirm newly deployed Live items are stable in production!' }
     ];
 
-    let currentKanbanMode = 'A';
-
     function setKanbanRoute(mode) {
-      currentKanbanMode = mode;
       ['A', 'B', 'C', 'R2L'].forEach(m => {
         const btn = document.getElementById(`btn-route-${m}`);
         if (m === mode) {
@@ -1561,13 +2165,544 @@
       renderQuiz();
     }
 
-    // Initialize everything on load
+    // =========================================================================
+    // TAB 3: 7 MENTAL MODELS INTERACTIVE EXPLORER & HABIT CHECKLIST
+    // =========================================================================
+    const mentalModels = [
+      {
+        id: "Model 1",
+        name: "✈️ Air Traffic Controller Frame",
+        when: "Chairing Weekly Replenishment or facing a pushy Product Owner",
+        mindset: "An Air Traffic Controller does not decide which airline's VIP passengers are more important. They own the safety of the runway (the 6-Step Policy Stack & WIP limits). Never argue business opinions—state runway physics.",
+        script: `"I don't decide which feature is more valuable to OHB—that's your authority as Product Owners and the Agile Management Group's call. My job is to protect the runway so whatever enters the Shared Ready Queue actually finishes. Right now we have 2 open WIP slots—let's run the Policy Stack."`
+      },
+      {
+        id: "Model 2",
+        name: "🎯 What? → So What? → Now What?",
+        when: "Put on the spot with a sudden question in any meeting or hallway",
+        mindset: "Never ramble chronologically. Package every spontaneous answer into 3 crisp steps: WHAT (the objective metric/fact) → SO WHAT (the impact on the Sprint Goal or Quarter Commitment) → NOW WHAT (the concrete action or choice).",
+        script: `"[WHAT] UAT support on Product A consumed 35% of capacity this week against our 20% reserve. [SO WHAT] That leaves 15% less capacity for Product B's Stretch MVP stories, though our Committed Goal remains safe. [NOW WHAT] At Thursday's Replenishment, we either queue low-severity UAT defects into next Sprint or defer one Stretch story. Which do you prefer?"`
+      },
+      {
+        id: "Model 3",
+        name: "📐 McKinsey SCQA Spine",
+        when: "Opening an MSSC / Agile Management Group briefing or Escalation",
+        mindset: "Hook executive brains in 30 seconds using Situation (fact) → Complication (trigger) → Question (core trade-off) → Answer (your BLUF recommendation).",
+        script: `"[Situation] At Gate G3, we locked Digital Onboarding as a Committed Goal at 70% capacity. [Complication] Today, an immovable CBO Fixed-Date regulatory change arrived. [Question] How do we absorb it without breaking our Committed Go-Live? [Answer] Classify the CBO item as Fixed-Date Service Class and displace two Stretch MVP stories."`
+      },
+      {
+        id: "Model 4",
+        name: "⚖️ Yes, And Here Is the Price Tag",
+        when: "A Sponsor or GM demands scope additions or mid-Sprint injections",
+        mindset: "Never say a flat 'No' (sounds obstructive) and never say a weak 'Yes, we'll try' (leads to failure). Hold up the Trade-Off Mirror from Slide 9: every addition requires visible Displacement.",
+        script: `"Yes, we can prioritize that feature this week. Under our framework's trade-off rule, adding this 5-day item requires one of three choices: (A) Displace Story X from the Ready Queue, (B) Draw down our Stretch MVP buffer, or (C) Revise the forecast by 1 week. Which option works best for you?"`
+      },
+      {
+        id: "Model 5",
+        name: "🔑 Two-Key Launch (Authorized ≠ Ready)",
+        when: "A senior stakeholder uses their rank to push a vague idea into coding",
+        mindset: "Launching code requires two keys turned together: Key 1 is AUTHORIZED (Management/PO rank). Key 2 is READY (Scrum Master Gate G4 DoR check). Validate their rank on Key 1 immediately, then hold Key 2 until testable criteria exist.",
+        script: `"Your authority turns Key 1—this item is 100% Authorized. My accountability as Scrum Master is Key 2—ensuring the team has testable acceptance criteria and test data (Gate G4) so they don't block on Day 2. Let's spend 48 hours in Refinement turning Key 2."`
+      },
+      {
+        id: "Model 6",
+        name: "🛣️ Little's Law & Highway Physics",
+        when: "Stakeholders push to start 15 stories at once so everyone feels busy",
+        mindset: "Cycle Time = WIP ÷ Throughput. Just like Sultan Qaboos Highway at rush hour, packing 100% of lanes with cars drops speed to zero. Halving WIP cuts completion time in half.",
+        script: `"Starting your story today when 8 stories are already half-done won't make it finish sooner—it just puts your story in a traffic jam. By capping WIP and finishing what's in Code Review and UAT first, your story will reach production twice as fast."`
+      },
+      {
+        id: "Model 7",
+        name: "🔍 Stakeholder Fear X-Ray",
+        when: "Walking into a tense room where people resist the process",
+        mindset: "Address each role's hidden fear in your first sentence: Sponsors fear surprises at MSSC; POs fear their product being starved; Developers fear chaos & individual blame; Risk/Audit fears unlogged CAB changes.",
+        script: `"Before we review the queue, our goal today is to protect everyone's core interest: zero surprises on our Committed MSSC goals, fair replenishment across Product Owners, and 100% Gate G5/G6 evidence for Risk and CAB."`
+      }
+    ];
+
+    let activeMMIdx = 0;
+
+    function renderMentalModels() {
+      const grid = document.getElementById('mm-buttons-grid');
+      grid.innerHTML = mentalModels.map((m, i) => `
+        <button onclick="selectMM(${i})" class="p-3 rounded-xl border text-left transition-all ${i === activeMMIdx ? 'text-white border-transparent shadow-sm' : 'bg-[var(--background)] border-[var(--border)] text-[var(--foreground)]'}" style="${i === activeMMIdx ? 'background-color: #2E7175;' : ''}">
+          <div class="text-xs font-bold opacity-80">${m.id}</div>
+          <div class="text-xs font-bold mt-0.5">${m.name}</div>
+        </button>
+      `).join('');
+
+      const item = mentalModels[activeMMIdx];
+      document.getElementById('mm-detail-box').innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+          <h4 class="text-base font-bold text-[var(--foreground)]">${item.id}: ${item.name}</h4>
+          <span class="px-3 py-1 rounded-full text-xs font-bold text-white" style="background-color: #C8962E;">When to use: ${item.when}</span>
+        </div>
+        <p class="text-sm text-[var(--foreground)] leading-relaxed"><strong>Internal Mindset:</strong> ${item.mindset}</p>
+        <div class="p-4 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+          <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color: #2E7175;">💬 Your Commanding Line in the Room</div>
+          <p class="text-sm italic text-[var(--foreground)] leading-relaxed">${item.script}</p>
+        </div>
+      `;
+    }
+
+    function selectMM(idx) {
+      activeMMIdx = idx;
+      renderMentalModels();
+    }
+
+    // 8 Spontaneous Speech Structures (Matt Abrahams & Executive Framing)
+    const speechStructures = [
+      {
+        id: "Structure 1",
+        name: "🎯 What? → So What? → Now What?",
+        bestFor: "Instant Status Updates, Q&A & Escalations",
+        pairsWith: "Pairs with Mental Model #1 (Air Traffic Controller) & #6 (Little's Law)",
+        formula: "1. WHAT (The objective fact/metric) → 2. SO WHAT (Why it matters to the Sprint/Quarter Goal) → 3. NOW WHAT (The concrete action or decision needed).",
+        ohbScript: `"[WHAT] UAT support on Product A consumed 35% of capacity this week against our 20% reserve. [SO WHAT] That leaves 15% less capacity for Product B's Stretch MVP stories, though our Committed Goal remains safe. [NOW WHAT] At Thursday's Replenishment, we either queue low-severity UAT defects into next Sprint or defer one Stretch story. Which do you prefer?"`
+      },
+      {
+        id: "Structure 2",
+        name: "🚀 Problem → Solution → Benefit",
+        bestFor: "Pitching Scrumban Rules & Convincing Skeptics",
+        pairsWith: "Pairs with Mental Model #7 (Stakeholder Fear X-Ray)",
+        formula: "1. PROBLEM (The pain everyone feels in P4 today) → 2. SOLUTION (The specific Scrumban mechanism) → 3. BENEFIT (What the listener personally gains).",
+        ohbScript: `"[PROBLEM] Right now in P4 Execute, multiple Product Owners message developers directly, causing constant context-switching and 160-WD delays. [SOLUTION] We are introducing a single Shared Ready Queue replenished every Thursday using our 6-Step Policy Stack. [BENEFIT] That means once the team pulls your department's feature, they finish it without interruption—cutting your delivery wait time in half."`
+      },
+      {
+        id: "Structure 3",
+        name: "⏳ Past → Present → Future",
+        bestFor: "Sponsor Progress Briefings & Estimate Changes",
+        pairsWith: "Pairs with Progressive Estimation ('Estimate ≠ Commitment')",
+        formula: "1. PAST (Where we started / initial G1-G2 hypothesis) → 2. PRESENT (What discovery/delivery just proved) → 3. FUTURE (Next milestone / Gate commitment).",
+        ohbScript: `"[PAST] At Gate G1, this was a coarse Medium Pipeline Candidate with high legacy data uncertainty. [PRESENT] Today, we completed our time-boxed architecture Spike and confirmed all Mandatory MVP features and CBO security controls. [FUTURE] Next week at Gate G3 Quarterly Planning, we will lock our Committed Q2 capacity and start Sprint 1."`
+      },
+      {
+        id: "Structure 4",
+        name: "⚡ ADD (Answer → Data → Decision)",
+        bestFor: "High-Pressure Executive Questions (ExCom / MSSC)",
+        pairsWith: "Pairs with Vocal BLUF & The 2-Second Pause",
+        formula: "1. ANSWER (Direct Yes/No/Headline in Sentence 1) → 2. DATA (1 or 2 hard board metrics) → 3. DECISION (State if action is needed, then stop talking).",
+        ohbScript: `"[ANSWER] Yes, our Mandatory MVP is 100% on track for the Gate G6 CAB window. [DATA] We have completed 14 of 18 Mandatory stories, and our UAT defect leakage is well within the 20% capacity reserve. [DECISION] No escalation is needed today; you will see the final 4 stories live at Thursday's Sprint Review."`
+      },
+      {
+        id: "Structure 5",
+        name: "⚖️ Compare → Contrast → Conclude",
+        bestFor: "Scope Pushback & Mid-Quarter Trade-Offs",
+        pairsWith: "Pairs with Mental Model #4 ('Yes, And Here Is the Price Tag')",
+        formula: "1. COMPARE (Option A and its displacement cost) → 2. CONTRAST (Option B and its timeline impact) → 3. CONCLUDE (Your recommendation + ask them to choose).",
+        ohbScript: `"[COMPARE] Option A is we inject this feature into the Shared Ready Queue today, which displaces Product B's Committed story by 1 week. [CONTRAST] Option B is we keep our current Sprint WIP locked, finish Product B's story on Wednesday, and pull your feature at Thursday's Replenishment. [CONCLUDE] I recommend Option B so neither product breaches its quarterly commitment. Does that work for you?"`
+      },
+      {
+        id: "Structure 6",
+        name: "🤝 ABC (Acknowledge → Bridge → Control)",
+        bestFor: "Handling Interruptions & Emotional Stakeholders",
+        pairsWith: "Pairs with Mental Model #5 (Two-Key Launch: Authorized ≠ Ready)",
+        formula: "1. ACKNOWLEDGE (Validate their urgency/rank warmly) → 2. BRIDGE ('And to guarantee that succeeds...') → 3. CONTROL (State the Gate G4 / Policy Stack step).",
+        ohbScript: `"[ACKNOWLEDGE] I hear how urgent this is for the GM, and because it's part of your Committed Goal, Key 1 (Authorized) is 100% turned. [BRIDGE] And to guarantee the developers don't get blocked two days from now waiting on test data... [CONTROL] ...let's spend 30 minutes right after this meeting locking the two missing acceptance criteria so it passes Gate G4 (Ready) and starts cleanly."`
+      },
+      {
+        id: "Structure 7",
+        name: "🎓 PREP (Point → Reason → Example → Point)",
+        bestFor: "Training Sessions & Coaching Developers/POs",
+        pairsWith: "Pairs with Mental Model #6 (Little's Law & Highway Physics)",
+        formula: "1. POINT (State the rule) → 2. REASON (Why it works mathematically) → 3. EXAMPLE (Concrete OHB banking example) → 4. POINT (Restate the rule).",
+        ohbScript: `"[POINT] In OHB Scrumban, we cap WIP and finish active stories before starting new ones. [REASON] Under Little's Law, starting more items at once increases context switching and doubles Cycle Time. [EXAMPLE] When a developer juggles 4 stories across 3 POs, all 4 stall in Code Review and UAT for a month; focusing on 1 clears PO Validation in 3 days. [POINT] That is why we only pull from the Shared Ready Queue when a WIP slot opens."`
+      },
+      {
+        id: "Structure 8",
+        name: "🏛️ SCQA (Situation → Complication → Q → A)",
+        bestFor: "Opening Steering Committees & Gate Reviews",
+        pairsWith: "Pairs with Mental Model #3 (McKinsey SCQA Spine)",
+        formula: "1. SITUATION (Agreed baseline) → 2. COMPLICATION (The trigger/risk) → 3. QUESTION (The core choice) → 4. ANSWER (Your BLUF proposal).",
+        ohbScript: `"[SITUATION] At Gate G3, we locked Digital Onboarding as a Committed Goal at 70% capacity. [COMPLICATION] Today, an immovable CBO Fixed-Date regulatory change arrived. [QUESTION] How do we absorb it without breaking our Committed Go-Live? [ANSWER] We classify the CBO item as Fixed-Date Service Class and displace two Stretch MVP stories into next quarter."`
+      }
+    ];
+
+    let activeSSIdx = 0;
+
+    function renderSpeechStructures() {
+      const grid = document.getElementById('ss-buttons-grid');
+      if (!grid) return;
+      grid.innerHTML = speechStructures.map((s, i) => `
+        <button onclick="selectSS(${i})" class="p-3 rounded-xl border text-left transition-all ${i === activeSSIdx ? 'text-white border-transparent shadow-sm' : 'bg-[var(--background)] border-[var(--border)] text-[var(--foreground)]'}" style="${i === activeSSIdx ? 'background-color: #C8962E;' : ''}">
+          <div class="text-xs font-bold opacity-90">${s.id}</div>
+          <div class="text-xs font-bold mt-0.5">${s.name}</div>
+        </button>
+      `).join('');
+
+      const item = speechStructures[activeSSIdx];
+      document.getElementById('ss-detail-box').innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+          <div>
+            <h4 class="text-base font-bold text-[var(--foreground)]">${item.id}: ${item.name}</h4>
+            <p class="text-xs font-semibold mt-0.5" style="color: #2E7175;">🔗 ${item.pairsWith}</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold text-white" style="background-color: #2E7175;">Best For: ${item.bestFor}</span>
+        </div>
+        <p class="text-sm text-[var(--foreground)] leading-relaxed"><strong>3-Step Packaging Formula:</strong> ${item.formula}</p>
+        <div class="p-4 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+          <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color: #C8962E;">🎙️ Word-for-Word OHB Example</div>
+          <p class="text-sm italic text-[var(--foreground)] leading-relaxed">${item.ohbScript}</p>
+        </div>
+      `;
+    }
+
+    function selectSS(idx) {
+      activeSSIdx = idx;
+      renderSpeechStructures();
+    }
+
+    // Habit Checklist with localStorage
+    const habitItems = [
+      "Week 1: Watch Matt Abrahams' 'Think Fast, Talk Smart' Stanford lecture (55m)",
+      "Week 1: Practice the 2-Second Silent Pause before answering tough questions",
+      "Week 1: Frame every status answer using 'What → So What → Now What' in <45s",
+      "Week 1: Eliminate hedge words ('just', 'sorry', 'maybe', 'I think') in emails & meetings",
+      "Week 2: Use the Two-Key System ('Authorized vs Ready') at Backlog Replenishment",
+      "Week 2: Use the Trade-Off Mirror ('Yes, and which item do we displace?') on scope adds",
+      "Week 3: Run Daily Flow Review walking the board Right-to-Left (Col 8 back to Col 1)",
+      "Week 3: Call out Work-Item Age & Blocked-Time Ratio instead of individual velocity",
+      "Week 4: Present the 6-Step Policy Stack Simulator live to Product Owners / PMO"
+    ];
+
+    function renderHabits() {
+      const saved = JSON.parse(localStorage.getItem('ohb_sm_habits') || '{}');
+      const grid = document.getElementById('habit-checklist-grid');
+      grid.innerHTML = habitItems.map((h, i) => `
+        <label class="p-3 rounded-lg border border-[var(--border)] bg-[var(--background)] flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" ${saved[i] ? 'checked' : ''} onchange="toggleHabit(${i}, this.checked)" class="h-4 w-4" />
+          <span class="${saved[i] ? 'line-through text-[var(--muted-foreground)]' : 'font-semibold text-[var(--foreground)]'}">${h}</span>
+        </label>
+      `).join('');
+    }
+
+    function toggleHabit(idx, val) {
+      const saved = JSON.parse(localStorage.getItem('ohb_sm_habits') || '{}');
+      saved[idx] = val;
+      localStorage.setItem('ohb_sm_habits', JSON.stringify(saved));
+      renderHabits();
+    }
+
+    function resetHabits() {
+      localStorage.removeItem('ohb_sm_habits');
+      renderHabits();
+    }
+
+    // =========================================================================
+    // TAB 5: D&T WEEKLY FORUM STUDIO & SLIDE 3 ACTION TRACKER
+    // =========================================================================
+    const dtDefaultActions = [
+      {
+        id: 1,
+        date: "25/10/2026",
+        owner: "EPMO & Agile",
+        isEpmo: true,
+        tag: "Build",
+        action: "Present the Agile Framework and other relevant frameworks to CDTO, CTO, & Technology Solutions.",
+        status: "Ready to Present",
+        talkingPoint: "Executive 24-slide deck & live interactive Scrumban Masterclass portal are 100% complete. Requesting 45-min slot this week with CDTO, CTO & Tech Solutions."
+      },
+      {
+        id: 2,
+        date: "25/10/2026",
+        owner: "EPMO & Agile",
+        isEpmo: true,
+        tag: "Run",
+        action: "EPMO & Agile to arrange a discussion on the Test House Contract issue involving CSS + PMO, including Head of Legal Affairs & Board Secretary (Tahani), CDTO, CTO, EPMO & Agile, & Project Delivery team.",
+        status: "In Progress",
+        talkingPoint: "Scope & SLA gaps mapped; coordinating calendar alignment across Legal (Tahani), CSS, CDTO, CTO & Project Delivery for this week."
+      },
+      {
+        id: 3,
+        date: "25/10/2026",
+        owner: "EPMO & Agile",
+        isEpmo: true,
+        tag: "Run",
+        action: "Conduct an awareness session on the demand intake process to the management.",
+        status: "Ready to Schedule",
+        talkingPoint: "Gate G1 Demand Intake & PRC-TECH-001 Internal Tool triage pack finalized; ready to run combined or back-to-back with the Agile Framework walkthrough."
+      },
+      {
+        id: 4,
+        date: "25/10/2026",
+        owner: "Strategy & Data, EPMO & Agile, Project Delivery",
+        isEpmo: true,
+        tag: "Build",
+        action: "Strategy & Data to engage with the project team on the PMO Tool to link and align Achievements, initiatives, and transformation update.",
+        status: "In Progress",
+        talkingPoint: "Joint alignment underway between Strategy & Data, EPMO & Agile, and Project Delivery to map transformation KPIs and Run/Build tracking."
+      },
+      {
+        id: 5,
+        date: "25/10/2026",
+        owner: "CDTO & CTO",
+        isEpmo: false,
+        tag: "Run",
+        action: "Accelerate the Technology Solution's team hiring process and (budget requirements - only on a case-by-case basis), in alignment with HC.",
+        status: "Open",
+        talkingPoint: "Owned by CDTO & CTO."
+      },
+      {
+        id: 6,
+        date: "25/10/2026",
+        owner: "CDTO & CTO",
+        isEpmo: false,
+        tag: "Run",
+        action: "Escalate vendor-related issues.",
+        status: "Open",
+        talkingPoint: "Owned by CDTO & CTO."
+      },
+      {
+        id: 7,
+        date: "25/10/2026",
+        owner: "CTO",
+        isEpmo: false,
+        tag: "Build",
+        action: "Establish clear expectations and ownership for Ecosystem - Phase 2, including Technology Lead, Business Lead, and other relevant roles. (Mohd. Haymoni to be assigned for now.)",
+        status: "Open",
+        talkingPoint: "Owned by CTO."
+      },
+      {
+        id: 8,
+        date: "25/10/2026",
+        owner: "Project Delivery",
+        isEpmo: false,
+        tag: "Build",
+        action: "Push forward the required analysis and arrange a meeting with Victoria - Temenos Support Team regarding Direct Debit Project vulnerabilities identified through VAPT, with CTO + Technology Solutions.",
+        status: "Open",
+        talkingPoint: "Owned by Project Delivery."
+      },
+      {
+        id: 9,
+        date: "25/10/2026",
+        owner: "Project Delivery",
+        isEpmo: false,
+        tag: "Run",
+        action: "Share business sponsorship and project charters to Wadee for alignment.",
+        status: "Open",
+        talkingPoint: "Owned by Project Delivery."
+      },
+      {
+        id: 10,
+        date: "25/10/2026",
+        owner: "Project Delivery",
+        isEpmo: false,
+        tag: "Run",
+        action: "Application owner to be assigned to Nawf for the Operational Risk System.",
+        status: "Open",
+        talkingPoint: "Owned by Project Delivery."
+      },
+      {
+        id: 11,
+        date: "25/10/2026",
+        owner: "Service Mngt. & Governance",
+        isEpmo: false,
+        tag: "Run",
+        action: "Arrange an alignment/awareness session between Digital & Transformation and ISO Team, to clarify workstreams, roles, responsibilities, as well as challenges between both.",
+        status: "Open",
+        talkingPoint: "Owned by Service Management & Governance."
+      },
+      {
+        id: 12,
+        date: "25/10/2026",
+        owner: "Service Mngt. & Governance",
+        isEpmo: false,
+        tag: "Run",
+        action: "Assess and address how matters between control functions & D&T should be handled.",
+        status: "Open",
+        talkingPoint: "Owned by Service Management & Governance."
+      },
+      {
+        id: 13,
+        date: "25/10/2026",
+        owner: "Technology Operations & Infrastructure",
+        isEpmo: false,
+        tag: "Build",
+        action: "Follow up on the DR of the HRMS Project.",
+        status: "Open",
+        talkingPoint: "Owned by Technology Operations & Infrastructure."
+      },
+      {
+        id: 14,
+        date: "25/10/2026",
+        owner: "Technology Solutions",
+        isEpmo: false,
+        tag: "Build",
+        action: "Technology Solutions to present an Application Stack & Infrastructure Stack map, providing a clear architecture view of the technology solutions team landscape and how the components of Technology Solutions connect.",
+        status: "Open",
+        talkingPoint: "Owned by Technology Solutions."
+      }
+    ];
+
+    let dtActionFilter = 'epmo';
+
+    function switchDtSubTab(sub) {
+      const subs = ['studio', 'actions', 'tor', 'preread'];
+      subs.forEach(s => {
+        const panel = document.getElementById(`dt-panel-${s}`);
+        const btn = document.getElementById(`dt-sub-btn-${s}`);
+        if (s === sub) {
+          panel.classList.remove('hidden');
+          btn.style.backgroundColor = '#2E7175';
+          btn.className = 'px-3.5 py-2 rounded-lg text-xs font-bold text-white shadow-sm';
+        } else {
+          panel.classList.add('hidden');
+          btn.style.backgroundColor = '';
+          btn.className = 'px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]';
+        }
+      });
+    }
+
+    function renderDtActions() {
+      const list = document.getElementById('dt-actions-list');
+      if (!list) return;
+      const savedStatuses = JSON.parse(localStorage.getItem('ohb_dt_actions_status') || '{}');
+      const items = dtActionFilter === 'epmo' ? dtDefaultActions.filter(a => a.isEpmo) : dtDefaultActions;
+
+      list.innerHTML = items.map(item => {
+        const currentStatus = savedStatuses[item.id] || item.status;
+        return `
+          <div class="p-4 rounded-xl border ${item.isEpmo ? 'border-l-4' : ''} border-[var(--border)] bg-[var(--background)] space-y-2" style="${item.isEpmo ? 'border-left-color: #2E7175;' : ''}">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: ${item.isEpmo ? '#2E7175' : '#4e6366'};">
+                  ${item.owner}
+                </span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #C8962E;">
+                  ${item.tag}
+                </span>
+                <span class="text-xs text-[var(--muted-foreground)] font-semibold">Logged: ${item.date}</span>
+              </div>
+              <select onchange="updateDtActionStatus(${item.id}, this.value)" class="px-2.5 py-1 rounded-lg border border-[var(--border)] bg-[var(--card)] text-xs font-bold text-[var(--foreground)]">
+                <option value="Open" ${currentStatus === 'Open' ? 'selected' : ''}>🔴 Open</option>
+                <option value="In Progress" ${currentStatus === 'In Progress' ? 'selected' : ''}>🟡 In Progress</option>
+                <option value="Ready to Present" ${currentStatus === 'Ready to Present' ? 'selected' : ''}>🟢 Ready to Present</option>
+                <option value="Ready to Schedule" ${currentStatus === 'Ready to Schedule' ? 'selected' : ''}>🟢 Ready to Schedule</option>
+                <option value="Closed" ${currentStatus === 'Closed' ? 'selected' : ''}>✅ Closed</option>
+              </select>
+            </div>
+            <p class="text-xs md:text-sm font-bold text-[var(--foreground)]">${item.action}</p>
+            ${item.isEpmo ? `
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] text-xs">
+                <span class="font-bold" style="color: #C8962E;">🎙️ 15-Second Forum Readout (Abeer / Hassan):</span>
+                <span class="text-[var(--foreground)]"> ${item.talkingPoint}</span>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateDtActionStatus(id, val) {
+      const saved = JSON.parse(localStorage.getItem('ohb_dt_actions_status') || '{}');
+      saved[id] = val;
+      localStorage.setItem('ohb_dt_actions_status', JSON.stringify(saved));
+      renderDtActions();
+    }
+
+    function filterDtActions(mode) {
+      dtActionFilter = mode;
+      const btnEpmo = document.getElementById('btn-filt-epmo');
+      const btnAll = document.getElementById('btn-filt-all');
+      if (mode === 'epmo') {
+        btnEpmo.style.backgroundColor = '#2E7175';
+        btnEpmo.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-white';
+        btnAll.style.backgroundColor = '';
+        btnAll.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]';
+      } else {
+        btnAll.style.backgroundColor = '#2E7175';
+        btnAll.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-white';
+        btnEpmo.style.backgroundColor = '';
+        btnEpmo.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]';
+      }
+      renderDtActions();
+    }
+
+    const dtEditableIds = [
+      'dt-slide-title',
+      'dt-slide-subtitle',
+      'dt-box1-wins',
+      'dt-box2-tbody',
+      'dt-box3-airtime',
+      'dt-box4-decisions',
+      'dt-box5-risks',
+      'dt-box6-priorities'
+    ];
+    const dtDefaultHtml = {};
+
+    function initDtSlideStudio() {
+      dtEditableIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) dtDefaultHtml[id] = el.innerHTML;
+      });
+      const saved = JSON.parse(localStorage.getItem('ohb_dt_slide4_state') || 'null');
+      if (saved) {
+        dtEditableIds.forEach(id => {
+          const el = document.getElementById(id);
+          if (el && saved[id]) el.innerHTML = saved[id];
+        });
+      }
+    }
+
+    function saveDtSlideState() {
+      const state = {};
+      dtEditableIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) state[id] = el.innerHTML;
+      });
+      localStorage.setItem('ohb_dt_slide4_state', JSON.stringify(state));
+    }
+
+    function resetDtSlideDefaults() {
+      localStorage.removeItem('ohb_dt_slide4_state');
+      dtEditableIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && dtDefaultHtml[id]) el.innerHTML = dtDefaultHtml[id];
+      });
+    }
+
+    function copyDtSlideSummary() {
+      const title = document.getElementById('dt-slide-title').innerText.trim();
+      const subtitle = document.getElementById('dt-slide-subtitle').innerText.trim();
+      const wins = document.getElementById('dt-box1-wins').innerText.trim();
+      const airtime = document.getElementById('dt-box3-airtime').innerText.trim();
+      const decisions = document.getElementById('dt-box4-decisions').innerText.trim();
+      const risks = document.getElementById('dt-box5-risks').innerText.trim();
+      const priorities = document.getElementById('dt-box6-priorities').innerText.trim();
+
+      const rows = Array.from(document.querySelectorAll('#dt-box2-tbody tr')).map(tr => {
+        return Array.from(tr.querySelectorAll('td')).map(td => td.innerText.trim()).join(' | ');
+      }).join('\n');
+
+      const summary = `${title}\n${subtitle}\n\n1. WINS THIS WEEK:\n${wins}\n\n2. STATUS OF KEY INITIATIVES:\nInitiative | Run/Build | On Track? | Comment\n${rows}\n\n3. ITEMS NEEDING AIRTIME (MAX 2):\n${airtime}\n\n4. DECISIONS NEEDED FROM FORUM:\n${decisions}\n\n5. RISK & ASKS:\n${risks}\n\n6. TOP 3 PRIORITIES FOR NEXT WEEK:\n${priorities}`;
+
+      navigator.clipboard.writeText(summary);
+      const btn = document.getElementById('btn-copy-dt-slide');
+      const orig = btn.innerText;
+      btn.innerText = '✅ Copied to Clipboard!';
+      setTimeout(() => { btn.innerText = orig; }, 2000);
+    }
+
+    function copyTextById(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text);
+      const orig = btn.innerText;
+      btn.innerText = '✅ Copied!';
+      setTimeout(() => { btn.innerText = orig; }, 2000);
+    }
+
+    // Initialize everything
     renderDeck();
     evaluatePolicyStack();
     renderBridge();
     setKanbanRoute('A');
     updateCapacitySim();
     renderQuiz();
+    renderMentalModels();
+    renderSpeechStructures();
+    renderHabits();
+    initDtSlideStudio();
+    renderDtActions();
   </script>
 </body>
 </html>

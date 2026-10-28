@@ -78,6 +78,9 @@
         <button id="btn-mode-reference" onclick="switchAppMode('reference')" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all">
           📖 4. Study Guide &amp; Scripts
         </button>
+        <button id="btn-mode-dtforum" onclick="switchAppMode('dtforum')" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] transition-all">
+          🏛️ 5. D&amp;T Weekly Forum
+        </button>
         <button onclick="toggleTheme()" id="btn-theme-desktop" class="hidden lg:inline-flex px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)] text-xs font-semibold ml-1">
           🌓 Dark / Light
         </button>
@@ -657,6 +660,415 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 5: D&T WEEKLY MANAGEMENT FORUM & SCRUMBAN EXECUTIVE UPDATE HUB     -->
+    <!-- ===================================================================== -->
+    <section id="view-dtforum" class="hidden space-y-6">
+
+      <!-- Top Banner -->
+      <div class="bg-[var(--card)] border-l-4 border border-[var(--border)] rounded-xl p-5 md:p-6 shadow-sm" style="border-left-color: #2E7175;">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">
+              D&amp;T Leadership Forum • Terms of Reference &amp; Annex A
+            </span>
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">
+              Sundays 10:00–11:30 AM • Ibri Fort (Muscat)
+            </span>
+          </div>
+          <span class="text-xs font-semibold text-[var(--muted-foreground)]">
+            Pre-Read Deadline: Thursday Midday (12:00 PM) • EPMO &amp; Agile (Abeer Al-Raisi / Hassan Al-Maqbali)
+          </span>
+        </div>
+        <h2 class="text-xl md:text-2xl font-bold text-[var(--foreground)] mt-2">
+          D&amp;T Weekly Management Forum — Scrumban Executive Playbook &amp; Live Slide Studio
+        </h2>
+        <p class="text-xs md:text-sm text-[var(--muted-foreground)] mt-1 leading-relaxed">
+          <strong>BLUF:</strong> The D&amp;T Weekly Management Forum is an <strong>Exception-Based Operating System</strong>, not a traditional Waterfall status readout. Every item is tagged <code>Run</code> or <code>Build</code>, pre-reads are assumed read, Green items stay silent in the table, and Item 6 (Top 3 Priorities) locks in next week's Item 1 (Wins).
+        </p>
+
+        <!-- Sub-navigation pills inside Tab 5 -->
+        <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-[var(--border)]">
+          <button onclick="switchDtSubTab('studio')" id="dt-sub-btn-studio" class="px-3.5 py-2 rounded-lg text-xs font-bold text-white shadow-sm" style="background-color: #2E7175;">
+            📊 1. Live Slide 4 Studio (Annex A)
+          </button>
+          <button onclick="switchDtSubTab('actions')" id="dt-sub-btn-actions" class="px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+            ✅ 2. Slide 3 Action Tracker (25/10/2026)
+          </button>
+          <button onclick="switchDtSubTab('tor')" id="dt-sub-btn-tor" class="px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+            ⚖️ 3. ToR Deconstruction &amp; Scrumban Playbook
+          </button>
+          <button onclick="switchDtSubTab('preread')" id="dt-sub-btn-preread" class="px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+            📋 4. Copy-Paste Markdown &amp; Cover Email
+          </button>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SUB-PANEL 1: INTERACTIVE SLIDE 4 STUDIO (D&T PPTX REPLICA)      -->
+      <!-- =============================================================== -->
+      <div id="dt-panel-studio" class="space-y-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider" style="color: #C8962E;">Interactive Slide 4 Replica (Editable &amp; Auto-Saved)</div>
+            <p class="text-xs text-[var(--muted-foreground)]">Click any text field or table cell below to edit directly in your browser. All edits auto-save to your device and can be exported to Markdown or copied for PowerPoint.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="copyDtSlideSummary()" id="btn-copy-dt-slide" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-sm" style="background-color: #2E7175;">
+              📋 Copy Slide Text for PPTX / Email
+            </button>
+            <button onclick="resetDtSlideDefaults()" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-[var(--border)] bg-[var(--secondary)] text-[var(--foreground)]">
+              ↺ Reset to Default Draft
+            </button>
+          </div>
+        </div>
+
+        <!-- 16:9 Executive Slide Canvas -->
+        <div class="bg-[var(--card)] border-2 border-[var(--border)] rounded-2xl p-5 md:p-7 shadow-md space-y-5">
+          <!-- Slide Header Bar -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-4 border-b-2" style="border-bottom-color: #2E7175;">
+            <div>
+              <div id="dt-slide-title" contenteditable="true" oninput="saveDtSlideState()" class="text-lg md:text-xl font-extrabold text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[#C8962E] rounded px-1">
+                EPMO &amp; Agile – Weekly Update
+              </div>
+              <div id="dt-slide-subtitle" contenteditable="true" oninput="saveDtSlideState()" class="text-xs md:text-sm font-semibold mt-0.5 focus:outline-none focus:ring-2 focus:ring-[#C8962E] rounded px-1" style="color: #C8962E;">
+                Abeer Al-Raisi / Hassan Al-Maqbali | Week Ending: 29/10/26 (Forum: 01/11/26)
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="px-2.5 py-1 rounded text-xs font-extrabold text-white" style="background-color: #2E7175;">Run / Build Tagged</span>
+              <span class="px-2.5 py-1 rounded text-xs font-extrabold text-white" style="background-color: #C8962E;">Annex A Compliant</span>
+            </div>
+          </div>
+
+          <!-- Top Row: Box 1 (Wins) + Box 2 (Status of Key Initiatives Table) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <!-- Box 1: Wins This Week -->
+            <div class="lg:col-span-4 rounded-xl border border-[var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+              <div class="px-3.5 py-2 text-xs font-extrabold uppercase tracking-wider text-white flex items-center justify-between" style="background-color: #2E7175;">
+                <span>1. Wins This Week (vs Last Week's Top 3)</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded" style="background-color: #C8962E;">5 Mins</span>
+              </div>
+              <div id="dt-box1-wins" contenteditable="true" oninput="saveDtSlideState()" class="p-3.5 space-y-2.5 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] Controlled Scrumban Framework:</strong> Completed executive deck (24 slides) &amp; interactive masterclass portal for D&amp;T leadership walkthrough.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] E-Invoicing (Fwtara):</strong> Finalized P1 Pre-Kickoff pack, Demand Form v5.0 &amp; Deloitte readiness alignment.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] Internal Tool Governance (PRC-TECH-001):</strong> Completed ACH Reconciliation TRD v1.1 &amp; 4 modular SOPs with mandatory AD/SSO controls.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Run] PMO Tool &amp; Demand Intake:</strong> Engaged Strategy &amp; Data on PMO Tool alignment &amp; prepared management Demand Intake session pack.</div>
+              </div>
+            </div>
+
+            <!-- Box 2: Status of Key Initiatives -->
+            <div class="lg:col-span-8 rounded-xl border border-[var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+              <div class="px-3.5 py-2 text-xs font-extrabold uppercase tracking-wider text-white flex items-center justify-between" style="background-color: #2E7175;">
+                <span>2. Status of Key Initiatives (Exceptions Only Verbal — Max 2m)</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded" style="background-color: #C8962E;">10 Mins</span>
+              </div>
+              <div class="overflow-x-auto flex-1 p-2">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr class="border-b border-[var(--border)] text-[var(--muted-foreground)] font-bold">
+                      <th class="p-2">Initiative</th>
+                      <th class="p-2 w-24">Run/Build</th>
+                      <th class="p-2 w-28">On track? (Y/N)</th>
+                      <th class="p-2">Comment (Flow / Gate / Containment)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dt-box2-tbody" contenteditable="true" oninput="saveDtSlideState()" class="divide-y divide-[var(--border)] text-[var(--foreground)]">
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">OHB Agile Delivery (Controlled Scrumban)</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #2E7175;">Build</span></td>
+                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
+                      <td class="p-2">Framework v0.1 &amp; interactive portal ready for CDTO/CTO &amp; Tech Solutions session (Action #5).</td>
+                    </tr>
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">E-Invoicing (Fwtara) Implementation</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #2E7175;">Build</span></td>
+                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
+                      <td class="p-2">P1 Initiate: Demand Form, Charter draft &amp; Pre-Kickoff deck ready; aligning OTA/Deloitte scope.</td>
+                    </tr>
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">Internal Tools (ACH Recon &amp; PRC-TECH-001)</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #2E7175;">Build</span></td>
+                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
+                      <td class="p-2">ACH Reconciliation TRD v1.1 finalized; 0-OMR citizen/IT developer SOP suite ready for baseline.</td>
+                    </tr>
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">Test House Contract &amp; QA Resourcing</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #C8962E;">Run</span></td>
+                      <td class="p-2 font-bold text-amber-500">N (🟡)</td>
+                      <td class="p-2"><strong>Exception:</strong> Coordinating multi-party review with CSS, Legal (Tahani), CDTO, CTO &amp; Project Delivery (See Box 3).</td>
+                    </tr>
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">Demand Intake &amp; PMO Tool Alignment</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #C8962E;">Run</span></td>
+                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
+                      <td class="p-2">In progress with Strategy &amp; Data; management awareness session ready to schedule.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Boxes 3, 4, 5, 6 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Box 3: Items needing Airtime -->
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+              <div class="px-3 py-2 text-xs font-extrabold uppercase tracking-wider text-white" style="background-color: #2E7175;">
+                3. Items Needing Airtime (Max 2)
+              </div>
+              <div class="px-3 py-1 text-[11px] font-semibold border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                What it is • Why now • What you need
+              </div>
+              <div id="dt-box3-airtime" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div><strong>1. [Build] Controlled Scrumban Walkthrough:</strong><br/>• <em>Why now:</em> Open Action from 25/10; needed to stop multi-PO developer context switching.<br/>• <em>Need:</em> Confirm 45-min slot this week with CDTO, CTO &amp; Tech Solutions.</div>
+                <div class="pt-1 border-t border-[var(--border)]"><strong>2. [Run] Test House Contract Alignment:</strong><br/>• <em>Why now:</em> Unblocks SIT/UAT QA capacity across active projects.<br/>• <em>Need:</em> Confirm CSS + Legal (Tahani) + D&amp;T roundtable date.</div>
+              </div>
+            </div>
+
+            <!-- Box 4: Decisions needed from the Forum -->
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+              <div class="px-3 py-2 text-xs font-extrabold uppercase tracking-wider text-white" style="background-color: #2E7175;">
+                4. Decisions Needed from Forum
+              </div>
+              <div class="px-3 py-1 text-[11px] font-semibold border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                Decision • Options • Recommendation
+              </div>
+              <div id="dt-box4-decisions" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div><strong>[DEC-01] Authorize Controlled Scrumban Pilot &amp; Capacity Policy (70/20/10):</strong></div>
+                <div>• <em>Option A (Recommended):</em> Endorse Executive Quarterly Ordering + One Shared Ready Queue + 70% MVP / 20% UAT / 10% Ops capacity split for Sprint 0 pilot.</div>
+                <div>• <em>Option B:</em> Retain ad-hoc project tasking (risks continued 160-WD P4 bottlenecks).</div>
+              </div>
+            </div>
+
+            <!-- Box 5: Risk & Asks -->
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+              <div class="px-3 py-2 text-xs font-extrabold uppercase tracking-wider text-white" style="background-color: #2E7175;">
+                5. Risk &amp; Asks
+              </div>
+              <div class="px-3 py-1 text-[11px] font-semibold border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                Support needed from D&amp;T Mgmt / Escalation
+              </div>
+              <div id="dt-box5-risks" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div>⚠️ <strong>Risk (Uncontrolled WIP):</strong> Direct PO-to-developer tasking outside the Shared Ready Queue delays committed P4 releases.</div>
+                <div>🤝 <strong>Ask from D&amp;T Leaders:</strong> Enforce Gate G1 Demand Intake &amp; Gate G4 Definition of Ready across all Technology Solutions &amp; Project Delivery streams.</div>
+              </div>
+            </div>
+
+            <!-- Box 6: Top 3 Priorities for the Next Week -->
+            <div class="rounded-xl border-2 bg-[var(--background)] overflow-hidden flex flex-col" style="border-color: #C8962E;">
+              <div class="px-3 py-2 text-xs font-extrabold uppercase tracking-wider text-white flex items-center justify-between" style="background-color: #C8962E;">
+                <span>6. Top 3 Priorities Next Week</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-black/20">Feeds Item 1</span>
+              </div>
+              <div class="px-3 py-1 text-[11px] font-semibold border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                Locked outcomes (100% under our trigger control)
+              </div>
+              <div id="dt-box6-priorities" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #1 [Build]:</strong> Deliver Agile Framework (Controlled Scrumban) &amp; Demand Intake walkthrough to CDTO, CTO &amp; Tech Solutions.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #2 [Run]:</strong> Convene Test House Contract alignment session with CSS, Legal (Tahani), EPMO &amp; Project Delivery and log action plan.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #3 [Build]:</strong> Complete E-Invoicing (Fwtara) Pre-Kickoff alignment &amp; baseline PMO Tool initiative mapping with Strategy &amp; Data.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SUB-PANEL 2: SLIDE 3 LIVE ACTION ITEMS TRACKER (25/10/2026)     -->
+      <!-- =============================================================== -->
+      <div id="dt-panel-actions" class="hidden space-y-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-4 shadow-sm">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+            <div>
+              <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #C8962E;">Slide 3 of D&amp;T_Weekly_Template.pptx</span>
+              <h3 class="text-lg font-bold text-[var(--foreground)] mt-1">
+                D&amp;T Forum Action Items Recap (From 25/10/2026 Meeting)
+              </h3>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                The meeting opens with <strong>Item 5 / Agenda 01: Action Items Recap</strong>. Below are all 14 actions from Slide 3, with the <strong>4 EPMO &amp; Agile actions highlighted first</strong> so you and Abeer have crisp 15-second answers ready.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="filterDtActions('epmo')" id="btn-filt-epmo" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white" style="background-color: #2E7175;">
+                🎯 EPMO &amp; Agile Actions (4)
+              </button>
+              <button onclick="filterDtActions('all')" id="btn-filt-all" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+                📋 All D&amp;T Actions (14)
+              </button>
+            </div>
+          </div>
+
+          <div id="dt-actions-list" class="space-y-3"></div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SUB-PANEL 3: ToR DECONSTRUCTION & SCRUMBAN EXECUTIVE PLAYBOOK   -->
+      <!-- =============================================================== -->
+      <div id="dt-panel-tor" class="hidden space-y-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-2 shadow-sm">
+            <div class="text-xs font-bold uppercase tracking-wider" style="color: #2E7175;">1. Forum Authority &amp; Delegates</div>
+            <p class="text-xs text-[var(--foreground)] leading-relaxed">
+              <strong>Members:</strong> CDTO, CTO, Head of Service Mgmt &amp; Governance, Head of Tech Ops &amp; Infra, Head of Tech Solutions, <strong>Head of EPMO &amp; Agile (Abeer)</strong>, Head of Project Delivery, Head of Strategy &amp; Data, Head of Digital &amp; Innovation.
+            </p>
+            <div class="p-2.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs">
+              ⚠️ <strong>Delegate Rule:</strong> <em>"No delegates without agreement from CDTO or CTO."</em> Always ensure Abeer sends a quick pre-note to CDTO/CTO if you are backing her up in Ibri Fort.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-2 shadow-sm">
+            <div class="text-xs font-bold uppercase tracking-wider" style="color: #C8962E;">2. Decision Rights Filter</div>
+            <p class="text-xs text-[var(--foreground)] leading-relaxed">
+              <strong>What belongs here:</strong> Matters within the D&amp;T group's approved plans &amp; budgets (e.g., cross-team WIP bottlenecks, shared QA/Tech Solutions allocation, framework adoption).
+            </p>
+            <div class="p-2.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs">
+              🚫 <strong>What stays out:</strong> Project-level scope/budget decisions belong to <strong>Project SteerCos</strong>; vendor tenders go to <strong>MTC</strong>; corporate policy/SOP goes to <strong>MRC / MSSC</strong>.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-2 shadow-sm">
+            <div class="text-xs font-bold uppercase tracking-wider" style="color: #2E7175;">3. Run vs. Build Tagging &amp; Deadlines</div>
+            <p class="text-xs text-[var(--foreground)] leading-relaxed">
+              <strong>Mandatory Tag:</strong> Every single initiative, issue, and priority must be tagged <code>Run</code> (BAU operations, recurring governance, contract ops) or <code>Build</code> (new transformation, projects, tools, frameworks).
+            </p>
+            <div class="p-2.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs">
+              ⏰ <strong>Pre-Read Cut-off:</strong> Submitted to Rahma by <strong>Thursday Midday (12:00 PM)</strong>. No pre-read = item waits until next week.
+            </div>
+          </div>
+        </div>
+
+        <!-- 60-Minute Agenda Deconstruction Table -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-3">
+          <h3 class="text-base font-bold text-[var(--foreground)]">
+            ⚡ Deconstructing the 60-Minute Agenda: Average Manager vs. Your Scrumban Power Play
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="text-white" style="background-color: #2E7175;">
+                  <th class="p-2.5 rounded-tl-lg"># &amp; Agenda Item</th>
+                  <th class="p-2.5">Time &amp; ToR Rule</th>
+                  <th class="p-2.5">The Trap Average Managers Fall Into</th>
+                  <th class="p-2.5 rounded-tr-lg">Your Scrumban "Super PM" Power Play</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--border)]">
+                <tr class="bg-[var(--background)]">
+                  <td class="p-2.5 font-bold">1. Wins of past week (vs last week's priorities)</td>
+                  <td class="p-2.5"><strong>5 mins</strong><br/>Short and factual</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Listing 8 random meetings or "in-progress" tasks that don't match what they promised last week.</td>
+                  <td class="p-2.5"><strong>1-to-1 Accountability Loop:</strong> Report only increments that crossed <em>Definition of Done</em> against last week's Item 6 Top 3.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold">2. Updates, exceptions only</td>
+                  <td class="p-2.5"><strong>10 mins</strong><br/>Max 2m each; pre-read assumed read</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Reading Green rows out loud and wasting 5 minutes explaining things that are on track.</td>
+                  <td class="p-2.5"><strong>90-Second Exception Discipline:</strong> Leave <code>On Track = Y</code> silent in the table. Speak only to <code>On Track = N</code> using <em>Variance → Impact → Containment</em>.</td>
+                </tr>
+                <tr class="bg-[var(--background)]">
+                  <td class="p-2.5 font-bold">3. Decisions &amp; escalations</td>
+                  <td class="p-2.5"><strong>10 mins</strong><br/>Standing item; logged live</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Asking open-ended questions ("What should we do?") or raising SteerCo items to D&amp;T.</td>
+                  <td class="p-2.5"><strong>Trade-Off Mirror:</strong> Frame every decision with <em>Option A (Recommended) vs Option B</em> and explicit capacity/scope displacement cost.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold">4. Issues, discussion, solutions</td>
+                  <td class="p-2.5"><strong>20 mins</strong><br/>Closes with Owner, Action, Deadline (&gt;15m = separate mtg)</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Hiding problems until a gate fails, or bringing unowned problems that trigger 25-minute debates.</td>
+                  <td class="p-2.5"><strong>48-Hour Blocked Aging + Pre-Alignment:</strong> Surface flow bottlenecks early and pre-agree the <strong>Owner (R) + Action + Date</strong> on Wednesday before submitting.</td>
+                </tr>
+                <tr class="bg-[var(--background)]">
+                  <td class="p-2.5 font-bold">5. Action recap</td>
+                  <td class="p-2.5"><strong>5 mins</strong><br/>Secretary reads back owners &amp; dates</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Being caught off-guard by last week's Slide 3 action items.</td>
+                  <td class="p-2.5"><strong>Pre-Cleared Log:</strong> Walk in with all 4 EPMO &amp; Agile actions from 25/10 already updated with artifacts or calendar invites sent.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold">6. Top 3 priorities for coming week</td>
+                  <td class="p-2.5"><strong>10 mins</strong><br/>Logged; picked up in Item 1 next week</td>
+                  <td class="p-2.5 text-[var(--muted-foreground)]">Over-promising vague tasks dependent on external third parties at the end of the meeting.</td>
+                  <td class="p-2.5"><strong>Throughput-Sized Pull Commitments:</strong> Commit only to 3 high-impact outcomes where <em>you</em> control the completion trigger—guaranteeing a <code>3/3</code> win streak next Sunday.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SUB-PANEL 4: COPY-PASTE MARKDOWN & COVER EMAIL GENERATOR        -->
+      <!-- =============================================================== -->
+      <div id="dt-panel-preread" class="hidden space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-3 shadow-sm">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-[var(--foreground)]">📧 1. Cover Email to Abeer / Rahma (BLUF Format)</h3>
+              <button onclick="copyTextById('dt-email-template', this)" class="px-3 py-1 rounded text-xs font-bold text-white" style="background-color: #2E7175;">
+                Copy Email
+              </button>
+            </div>
+            <pre id="dt-email-template" class="p-3.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs text-[var(--foreground)] whitespace-pre-wrap font-mono leading-relaxed">Subject: EPMO &amp; Agile — D&amp;T Weekly Management Update (Week Ending 29-Oct-2026)
+
+Dear Abeer,
+
+BLUF: Please find attached the drafted D&amp;T Weekly Management Update slide (Annex A format) and updated status on our 4 open Action Items from 25-Oct ahead of our review tomorrow and Thursday's midday submission.
+
+Summary of This Week's Update:
+• [Build] Controlled Scrumban Framework &amp; Interactive Portal: Ready for CDTO, CTO &amp; Technology Solutions walkthrough (Action #5).
+• [Build] Key Projects/Tools (E-Invoicing P1 &amp; ACH Reconciliation TRD v1.1): On track (Y).
+• [Run] Exceptions / Airtime (1 Item): Test House Contract multi-party alignment across CSS, Legal (Tahani), EPMO &amp; Project Delivery.
+• [Run] Delegate Note: Per the ToR ("No delegates without agreement from CDTO or CTO"), if you need me to back you up in Sunday's 10:00 AM session at Ibri Fort, we can include a quick delegate confirmation note when submitting tomorrow.
+
+Best regards,
+Hassan Al-Maqbali
+Project Manager | EPMO &amp; Agile</pre>
+          </div>
+
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-3 shadow-sm">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-[var(--foreground)]">📄 2. Annex A One-Page Markdown Template (Scrumban Edition)</h3>
+              <button onclick="copyTextById('dt-md-template', this)" class="px-3 py-1 rounded text-xs font-bold text-white" style="background-color: #C8962E;">
+                Copy Markdown
+              </button>
+            </div>
+            <pre id="dt-md-template" class="p-3.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs text-[var(--foreground)] whitespace-pre-wrap font-mono leading-relaxed"># Weekly Update: EPMO &amp; Agile, Abeer Al-Raisi / Hassan Al-Maqbali, 29/10/2026
+
+## 1. Wins this week (against last week's top 3)
+- [Build] Completed OHB Controlled Scrumban executive deck &amp; interactive web portal for D&amp;T walkthrough.
+- [Build] Finalized E-Invoicing (Fwtara) P1 Pre-Kickoff pack &amp; ACH Reconciliation Tool TRD v1.1.
+- [Run] Engaged Strategy &amp; Data on PMO Tool alignment &amp; prepared Demand Intake awareness pack.
+
+## 2. Status of key initiatives
+| Initiative | Run/Build | On track? (Y/N) | Comment |
+| :--- | :---: | :---: | :--- |
+| Controlled Scrumban Framework | Build | Y | Deck &amp; portal ready for CDTO/CTO/Tech Solutions session |
+| E-Invoicing (Fwtara) | Build | Y | P1 Demand Form, Charter &amp; Pre-Kickoff pack ready |
+| Internal Tools (ACH Recon / PRC-TECH-001) | Build | Y | TRD v1.1 &amp; 4 modular SOPs completed (0 OMR, AD/SSO) |
+| Test House Contract Alignment | Run | N | Coordinating CSS + Legal + CDTO/CTO + Delivery session |
+| Demand Intake &amp; PMO Tool | Run | Y | Alignment with Strategy &amp; Data in progress |
+
+## 3. Items needing airtime (max 2): what it is, why now, what you need
+1. [Build] Agile Framework Walkthrough: Open action from 25/10; need 45-min slot with CDTO, CTO &amp; Tech Solutions.
+2. [Run] Test House Contract Issue: Unblocks SIT/UAT QA capacity; need agreement on multi-party meeting slot.
+
+## 4. Decisions needed from the forum
+- Authorize Controlled Scrumban Sprint 0 Pilot &amp; 70/20/10 Capacity Policy (Recommended: Option A).
+
+## 5. Risks and asks
+- Risk: Direct PO-to-developer tasking bypasses readiness gates. Ask: D&amp;T Heads to enforce Gate G1/G4 intake.
+
+## 6. Top 3 priorities for next week
+1. [Build] Present Agile Framework &amp; Demand Intake session to CDTO, CTO &amp; Technology Solutions.
+2. [Run] Hold Test House Contract alignment with CSS, Legal (Tahani), EPMO &amp; Project Delivery.
+3. [Build] Conclude E-Invoicing Pre-Kickoff alignment &amp; PMO Tool initiative mapping with Strategy &amp; Data.</pre>
+          </div>
+        </div>
+      </div>
+
     </section>
 
   </main>
@@ -1288,7 +1700,7 @@
     // MODE & TAB SWITCHING
     // =========================================================================
     function switchAppMode(mode) {
-      const modes = ['deck', 'lab', 'charisma', 'reference'];
+      const modes = ['deck', 'lab', 'charisma', 'reference', 'dtforum'];
       modes.forEach(m => {
         const view = document.getElementById(`view-${m}`);
         const btn = document.getElementById(`btn-mode-${m}`);
@@ -1976,6 +2388,309 @@
       renderHabits();
     }
 
+    // =========================================================================
+    // TAB 5: D&T WEEKLY FORUM STUDIO & SLIDE 3 ACTION TRACKER
+    // =========================================================================
+    const dtDefaultActions = [
+      {
+        id: 1,
+        date: "25/10/2026",
+        owner: "EPMO & Agile",
+        isEpmo: true,
+        tag: "Build",
+        action: "Present the Agile Framework and other relevant frameworks to CDTO, CTO, & Technology Solutions.",
+        status: "Ready to Present",
+        talkingPoint: "Executive 24-slide deck & live interactive Scrumban Masterclass portal are 100% complete. Requesting 45-min slot this week with CDTO, CTO & Tech Solutions."
+      },
+      {
+        id: 2,
+        date: "25/10/2026",
+        owner: "EPMO & Agile",
+        isEpmo: true,
+        tag: "Run",
+        action: "EPMO & Agile to arrange a discussion on the Test House Contract issue involving CSS + PMO, including Head of Legal Affairs & Board Secretary (Tahani), CDTO, CTO, EPMO & Agile, & Project Delivery team.",
+        status: "In Progress",
+        talkingPoint: "Scope & SLA gaps mapped; coordinating calendar alignment across Legal (Tahani), CSS, CDTO, CTO & Project Delivery for this week."
+      },
+      {
+        id: 3,
+        date: "25/10/2026",
+        owner: "EPMO & Agile",
+        isEpmo: true,
+        tag: "Run",
+        action: "Conduct an awareness session on the demand intake process to the management.",
+        status: "Ready to Schedule",
+        talkingPoint: "Gate G1 Demand Intake & PRC-TECH-001 Internal Tool triage pack finalized; ready to run combined or back-to-back with the Agile Framework walkthrough."
+      },
+      {
+        id: 4,
+        date: "25/10/2026",
+        owner: "Strategy & Data, EPMO & Agile, Project Delivery",
+        isEpmo: true,
+        tag: "Build",
+        action: "Strategy & Data to engage with the project team on the PMO Tool to link and align Achievements, initiatives, and transformation update.",
+        status: "In Progress",
+        talkingPoint: "Joint alignment underway between Strategy & Data, EPMO & Agile, and Project Delivery to map transformation KPIs and Run/Build tracking."
+      },
+      {
+        id: 5,
+        date: "25/10/2026",
+        owner: "CDTO & CTO",
+        isEpmo: false,
+        tag: "Run",
+        action: "Accelerate the Technology Solution's team hiring process and (budget requirements - only on a case-by-case basis), in alignment with HC.",
+        status: "Open",
+        talkingPoint: "Owned by CDTO & CTO."
+      },
+      {
+        id: 6,
+        date: "25/10/2026",
+        owner: "CDTO & CTO",
+        isEpmo: false,
+        tag: "Run",
+        action: "Escalate vendor-related issues.",
+        status: "Open",
+        talkingPoint: "Owned by CDTO & CTO."
+      },
+      {
+        id: 7,
+        date: "25/10/2026",
+        owner: "CTO",
+        isEpmo: false,
+        tag: "Build",
+        action: "Establish clear expectations and ownership for Ecosystem - Phase 2, including Technology Lead, Business Lead, and other relevant roles. (Mohd. Haymoni to be assigned for now.)",
+        status: "Open",
+        talkingPoint: "Owned by CTO."
+      },
+      {
+        id: 8,
+        date: "25/10/2026",
+        owner: "Project Delivery",
+        isEpmo: false,
+        tag: "Build",
+        action: "Push forward the required analysis and arrange a meeting with Victoria - Temenos Support Team regarding Direct Debit Project vulnerabilities identified through VAPT, with CTO + Technology Solutions.",
+        status: "Open",
+        talkingPoint: "Owned by Project Delivery."
+      },
+      {
+        id: 9,
+        date: "25/10/2026",
+        owner: "Project Delivery",
+        isEpmo: false,
+        tag: "Run",
+        action: "Share business sponsorship and project charters to Wadee for alignment.",
+        status: "Open",
+        talkingPoint: "Owned by Project Delivery."
+      },
+      {
+        id: 10,
+        date: "25/10/2026",
+        owner: "Project Delivery",
+        isEpmo: false,
+        tag: "Run",
+        action: "Application owner to be assigned to Nawf for the Operational Risk System.",
+        status: "Open",
+        talkingPoint: "Owned by Project Delivery."
+      },
+      {
+        id: 11,
+        date: "25/10/2026",
+        owner: "Service Mngt. & Governance",
+        isEpmo: false,
+        tag: "Run",
+        action: "Arrange an alignment/awareness session between Digital & Transformation and ISO Team, to clarify workstreams, roles, responsibilities, as well as challenges between both.",
+        status: "Open",
+        talkingPoint: "Owned by Service Management & Governance."
+      },
+      {
+        id: 12,
+        date: "25/10/2026",
+        owner: "Service Mngt. & Governance",
+        isEpmo: false,
+        tag: "Run",
+        action: "Assess and address how matters between control functions & D&T should be handled.",
+        status: "Open",
+        talkingPoint: "Owned by Service Management & Governance."
+      },
+      {
+        id: 13,
+        date: "25/10/2026",
+        owner: "Technology Operations & Infrastructure",
+        isEpmo: false,
+        tag: "Build",
+        action: "Follow up on the DR of the HRMS Project.",
+        status: "Open",
+        talkingPoint: "Owned by Technology Operations & Infrastructure."
+      },
+      {
+        id: 14,
+        date: "25/10/2026",
+        owner: "Technology Solutions",
+        isEpmo: false,
+        tag: "Build",
+        action: "Technology Solutions to present an Application Stack & Infrastructure Stack map, providing a clear architecture view of the technology solutions team landscape and how the components of Technology Solutions connect.",
+        status: "Open",
+        talkingPoint: "Owned by Technology Solutions."
+      }
+    ];
+
+    let dtActionFilter = 'epmo';
+
+    function switchDtSubTab(sub) {
+      const subs = ['studio', 'actions', 'tor', 'preread'];
+      subs.forEach(s => {
+        const panel = document.getElementById(`dt-panel-${s}`);
+        const btn = document.getElementById(`dt-sub-btn-${s}`);
+        if (s === sub) {
+          panel.classList.remove('hidden');
+          btn.style.backgroundColor = '#2E7175';
+          btn.className = 'px-3.5 py-2 rounded-lg text-xs font-bold text-white shadow-sm';
+        } else {
+          panel.classList.add('hidden');
+          btn.style.backgroundColor = '';
+          btn.className = 'px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]';
+        }
+      });
+    }
+
+    function renderDtActions() {
+      const list = document.getElementById('dt-actions-list');
+      if (!list) return;
+      const savedStatuses = JSON.parse(localStorage.getItem('ohb_dt_actions_status') || '{}');
+      const items = dtActionFilter === 'epmo' ? dtDefaultActions.filter(a => a.isEpmo) : dtDefaultActions;
+
+      list.innerHTML = items.map(item => {
+        const currentStatus = savedStatuses[item.id] || item.status;
+        return `
+          <div class="p-4 rounded-xl border ${item.isEpmo ? 'border-l-4' : ''} border-[var(--border)] bg-[var(--background)] space-y-2" style="${item.isEpmo ? 'border-left-color: #2E7175;' : ''}">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: ${item.isEpmo ? '#2E7175' : '#4e6366'};">
+                  ${item.owner}
+                </span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #C8962E;">
+                  ${item.tag}
+                </span>
+                <span class="text-xs text-[var(--muted-foreground)] font-semibold">Logged: ${item.date}</span>
+              </div>
+              <select onchange="updateDtActionStatus(${item.id}, this.value)" class="px-2.5 py-1 rounded-lg border border-[var(--border)] bg-[var(--card)] text-xs font-bold text-[var(--foreground)]">
+                <option value="Open" ${currentStatus === 'Open' ? 'selected' : ''}>🔴 Open</option>
+                <option value="In Progress" ${currentStatus === 'In Progress' ? 'selected' : ''}>🟡 In Progress</option>
+                <option value="Ready to Present" ${currentStatus === 'Ready to Present' ? 'selected' : ''}>🟢 Ready to Present</option>
+                <option value="Ready to Schedule" ${currentStatus === 'Ready to Schedule' ? 'selected' : ''}>🟢 Ready to Schedule</option>
+                <option value="Closed" ${currentStatus === 'Closed' ? 'selected' : ''}>✅ Closed</option>
+              </select>
+            </div>
+            <p class="text-xs md:text-sm font-bold text-[var(--foreground)]">${item.action}</p>
+            ${item.isEpmo ? `
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] text-xs">
+                <span class="font-bold" style="color: #C8962E;">🎙️ 15-Second Forum Readout (Abeer / Hassan):</span>
+                <span class="text-[var(--foreground)]"> ${item.talkingPoint}</span>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateDtActionStatus(id, val) {
+      const saved = JSON.parse(localStorage.getItem('ohb_dt_actions_status') || '{}');
+      saved[id] = val;
+      localStorage.setItem('ohb_dt_actions_status', JSON.stringify(saved));
+      renderDtActions();
+    }
+
+    function filterDtActions(mode) {
+      dtActionFilter = mode;
+      const btnEpmo = document.getElementById('btn-filt-epmo');
+      const btnAll = document.getElementById('btn-filt-all');
+      if (mode === 'epmo') {
+        btnEpmo.style.backgroundColor = '#2E7175';
+        btnEpmo.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-white';
+        btnAll.style.backgroundColor = '';
+        btnAll.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]';
+      } else {
+        btnAll.style.backgroundColor = '#2E7175';
+        btnAll.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-white';
+        btnEpmo.style.backgroundColor = '';
+        btnEpmo.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]';
+      }
+      renderDtActions();
+    }
+
+    const dtEditableIds = [
+      'dt-slide-title',
+      'dt-slide-subtitle',
+      'dt-box1-wins',
+      'dt-box2-tbody',
+      'dt-box3-airtime',
+      'dt-box4-decisions',
+      'dt-box5-risks',
+      'dt-box6-priorities'
+    ];
+    const dtDefaultHtml = {};
+
+    function initDtSlideStudio() {
+      dtEditableIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) dtDefaultHtml[id] = el.innerHTML;
+      });
+      const saved = JSON.parse(localStorage.getItem('ohb_dt_slide4_state') || 'null');
+      if (saved) {
+        dtEditableIds.forEach(id => {
+          const el = document.getElementById(id);
+          if (el && saved[id]) el.innerHTML = saved[id];
+        });
+      }
+    }
+
+    function saveDtSlideState() {
+      const state = {};
+      dtEditableIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) state[id] = el.innerHTML;
+      });
+      localStorage.setItem('ohb_dt_slide4_state', JSON.stringify(state));
+    }
+
+    function resetDtSlideDefaults() {
+      localStorage.removeItem('ohb_dt_slide4_state');
+      dtEditableIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && dtDefaultHtml[id]) el.innerHTML = dtDefaultHtml[id];
+      });
+    }
+
+    function copyDtSlideSummary() {
+      const title = document.getElementById('dt-slide-title').innerText.trim();
+      const subtitle = document.getElementById('dt-slide-subtitle').innerText.trim();
+      const wins = document.getElementById('dt-box1-wins').innerText.trim();
+      const airtime = document.getElementById('dt-box3-airtime').innerText.trim();
+      const decisions = document.getElementById('dt-box4-decisions').innerText.trim();
+      const risks = document.getElementById('dt-box5-risks').innerText.trim();
+      const priorities = document.getElementById('dt-box6-priorities').innerText.trim();
+
+      const rows = Array.from(document.querySelectorAll('#dt-box2-tbody tr')).map(tr => {
+        return Array.from(tr.querySelectorAll('td')).map(td => td.innerText.trim()).join(' | ');
+      }).join('\n');
+
+      const summary = `${title}\n${subtitle}\n\n1. WINS THIS WEEK:\n${wins}\n\n2. STATUS OF KEY INITIATIVES:\nInitiative | Run/Build | On Track? | Comment\n${rows}\n\n3. ITEMS NEEDING AIRTIME (MAX 2):\n${airtime}\n\n4. DECISIONS NEEDED FROM FORUM:\n${decisions}\n\n5. RISK & ASKS:\n${risks}\n\n6. TOP 3 PRIORITIES FOR NEXT WEEK:\n${priorities}`;
+
+      navigator.clipboard.writeText(summary);
+      const btn = document.getElementById('btn-copy-dt-slide');
+      const orig = btn.innerText;
+      btn.innerText = '✅ Copied to Clipboard!';
+      setTimeout(() => { btn.innerText = orig; }, 2000);
+    }
+
+    function copyTextById(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text);
+      const orig = btn.innerText;
+      btn.innerText = '✅ Copied!';
+      setTimeout(() => { btn.innerText = orig; }, 2000);
+    }
+
     // Initialize everything
     renderDeck();
     evaluatePolicyStack();
@@ -1986,6 +2701,8 @@
     renderMentalModels();
     renderSpeechStructures();
     renderHabits();
+    initDtSlideStudio();
+    renderDtActions();
   </script>
 </body>
 </html>
