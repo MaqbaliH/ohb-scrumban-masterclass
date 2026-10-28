@@ -694,14 +694,17 @@
           <button onclick="switchDtSubTab('studio')" id="dt-sub-btn-studio" class="px-3.5 py-2 rounded-lg text-xs font-bold text-white shadow-sm" style="background-color: #2E7175;">
             📊 1. Live Slide 4 Studio (Annex A)
           </button>
+          <button onclick="switchDtSubTab('uhdlrm')" id="dt-sub-btn-uhdlrm" class="px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
+            🔬 2. UHD &amp; LRM Live UAT Results
+          </button>
           <button onclick="switchDtSubTab('actions')" id="dt-sub-btn-actions" class="px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
-            ✅ 2. Slide 3 Action Tracker (25/10/2026)
+            ✅ 3. Slide 3 Action Tracker (25/10/2026)
           </button>
           <button onclick="switchDtSubTab('tor')" id="dt-sub-btn-tor" class="px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
-            ⚖️ 3. ToR Deconstruction &amp; Scrumban Playbook
+            ⚖️ 4. ToR Deconstruction &amp; Scrumban Playbook
           </button>
           <button onclick="switchDtSubTab('preread')" id="dt-sub-btn-preread" class="px-3.5 py-2 rounded-lg text-xs font-bold bg-[var(--secondary)] text-[var(--foreground)] border border-[var(--border)]">
-            📋 4. Copy-Paste Markdown &amp; Cover Email
+            📋 5. Copy-Paste Markdown &amp; Cover Email
           </button>
         </div>
       </div>
@@ -751,11 +754,11 @@
                 <span>1. Wins This Week (vs Last Week's Top 3)</span>
                 <span class="text-[10px] px-1.5 py-0.5 rounded" style="background-color: #C8962E;">5 Mins</span>
               </div>
-              <div id="dt-box1-wins" contenteditable="true" oninput="saveDtSlideState()" class="p-3.5 space-y-2.5 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
-                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] Controlled Scrumban Framework:</strong> Completed executive deck (24 slides) &amp; interactive masterclass portal for D&amp;T leadership walkthrough.</div>
-                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] E-Invoicing (Fwtara):</strong> Finalized P1 Pre-Kickoff pack, Demand Form v5.0 &amp; Deloitte readiness alignment.</div>
-                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] Internal Tool Governance (PRC-TECH-001):</strong> Completed ACH Reconciliation TRD v1.1 &amp; 4 modular SOPs with mandatory AD/SSO controls.</div>
-                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Run] PMO Tool &amp; Demand Intake:</strong> Engaged Strategy &amp; Data on PMO Tool alignment &amp; prepared management Demand Intake session pack.</div>
+              <div id="dt-box1-wins" contenteditable="true" oninput="saveDtSlideState()" class="p-3.5 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] Unified Helpdesk (Manarah 2.0):</strong> Executed <strong>127 / 271 UAT test cases (47%)</strong> (100% Pass on L1 Tech &amp; L1 Incidents); resolved <strong>14 of 34</strong> logged UAT defects with 7 Service Catalogs normalized.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] LRM Process Automation Bot:</strong> Completed TRD v1.0 (RLOS–T24 8-field auto-reconciliation, Red-Flag controls &amp; branch heatmap) &amp; kicked off <strong>190-case UAT suite</strong> across 4 roles (10% initial run).</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] Controlled Scrumban &amp; E-Invoicing:</strong> Completed 24-slide Agile Framework deck + live portal (Action #5) &amp; finalized E-Invoicing (Fwtara) P1 Pre-Kickoff pack.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]">✅ <strong>[Build] Internal Tool Governance (PRC-TECH-001):</strong> Finalized ACH Reconciliation TRD v1.1 &amp; 4 modular SOPs (0-OMR, mandatory AD/SSO).</div>
               </div>
             </div>
 
@@ -770,41 +773,41 @@
                   <thead>
                     <tr class="border-b border-[var(--border)] text-[var(--muted-foreground)] font-bold">
                       <th class="p-2">Initiative</th>
-                      <th class="p-2 w-24">Run/Build</th>
-                      <th class="p-2 w-28">On track? (Y/N)</th>
-                      <th class="p-2">Comment (Flow / Gate / Containment)</th>
+                      <th class="p-2 w-20">Run/Build</th>
+                      <th class="p-2 w-24">On track? (Y/N)</th>
+                      <th class="p-2">Comment (Hard Metrics / Flow / Containment)</th>
                     </tr>
                   </thead>
                   <tbody id="dt-box2-tbody" contenteditable="true" oninput="saveDtSlideState()" class="divide-y divide-[var(--border)] text-[var(--foreground)]">
                     <tr class="bg-[var(--card)]">
-                      <td class="p-2 font-bold">OHB Agile Delivery (Controlled Scrumban)</td>
+                      <td class="p-2 font-bold">Unified Helpdesk (OHB Manarah 2.0)</td>
                       <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #2E7175;">Build</span></td>
-                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
-                      <td class="p-2">Framework v0.1 &amp; interactive portal ready for CDTO/CTO &amp; Tech Solutions session (Action #5).</td>
+                      <td class="p-2 font-bold text-amber-500">N (🟡)</td>
+                      <td class="p-2"><strong>UAT Exception:</strong> 127/271 TCs executed (63 Pass, 64 Fail; 34 bugs: 14 Resolved, 20 Open). L2 Problem &amp; Change (42 fails) + unexecuted dept sheets (Branches, CSS, MarCom, OPs, Admins).</td>
                     </tr>
                     <tr class="bg-[var(--card)]">
-                      <td class="p-2 font-bold">E-Invoicing (Fwtara) Implementation</td>
+                      <td class="p-2 font-bold">LRM Process Automation (RLOS–T24 Bot)</td>
                       <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #2E7175;">Build</span></td>
                       <td class="p-2 font-bold text-green-600">Y (🟢)</td>
-                      <td class="p-2">P1 Initiate: Demand Form, Charter draft &amp; Pre-Kickoff deck ready; aligning OTA/Deloitte scope.</td>
+                      <td class="p-2">190 UAT TCs baselined (Supervisor 61, Reviewer 51, Branch 44, Viewer 34); 19/190 (10%) executed (6 Pass, 2 Fail, 11 N/A). Accelerating Risk &amp; CAD UAT runs.</td>
                     </tr>
                     <tr class="bg-[var(--card)]">
-                      <td class="p-2 font-bold">Internal Tools (ACH Recon &amp; PRC-TECH-001)</td>
+                      <td class="p-2 font-bold">OHB Agile Framework (Controlled Scrumban)</td>
                       <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #2E7175;">Build</span></td>
                       <td class="p-2 font-bold text-green-600">Y (🟢)</td>
-                      <td class="p-2">ACH Reconciliation TRD v1.1 finalized; 0-OMR citizen/IT developer SOP suite ready for baseline.</td>
+                      <td class="p-2">Framework v0.1, 24-slide deck &amp; interactive portal ready for CDTO/CTO &amp; Tech Solutions walkthrough (Action #5).</td>
                     </tr>
                     <tr class="bg-[var(--card)]">
-                      <td class="p-2 font-bold">Test House Contract &amp; QA Resourcing</td>
+                      <td class="p-2 font-bold">E-Invoicing (Fwtara) &amp; ACH Recon Tool</td>
+                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #2E7175;">Build</span></td>
+                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
+                      <td class="p-2">E-Invoicing P1 Demand Form v5.0 &amp; Pre-Kickoff deck ready; ACH Reconciliation TRD v1.1 &amp; PRC-TECH-001 SOPs complete.</td>
+                    </tr>
+                    <tr class="bg-[var(--card)]">
+                      <td class="p-2 font-bold">Test House Contract &amp; Demand Intake</td>
                       <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #C8962E;">Run</span></td>
                       <td class="p-2 font-bold text-amber-500">N (🟡)</td>
-                      <td class="p-2"><strong>Exception:</strong> Coordinating multi-party review with CSS, Legal (Tahani), CDTO, CTO &amp; Project Delivery (See Box 3).</td>
-                    </tr>
-                    <tr class="bg-[var(--card)]">
-                      <td class="p-2 font-bold">Demand Intake &amp; PMO Tool Alignment</td>
-                      <td class="p-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold text-white" style="background-color: #C8962E;">Run</span></td>
-                      <td class="p-2 font-bold text-green-600">Y (🟢)</td>
-                      <td class="p-2">In progress with Strategy &amp; Data; management awareness session ready to schedule.</td>
+                      <td class="p-2"><strong>Exception:</strong> Coordinating multi-party Test House Contract session with CSS, Legal (Tahani), CDTO, CTO &amp; Project Delivery.</td>
                     </tr>
                   </tbody>
                 </table>
@@ -823,8 +826,8 @@
                 What it is • Why now • What you need
               </div>
               <div id="dt-box3-airtime" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
-                <div><strong>1. [Build] Controlled Scrumban Walkthrough:</strong><br/>• <em>Why now:</em> Open Action from 25/10; needed to stop multi-PO developer context switching.<br/>• <em>Need:</em> Confirm 45-min slot this week with CDTO, CTO &amp; Tech Solutions.</div>
-                <div class="pt-1 border-t border-[var(--border)]"><strong>2. [Run] Test House Contract Alignment:</strong><br/>• <em>Why now:</em> Unblocks SIT/UAT QA capacity across active projects.<br/>• <em>Need:</em> Confirm CSS + Legal (Tahani) + D&amp;T roundtable date.</div>
+                <div><strong>1. [Build] UHD (Manarah 2.0) UAT Acceleration &amp; L2 Bug Triage:</strong><br/>• <em>Why now:</em> 135/271 TCs unexecuted across 6 dept sheets &amp; 42 fails in L2 Problem/Change.<br/>• <em>Need:</em> D&amp;T Heads to enforce SPOC daily testing &amp; dev fix swarm on 20 open bugs (1 S1, 2 S2).</div>
+                <div class="pt-1 border-t border-[var(--border)]"><strong>2. [Build] Controlled Scrumban &amp; Test House Alignment:</strong><br/>• <em>Why now:</em> Open 25/10 actions.<br/>• <em>Need:</em> Confirm 45-min slot with CDTO/CTO/Tech Solutions &amp; Legal/CSS Test House date.</div>
               </div>
             </div>
 
@@ -837,9 +840,9 @@
                 Decision • Options • Recommendation
               </div>
               <div id="dt-box4-decisions" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
-                <div><strong>[DEC-01] Authorize Controlled Scrumban Pilot &amp; Capacity Policy (70/20/10):</strong></div>
-                <div>• <em>Option A (Recommended):</em> Endorse Executive Quarterly Ordering + One Shared Ready Queue + 70% MVP / 20% UAT / 10% Ops capacity split for Sprint 0 pilot.</div>
-                <div>• <em>Option B:</em> Retain ad-hoc project tasking (risks continued 160-WD P4 bottlenecks).</div>
+                <div><strong>[DEC-01] UHD UAT Close-Out &amp; L2 Problem/Change Scope Gate:</strong></div>
+                <div>• <em>Option A (Recommended):</em> Lock 5-day UAT completion window for remaining 135 TCs, swarm on S1/S2 bugs (BUG-0033, 0019, 0021), and gate L2 Problem/Change fixes before Go-Live.</div>
+                <div class="pt-1 border-t border-[var(--border)]"><strong>[DEC-02] Approve Controlled Scrumban 70/20/10 Capacity Policy:</strong> Endorse 20% explicit UAT reserve to prevent UAT bottlenecks like UHD/LRM.</div>
               </div>
             </div>
 
@@ -852,8 +855,8 @@
                 Support needed from D&amp;T Mgmt / Escalation
               </div>
               <div id="dt-box5-risks" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
-                <div>⚠️ <strong>Risk (Uncontrolled WIP):</strong> Direct PO-to-developer tasking outside the Shared Ready Queue delays committed P4 releases.</div>
-                <div>🤝 <strong>Ask from D&amp;T Leaders:</strong> Enforce Gate G1 Demand Intake &amp; Gate G4 Definition of Ready across all Technology Solutions &amp; Project Delivery streams.</div>
+                <div>⚠️ <strong>Risk 1 (UHD &amp; LRM UAT SPOC Availability):</strong> 0% execution in UHD Admin/End-User sheets (135 TCs) &amp; 90% pending in LRM (171/190 TCs in Risk/CAD).</div>
+                <div>🤝 <strong>Ask:</strong> Mandate dedicated 1-hr daily UAT mob-testing blocks for UHD SPOCs (Admins, IT, Branches, CSS, OPs) &amp; Risk/CAD LRM testers this week.</div>
               </div>
             </div>
 
@@ -867,10 +870,213 @@
                 Locked outcomes (100% under our trigger control)
               </div>
               <div id="dt-box6-priorities" contenteditable="true" oninput="saveDtSlideState()" class="p-3 space-y-2 text-xs text-[var(--foreground)] flex-1 focus:outline-none focus:ring-2 focus:ring-[#C8962E]">
-                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #1 [Build]:</strong> Deliver Agile Framework (Controlled Scrumban) &amp; Demand Intake walkthrough to CDTO, CTO &amp; Tech Solutions.</div>
-                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #2 [Run]:</strong> Convene Test House Contract alignment session with CSS, Legal (Tahani), EPMO &amp; Project Delivery and log action plan.</div>
-                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #3 [Build]:</strong> Complete E-Invoicing (Fwtara) Pre-Kickoff alignment &amp; baseline PMO Tool initiative mapping with Strategy &amp; Data.</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #1 [Build — UHD &amp; LRM]:</strong> Close all S1/S2 UHD defects (BUG-0033, 0019, 0021), re-test 13 resolved bugs with Tester-IT, &amp; drive LRM UAT past 50% (≥95/190 TCs).</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #2 [Build — Agile &amp; Intake]:</strong> Deliver Controlled Scrumban Framework &amp; Demand Intake walkthrough to CDTO, CTO &amp; Tech Solutions (closing 25/10 Actions).</div>
+                <div class="p-2 rounded bg-[var(--card)] border border-[var(--border)]"><strong>Priority #3 [Run — Governance]:</strong> Convene Test House Contract alignment (CSS, Legal, Delivery) &amp; baseline E-Invoicing P1 / PMO Tool mapping.</div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SUB-PANEL 1B: UHD & LRM LIVE UAT RESULTS & DEFECT BREAKDOWN     -->
+      <!-- =============================================================== -->
+      <div id="dt-panel-uhdlrm" class="hidden space-y-5">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <!-- Card 1: Unified Helpdesk (OHB Manarah 2.0) -->
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-4 shadow-sm">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+              <div>
+                <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Project 1 • Build (P4 UAT)</span>
+                <h3 class="text-base md:text-lg font-bold text-[var(--foreground)] mt-1">
+                  Unified Helpdesk (OHB Manarah 2.0) — Live UAT &amp; Defect Telemetry
+                </h3>
+                <p class="text-xs text-[var(--muted-foreground)]">Source: <code>OHB - Helpdesk 2.0 UAT Test Suite_Defect Dashboard.xlsx</code> (Updated 28/10/2026)</p>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-500/20 text-amber-600 border border-amber-500/40">
+                UAT Exception (N 🟡)
+              </span>
+            </div>
+
+            <!-- KPIs Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center">
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]">
+                <div class="text-lg font-extrabold text-[var(--foreground)]">127 / 271</div>
+                <div class="text-[11px] text-[var(--muted-foreground)]">Executed (47%) • 135 Pending</div>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]">
+                <div class="text-lg font-extrabold text-green-600">63 Pass</div>
+                <div class="text-[11px] text-[var(--muted-foreground)]">64 Fail • 8 N/A</div>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]">
+                <div class="text-lg font-extrabold" style="color: #C8962E;">34 Bugs</div>
+                <div class="text-[11px] text-[var(--muted-foreground)]">14 Resolved • 20 Open</div>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]">
+                <div class="text-lg font-extrabold" style="color: #2E7175;">653 Automated</div>
+                <div class="text-[11px] text-[var(--muted-foreground)]">478 Backend + 175 UI ✅</div>
+              </div>
+            </div>
+
+            <!-- Rolewise Table -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                    <th class="p-1.5">Role Sheet</th>
+                    <th class="p-1.5">SPOC</th>
+                    <th class="p-1.5">Exec / Total</th>
+                    <th class="p-1.5">Pass / Fail</th>
+                    <th class="p-1.5">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[var(--border)]">
+                  <tr>
+                    <td class="p-1.5 font-semibold">IT Technicians L1</td>
+                    <td class="p-1.5">Salwa, Manar</td>
+                    <td class="p-1.5">10 / 24</td>
+                    <td class="p-1.5 text-green-600 font-bold">10 Pass / 0 Fail (100%)</td>
+                    <td class="p-1.5">🟢 Strong</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 font-semibold">Incidents - L1 Support</td>
+                    <td class="p-1.5">Omar</td>
+                    <td class="p-1.5">12 / 12</td>
+                    <td class="p-1.5 text-green-600 font-bold">12 Pass / 0 Fail (100%)</td>
+                    <td class="p-1.5">✅ Complete</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 font-semibold">Incidents - End User</td>
+                    <td class="p-1.5">Junaid</td>
+                    <td class="p-1.5">13 / 13</td>
+                    <td class="p-1.5 font-bold">10 Pass / 3 Fail (77%)</td>
+                    <td class="p-1.5">🟢 Executed</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 font-semibold">Incident Management &amp; L2</td>
+                    <td class="p-1.5">Junaid / Naser, Haymoni</td>
+                    <td class="p-1.5">39 / 42</td>
+                    <td class="p-1.5 font-bold">21 Pass / 18 Fail (54%)</td>
+                    <td class="p-1.5">🟡 Bug Retest</td>
+                  </tr>
+                  <tr class="bg-red-500/10">
+                    <td class="p-1.5 font-bold">L2 Problem &amp; Change</td>
+                    <td class="p-1.5">Wadhha</td>
+                    <td class="p-1.5">51 / 67</td>
+                    <td class="p-1.5 text-red-600 font-bold">9 Pass / 42 Fail (18%)</td>
+                    <td class="p-1.5">🔴 Top Bottleneck</td>
+                  </tr>
+                  <tr class="bg-amber-500/10">
+                    <td class="p-1.5 font-bold">6 Unexecuted Role Sheets</td>
+                    <td class="p-1.5">IT, Branches, CSS, MarCom, OPs, Admins</td>
+                    <td class="p-1.5">0 / 106</td>
+                    <td class="p-1.5 text-amber-600 font-bold">106 Not Executed</td>
+                    <td class="p-1.5">⚠️ Need SPOC Mob</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs space-y-1">
+              <div class="font-bold" style="color: #C8962E;">🔍 Top Priority Defects to Swarm This Week:</div>
+              <div>• <strong>BUG-0033 (S1 Critical):</strong> Ticket not received from CAD 404 to Payment (Ticket Board).</div>
+              <div>• <strong>BUG-0019 &amp; BUG-0021 (S2 High — Dev Queue):</strong> Branch-raised tickets visibility to Ops Agent &amp; missing mandatory fields in New Ticket.</div>
+              <div>• <strong>13 Resolved Bugs in Tester-IT Queue:</strong> Ready for immediate verification &amp; closure (incl. BUG-0004 LDAP mask &amp; BUG-0007 VPN approval).</div>
+            </div>
+          </div>
+
+          <!-- Card 2: LRM Process Automation -->
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-4 shadow-sm">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+              <div>
+                <span class="px-2.5 py-0.5 rounded text-xs font-bold text-white" style="background-color: #2E7175;">Project 2 • Build (P4 UAT)</span>
+                <h3 class="text-base md:text-lg font-bold text-[var(--foreground)] mt-1">
+                  LRM Process Automation (RLOS–T24 Post-Disbursement Bot)
+                </h3>
+                <p class="text-xs text-[var(--muted-foreground)]">Source: <code>LRM_TRD.docx</code> &amp; <code>LRM Test Sccenarios.xlsx</code> (190 Cases)</p>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-green-600/20 text-green-600 border border-green-600/40">
+                On Track (Y 🟢)
+              </span>
+            </div>
+
+            <!-- KPIs Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center">
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]">
+                <div class="text-lg font-extrabold text-[var(--foreground)]">190 TCs</div>
+                <div class="text-[11px] text-[var(--muted-foreground)]">4 Role Sheets Baselined</div>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]">
+                <div class="text-lg font-extrabold" style="color: #2E7175;">19 / 190</div>
+                <div class="text-[11px] text-[var(--muted-foreground)]">10% Initial Run (171 Pending)</div>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]">
+                <div class="text-lg font-extrabold text-green-600">6 Pass</div>
+                <div class="text-[11px] text-[var(--muted-foreground)]">2 Fail • 0 Blocked • 11 N/A</div>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]">
+                <div class="text-lg font-extrabold" style="color: #C8962E;">8 Fields</div>
+                <div class="text-[11px] text-[var(--muted-foreground)]">RLOS vs T24 Auto-Recon</div>
+              </div>
+            </div>
+
+            <!-- Rolewise Table -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                    <th class="p-1.5">LRM Role Sheet</th>
+                    <th class="p-1.5">Total TCs</th>
+                    <th class="p-1.5">Pass / Fail / N/A</th>
+                    <th class="p-1.5">Not Executed</th>
+                    <th class="p-1.5">% Executed</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[var(--border)]">
+                  <tr>
+                    <td class="p-1.5 font-semibold">Supervisor (Checker — Risk Mgmt)</td>
+                    <td class="p-1.5">61</td>
+                    <td class="p-1.5">0 / 0 / 0</td>
+                    <td class="p-1.5">61</td>
+                    <td class="p-1.5">0% (Queued)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 font-semibold">Reviewer (Maker — LRM Officer)</td>
+                    <td class="p-1.5">51</td>
+                    <td class="p-1.5 font-bold">4 Pass / 2 Fail / 4 N/A</td>
+                    <td class="p-1.5">41</td>
+                    <td class="p-1.5 text-green-600 font-bold">19.6%</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 font-semibold">Branch / Department User (CAD)</td>
+                    <td class="p-1.5">44</td>
+                    <td class="p-1.5 font-bold">2 Pass / 0 Fail / 7 N/A</td>
+                    <td class="p-1.5">35</td>
+                    <td class="p-1.5 text-green-600 font-bold">20.5%</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 font-semibold">Viewer (Read-Only / Audit / Credit)</td>
+                    <td class="p-1.5">34</td>
+                    <td class="p-1.5">0 / 0 / 0</td>
+                    <td class="p-1.5">34</td>
+                    <td class="p-1.5">0% (Queued)</td>
+                  </tr>
+                  <tr class="bg-[var(--background)] font-bold">
+                    <td class="p-1.5">Total LRM UAT Suite</td>
+                    <td class="p-1.5">190</td>
+                    <td class="p-1.5">6 Pass / 2 Fail / 11 N/A</td>
+                    <td class="p-1.5">171</td>
+                    <td class="p-1.5">10.0%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs space-y-1">
+              <div class="font-bold" style="color: #2E7175;">⚙️ Business Value &amp; Architecture Highlights (Zero-Budget Tool):</div>
+              <div>• <strong>Automated 90-Day Post-Disbursement Audit:</strong> Connects read-only to <strong>T24 (MSSQL ODS/SDS)</strong> &amp; <strong>RLOS</strong> via FastAPI + React/Next.js + AD/SSO.</div>
+              <div>• <strong>Policy &amp; Red-Flag Controls:</strong> Validates LTV, DBR, subsidy %, Mala'a/CBO caution lists, and exports branch-level PDF/Excel heatmaps for Risk, CAD &amp; Audit.</div>
             </div>
           </div>
         </div>
@@ -1015,13 +1221,13 @@
 
 Dear Abeer,
 
-BLUF: Please find attached the drafted D&amp;T Weekly Management Update slide (Annex A format) and updated status on our 4 open Action Items from 25-Oct ahead of our review tomorrow and Thursday's midday submission.
+BLUF: Please find attached the populated D&amp;T Weekly Management Update presentation (incorporating live UAT metrics for Unified Helpdesk and LRM Process Automation) ahead of our review tomorrow and Thursday's midday submission.
 
-Summary of This Week's Update:
-• [Build] Controlled Scrumban Framework &amp; Interactive Portal: Ready for CDTO, CTO &amp; Technology Solutions walkthrough (Action #5).
-• [Build] Key Projects/Tools (E-Invoicing P1 &amp; ACH Reconciliation TRD v1.1): On track (Y).
-• [Run] Exceptions / Airtime (1 Item): Test House Contract multi-party alignment across CSS, Legal (Tahani), EPMO &amp; Project Delivery.
-• [Run] Delegate Note: Per the ToR ("No delegates without agreement from CDTO or CTO"), if you need me to back you up in Sunday's 10:00 AM session at Ibri Fort, we can include a quick delegate confirmation note when submitting tomorrow.
+Key Highlights Included:
+• [Build] Unified Helpdesk (OHB Manarah 2.0): 127/271 UAT test cases executed (47%; 100% Pass on L1 Support); 14 of 34 defects resolved. Flagged as Exception (N) due to 135 unexecuted test cases across 6 department sheets and 42 failures in L2 Problem &amp; Change.
+• [Build] LRM Process Automation (RLOS–T24 Bot): TRD v1.0 completed; 190 UAT test cases baselined across 4 roles with initial 19 cases (10%) executed.
+• [Build] Controlled Scrumban Framework &amp; E-Invoicing (Fwtara): 24-slide executive deck &amp; live portal ready for CDTO/CTO/Tech Solutions session (Action #5); E-Invoicing P1 Pre-Kickoff pack finalized.
+• [Run] Delegate Note: Per the ToR ("No delegates without agreement from CDTO or CTO"), if I am backing you up in Sunday's 10:00 AM session at Ibri Fort, we can include a quick delegate confirmation note when submitting tomorrow.
 
 Best regards,
 Hassan Al-Maqbali
@@ -1030,7 +1236,7 @@ Project Manager | EPMO &amp; Agile</pre>
 
           <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-3 shadow-sm">
             <div class="flex items-center justify-between">
-              <h3 class="text-sm font-bold text-[var(--foreground)]">📄 2. Annex A One-Page Markdown Template (Scrumban Edition)</h3>
+              <h3 class="text-sm font-bold text-[var(--foreground)]">📄 2. Annex A One-Page Markdown Template (With UHD &amp; LRM Results)</h3>
               <button onclick="copyTextById('dt-md-template', this)" class="px-3 py-1 rounded text-xs font-bold text-white" style="background-color: #C8962E;">
                 Copy Markdown
               </button>
@@ -1038,33 +1244,36 @@ Project Manager | EPMO &amp; Agile</pre>
             <pre id="dt-md-template" class="p-3.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs text-[var(--foreground)] whitespace-pre-wrap font-mono leading-relaxed"># Weekly Update: EPMO &amp; Agile, Abeer Al-Raisi / Hassan Al-Maqbali, 29/10/2026
 
 ## 1. Wins this week (against last week's top 3)
-- [Build] Completed OHB Controlled Scrumban executive deck &amp; interactive web portal for D&amp;T walkthrough.
-- [Build] Finalized E-Invoicing (Fwtara) P1 Pre-Kickoff pack &amp; ACH Reconciliation Tool TRD v1.1.
-- [Run] Engaged Strategy &amp; Data on PMO Tool alignment &amp; prepared Demand Intake awareness pack.
+- [Build] Unified Helpdesk (Manarah 2.0): Executed 127/271 UAT test cases (47%) with 100% Pass on L1 Tech &amp; L1 Incidents; resolved 14 of 34 logged defects; normalized 7 dept Service Catalogs.
+- [Build] LRM Process Automation Bot: Completed TRD v1.0 (8-field RLOS-T24 reconciliation, Red-Flag controls &amp; branch heatmap) &amp; launched 190-case UAT suite across 4 roles (10% initial run).
+- [Build] Controlled Scrumban &amp; E-Invoicing: Completed 24-slide Agile Framework deck + interactive portal (Action #5) &amp; finalized E-Invoicing (Fwtara) P1 Pre-Kickoff pack.
+- [Build] Internal Tool Governance (PRC-TECH-001): Completed ACH Reconciliation TRD v1.1 &amp; 4 modular SOPs (0-OMR, mandatory AD/SSO).
 
 ## 2. Status of key initiatives
 | Initiative | Run/Build | On track? (Y/N) | Comment |
 | :--- | :---: | :---: | :--- |
-| Controlled Scrumban Framework | Build | Y | Deck &amp; portal ready for CDTO/CTO/Tech Solutions session |
-| E-Invoicing (Fwtara) | Build | Y | P1 Demand Form, Charter &amp; Pre-Kickoff pack ready |
-| Internal Tools (ACH Recon / PRC-TECH-001) | Build | Y | TRD v1.1 &amp; 4 modular SOPs completed (0 OMR, AD/SSO) |
-| Test House Contract Alignment | Run | N | Coordinating CSS + Legal + CDTO/CTO + Delivery session |
-| Demand Intake &amp; PMO Tool | Run | Y | Alignment with Strategy &amp; Data in progress |
+| Unified Helpdesk (Manarah 2.0) | Build | N | UAT Exception: 127/271 TCs run (63 Pass, 64 Fail; 34 bugs: 14 Resolved, 20 Open). L2 Problem/Change (42 fails) + 135 TCs unexecuted in 6 sheets |
+| LRM Process Automation Bot | Build | Y | 190 UAT TCs baselined across 4 roles; 19/190 (10%) run (6 Pass, 2 Fail, 11 N/A); accelerating Risk/CAD UAT |
+| Controlled Scrumban Framework | Build | Y | Deck &amp; portal ready for CDTO/CTO/Tech Solutions session (Action #5) |
+| E-Invoicing &amp; ACH Recon Tool | Build | Y | E-Invoicing P1 Pre-Kickoff pack &amp; ACH Recon TRD v1.1 completed |
+| Test House Contract &amp; Intake | Run | N | Coordinating CSS + Legal (Tahani) + CDTO/CTO + Delivery roundtable |
 
 ## 3. Items needing airtime (max 2): what it is, why now, what you need
-1. [Build] Agile Framework Walkthrough: Open action from 25/10; need 45-min slot with CDTO, CTO &amp; Tech Solutions.
-2. [Run] Test House Contract Issue: Unblocks SIT/UAT QA capacity; need agreement on multi-party meeting slot.
+1. [Build] UHD (Manarah 2.0) UAT Acceleration &amp; L2 Bug Triage: 135/271 TCs unexecuted across 6 dept sheets &amp; 42 fails in L2 Problem/Change. Need D&amp;T Heads to enforce daily SPOC testing &amp; dev swarm on 20 open bugs (1 S1, 2 S2).
+2. [Build/Run] Agile Framework &amp; Test House Alignment: Confirm 45-min slot with CDTO/CTO/Tech Solutions &amp; Legal/CSS Test House date.
 
 ## 4. Decisions needed from the forum
-- Authorize Controlled Scrumban Sprint 0 Pilot &amp; 70/20/10 Capacity Policy (Recommended: Option A).
+- [DEC-01] UHD UAT Close-Out &amp; L2 Scope Gate: Lock 5-day UAT completion window for remaining 135 TCs, swarm on S1/S2 bugs (BUG-0033, 0019, 0021), and gate L2 Problem/Change fixes before Go-Live.
+- [DEC-02] Approve Controlled Scrumban 70/20/10 Capacity Policy (20% explicit UAT reserve).
 
 ## 5. Risks and asks
-- Risk: Direct PO-to-developer tasking bypasses readiness gates. Ask: D&amp;T Heads to enforce Gate G1/G4 intake.
+- Risk: Low UAT SPOC execution on UHD (135 TCs pending in Admins, IT, Branches, CSS, MarCom, OPs) &amp; LRM (171/190 TCs pending in Risk/CAD).
+- Ask: Mandate 1-hr daily UAT mob-testing blocks for assigned department SPOCs this week.
 
 ## 6. Top 3 priorities for next week
-1. [Build] Present Agile Framework &amp; Demand Intake session to CDTO, CTO &amp; Technology Solutions.
-2. [Run] Hold Test House Contract alignment with CSS, Legal (Tahani), EPMO &amp; Project Delivery.
-3. [Build] Conclude E-Invoicing Pre-Kickoff alignment &amp; PMO Tool initiative mapping with Strategy &amp; Data.</pre>
+1. [Build] Close all S1/S2 UHD defects (BUG-0033, 0019, 0021), re-test 13 resolved bugs with Tester-IT, &amp; drive LRM UAT past 50% (≥95/190 TCs).
+2. [Build] Deliver Controlled Scrumban &amp; Demand Intake walkthrough to CDTO, CTO &amp; Technology Solutions.
+3. [Run] Convene Test House Contract alignment (CSS, Legal, Delivery) &amp; baseline E-Invoicing P1 / PMO Tool mapping.</pre>
           </div>
         </div>
       </div>
@@ -2537,7 +2746,7 @@ Project Manager | EPMO &amp; Agile</pre>
     let dtActionFilter = 'epmo';
 
     function switchDtSubTab(sub) {
-      const subs = ['studio', 'actions', 'tor', 'preread'];
+      const subs = ['studio', 'uhdlrm', 'actions', 'tor', 'preread'];
       subs.forEach(s => {
         const panel = document.getElementById(`dt-panel-${s}`);
         const btn = document.getElementById(`dt-sub-btn-${s}`);
@@ -2635,7 +2844,7 @@ Project Manager | EPMO &amp; Agile</pre>
         const el = document.getElementById(id);
         if (el) dtDefaultHtml[id] = el.innerHTML;
       });
-      const saved = JSON.parse(localStorage.getItem('ohb_dt_slide4_state') || 'null');
+      const saved = JSON.parse(localStorage.getItem('ohb_dt_slide4_state_v2') || 'null');
       if (saved) {
         dtEditableIds.forEach(id => {
           const el = document.getElementById(id);
@@ -2650,11 +2859,11 @@ Project Manager | EPMO &amp; Agile</pre>
         const el = document.getElementById(id);
         if (el) state[id] = el.innerHTML;
       });
-      localStorage.setItem('ohb_dt_slide4_state', JSON.stringify(state));
+      localStorage.setItem('ohb_dt_slide4_state_v2', JSON.stringify(state));
     }
 
     function resetDtSlideDefaults() {
-      localStorage.removeItem('ohb_dt_slide4_state');
+      localStorage.removeItem('ohb_dt_slide4_state_v2');
       dtEditableIds.forEach(id => {
         const el = document.getElementById(id);
         if (el && dtDefaultHtml[id]) el.innerHTML = dtDefaultHtml[id];
